@@ -1,0 +1,11 @@
+<!--
+  This file is part of Mozaik CMS            www.mozaik.top
+  Copyright © 2016 Denis N Ivanchik       danykey@gmail.com
+-->
+<window width="100%" height="100%"
+	viewModel="@id('vm') @init('top.mozaik.frnd.studio.vm.resourceeditor.TextResourceEditorVM')"
+	contentStyle="padding:0">
+
+	<include id="cmInclude" src="/WEB-INF/zul/_shared_/CodeMirror.zul" _mode="text/javascript"/>
+	
+</window>

@@ -1,0 +1,266 @@
+<!--
+  This file is part of Mozaik CMS            www.mozaik.top
+  Copyright © 2016 Denis N Ivanchik       danykey@gmail.com
+-->
+<zk>
+<window viewModel="@id('vm') 
+		@init('top.mozaik.frnd.admin.vm.wcm.template.CreateTemplateFieldVM')" 
+	title="Create Template Field" border="normal" position="center,center" closable="true" mode="modal">
+	<vlayout style="padding:20px">
+		<hlayout>
+			<label class="form-label" value="Title:"/>
+			<textbox class="form-field" value="@load(vm.bean.title) @save(vm.bean.title)"
+				constraint="${application.attributes.cache.constraint.noempty}"/>
+		</hlayout>
+		<hlayout>
+			<label class="form-label" value="Code:"/>
+			<textbox class="form-field" value="@load(vm.bean.code) @save(vm.bean.code)"
+				constraint="${application.attributes.cache.constraint.noempty}"/>
+		</hlayout>
+		<hlayout>
+			<label class="form-label" value="Type:"/>
+			<combobox model="@load(vm.templateFieldTypeList)" width="400px"
+				value="@bind(vm.bean.type) @converter(
+					'top.mozaik.frnd.plus.zk.converter.ComboboxBindConverter', toUi='uiname')"
+				onChange="@command('afterChangeType')"
+				constraint="${application.attributes.cache.constraint.noempty}">
+				<template name="model">
+					<comboitem value="@load(each)" label="@load(each.uiname())"/>
+				</template>
+				<attribute name="onChange">
+					if(self.getSelectedItem()==null){self.setRawValue(null);}
+				</attribute>
+			</combobox>
+		</hlayout>
+		<hlayout>
+			<label class="form-label" value="Description:"/>
+			<textbox class="form-field" multiline="true"
+				value="@load(vm.bean.descr) @save(vm.bean.descr)"/>
+		</hlayout>
+		<hlayout>
+			<label class="form-label" value="Value:"/>
+			<div children="@load(vm) @template(empty vm.bean.type?'empty':vm.bean.type.lname())">
+				<template name="empty"></template>
+				<template name="integer">
+					<longbox class="form-field" value="
+						@load(vm.bean.value eq ''?null:vm.bean.value) @save(vm.bean.value)
+						@converter(vm.templateIntegerFieldConverter)"/>
+				</template>
+				<template name="double">
+					<doublebox class="form-field" value="
+						@load(vm.bean.value eq ''?null:vm.bean.value) @save(vm.bean.value)
+						@converter(vm.templateDoubleFieldConverter)"/>
+				</template>
+				<template name="text">
+					<textbox class="form-field"
+						value="@load(vm.bean.value) @save(vm.bean.value)"/>
+				</template>
+				<template name="mtext">
+					<textbox class="form-field" multiline="true" rows="5"
+						value="@load(vm.bean.value) @save(vm.bean.value)"/>
+				</template>
+				<template name="date">
+					<datebox class="form-field" value="
+						@load(vm.bean.value) @save(vm.bean.value)
+						@converter(vm.templateDateFieldConverter)"/>
+				</template>
+				<template name="time">
+					<timebox class="form-field" format="kk:mm" value="
+						@load(vm.bean.value) @save(vm.bean.value)
+						@converter(vm.templateTimeFieldConverter)"/>
+				</template>
+				<template name="list">
+					<vlayout>
+						<label value="Words separated by lines"/>
+						<textbox class="form-field" multiline="true" rows="5"
+							value="@load(vm.bean.value) @save(vm.bean.value)"/>
+					</vlayout>
+				</template>
+				<template name="url">
+					<textbox class="form-field" multiline="true"
+						value="@load(vm.bean.value) @save(vm.bean.value)"
+						constraint="@load(vm.urlFieldConstraint)"/>
+				</template>
+				<template name="document">
+					<hlayout>
+						<labelinput style="display:block;width:300px"
+							label="@load(empty vm.bean.value?'None':vm.getDocument(vm.bean.value).title)"
+							value="@bind(vm.bean.value)"/>
+						<label value="[X]" tooltiptext="Delete" onClick="@command('deleteValue')" 
+							visible="@load(not empty vm.bean.value)" style="cursor:pointer;color:red"/>
+						<label value="[..]"  tooltiptext="Select" sclass="link"
+							visible="@load(empty vm.bean.value)"
+							onClick="@command('selectDocument')"/>
+					</hlayout>
+				</template>
+				<template name="resource">
+					<hlayout>
+						<labelinput style="display:block;width:300px"
+							label="@load(empty vm.bean.value?'None':vm.getResource(vm.bean.value).title)"
+							value="@bind(vm.bean.value)"/>
+						<label value="[X]" tooltiptext="Delete" onClick="@command('deleteValue')" 
+							visible="@load(not empty vm.bean.value)" style="cursor:pointer;color:red"/>
+						<label value="[..]"  tooltiptext="Select" sclass="link"
+							visible="@load(empty vm.bean.value)"
+							onClick="@command('selectResource')"/>
+					</hlayout>
+				</template>
+			</div>
+		</hlayout>
+		<hlayout>
+			<label class="form-label" value="Constraints:"/>
+			<div children="@load(vm) @template(empty vm.bean.type?'empty':vm.bean.type.lname())">
+				<template name="empty"></template>
+				<template name="integer">
+					<vlayout>
+						<checkbox label="&#160;No Empty" checked="@load(vm.hasConstraint('no empty'))"
+							onCheck="@command('updateConstraint', event=event, constr='no empty')"/>
+						<checkbox label="&#160;No Zero" checked="@load(vm.hasConstraint('no zero'))"
+							onCheck="@command('updateConstraint', event=event, constr='no zero')"/>
+						<checkbox label="&#160;No Negative" checked="@load(vm.hasConstraint('no negative'))"
+							onCheck="@command('updateConstraint', event=event, constr='no negative')"/>
+						<checkbox label="&#160;No Positive" checked="@load(vm.hasConstraint('no positive'))"
+							onCheck="@command('updateConstraint', event=event, constr='no positive')"/>
+						<groupbox open="${vm.bean.constraintRegex != null}">
+							<caption>Regular Expression</caption>
+							<vlayout>
+								<label value="Pattern:"/>
+								<textbox class="form-field" value="@bind(vm.bean.constraintRegex)"
+									constraint="@load(vm.regexConstraint)"/>
+								<label value="Error Message:"/>
+								<textbox class="form-field" value="@bind(vm.bean.constraintRegexErrorMessage)"
+									constraint="@load(vm.regexMessageConstraint)"/>
+							</vlayout>
+						</groupbox>
+					</vlayout>
+				</template>
+				<template name="double">
+					<vlayout>
+						<checkbox label="&#160;No Empty" checked="@load(vm.hasConstraint('no empty'))"
+							onCheck="@command('updateConstraint', event=event, constr='no empty')"/>
+						<checkbox label="&#160;No Zero" checked="@load(vm.hasConstraint('no zero'))"
+							onCheck="@command('updateConstraint', event=event, constr='no zero')"/>
+						<checkbox label="&#160;No Negative" checked="@load(vm.hasConstraint('no negative'))"
+							onCheck="@command('updateConstraint', event=event, constr='no negative')"/>
+						<checkbox label="&#160;No Positive" checked="@load(vm.hasConstraint('no positive'))"
+							onCheck="@command('updateConstraint', event=event, constr='no positive')"/>
+						<groupbox open="${vm.bean.constraintRegex != null}">
+							<caption>Regular Expression</caption>
+							<vlayout>
+								<label value="Pattern:"/>
+								<textbox class="form-field" value="@bind(vm.bean.constraintRegex)"
+									constraint="@load(vm.regexConstraint)"/>
+								<label value="Error Message:"/>
+								<textbox class="form-field" value="@bind(vm.bean.constraintRegexErrorMessage)"
+									constraint="@load(vm.regexMessageConstraint)"/>
+							</vlayout>
+						</groupbox>
+					</vlayout>
+				</template>
+				<template name="text">
+					<vlayout>
+						<checkbox label="&#160;No Empty" checked="@load(vm.hasConstraint('no empty'))"
+							onCheck="@command('updateConstraint', event=event, constr='no empty')"/>
+						<groupbox open="${vm.bean.constraintRegex != null}">
+							<caption>Regular Expression</caption>
+							<vlayout>
+								<label value="Pattern:"/>
+								<textbox class="form-field" value="@bind(vm.bean.constraintRegex)"
+									constraint="@load(vm.regexConstraint)"/>
+								<label value="Error Message:"/>
+								<textbox class="form-field" value="@bind(vm.bean.constraintRegexErrorMessage)"
+									constraint="@load(vm.regexMessageConstraint)"/>
+							</vlayout>
+						</groupbox>
+					</vlayout>
+				</template>
+				<template name="mtext">
+					<vlayout>
+						<checkbox label="&#160;No Empty" checked="@load(vm.hasConstraint('no empty'))"
+							onCheck="@command('updateConstraint', event=event, constr='no empty')"/>
+						<groupbox open="${vm.bean.constraintRegex != null}">
+							<caption>Regular Expression</caption>
+							<vlayout>
+								<label value="Pattern:"/>
+								<textbox class="form-field" value="@bind(vm.bean.constraintRegex)"
+									constraint="@load(vm.regexConstraint)"/>
+								<label value="Error Message:"/>
+								<textbox class="form-field" value="@bind(vm.bean.constraintRegexErrorMessage)"
+									constraint="@load(vm.regexMessageConstraint)"/>
+							</vlayout>
+						</groupbox>
+					</vlayout>
+				</template>
+				<template name="date">
+					<vlayout>
+						<checkbox label="&#160;No Empty" checked="@load(vm.hasConstraint('no empty'))"
+							onCheck="@command('updateConstraint', event=event, constr='no empty')"/>
+						<checkbox label="&#160;No Past" checked="@load(vm.hasConstraint('no past'))"
+							onCheck="@command('updateConstraint', event=event, constr='no past')"/>
+						<checkbox label="&#160;No Today" checked="@load(vm.hasConstraint('no today'))"
+							onCheck="@command('updateConstraint', event=event, constr='no today')"/>
+						<checkbox label="&#160;No Future" checked="@load(vm.hasConstraint('no future'))"
+							onCheck="@command('updateConstraint', event=event, constr='no future')"/>
+						<groupbox open="${vm.bean.constraintRegex != null}">
+							<caption>Regular Expression</caption>
+							<vlayout>
+								<label value="Pattern:"/>
+								<textbox class="form-field" value="@bind(vm.bean.constraintRegex)"
+									constraint="@load(vm.regexConstraint)"/>
+								<label value="Error Message:"/>
+								<textbox class="form-field" value="@bind(vm.bean.constraintRegexErrorMessage)"
+									constraint="@load(vm.regexMessageConstraint)"/>
+							</vlayout>
+						</groupbox>
+					</vlayout>
+				</template>
+				<template name="time">
+					<vlayout>
+						<checkbox label="&#160;No Empty" checked="@load(vm.hasConstraint('no empty'))"
+							onCheck="@command('updateConstraint', event=event, constr='no empty')"/>
+						<groupbox open="${vm.bean.constraintRegex != null}">
+							<caption>Regular Expression</caption>
+							<vlayout>
+								<label value="Pattern:"/>
+								<textbox class="form-field" value="@bind(vm.bean.constraintRegex)"
+									constraint="@load(vm.regexConstraint)"/>
+								<label value="Error Message:"/>
+								<textbox class="form-field" value="@bind(vm.bean.constraintRegexErrorMessage)"
+									constraint="@load(vm.regexMessageConstraint)"/>
+							</vlayout>
+						</groupbox>
+					</vlayout>
+				</template>
+				<template name="list">
+					<vlayout>
+						<checkbox label="&#160;No Empty" checked="@load(vm.hasConstraint('no empty'))"
+							onCheck="@command('updateConstraint', event=event, constr='no empty')"/>
+					</vlayout>
+				</template>
+				<template name="url">
+					<vlayout>
+						<checkbox label="&#160;No Empty" checked="@load(vm.hasConstraint('no empty'))"
+							onCheck="@command('updateConstraint', event=event, constr='no empty')"/>
+					</vlayout>
+				</template>
+				<template name="document">
+					<vlayout>
+						<checkbox label="&#160;No Empty" checked="@load(vm.hasConstraint('no empty'))"
+							onCheck="@command('updateConstraint', event=event, constr='no empty')"/>
+					</vlayout>
+				</template>
+				<template name="resource">
+					<vlayout>
+						<checkbox label="&#160;No Empty" checked="@load(vm.hasConstraint('no empty'))"
+							onCheck="@command('updateConstraint', event=event, constr='no empty')"/>
+					</vlayout>
+				</template>
+			</div>
+		</hlayout>
+		<hlayout>
+		 	<button label="Create" onClick="@command('create')"/>
+			<button label="Cancel" onClick="@command('detachView')"/>
+		</hlayout>
+	</vlayout>
+</window>
+</zk>

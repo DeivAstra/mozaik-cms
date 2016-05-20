@@ -1,0 +1,35 @@
+<!--
+  This file is part of Mozaik CMS            www.mozaik.top
+  Copyright © 2016 Denis N Ivanchik       danykey@gmail.com
+-->
+<?taglib uri="http://www.zkoss.org/dsp/web/core" prefix="core"?>
+<zk>
+<window
+	viewModel="@id('vm') @init('top.mozaik.frnd.admin.vm.dialog.SelectLibraryVM')"
+	title="Select Library" border="normal" position="center,center" closable="true" mode="modal"
+	width="100%" height="100%">
+	<listbox id="libraryListbox" autopaging="true" mold="paging" vflex="true" multiple="true"
+		model="@load(vm.libraryList)">
+		<listhead>
+			<listheader label="Alias" sortAscending="${core:new2('org.zkoss.zul.FieldComparator', 'alias', true) }"
+					sortDescending="${core:new2('org.zkoss.zul.FieldComparator', 'alias', false) }"
+					sortDirection="ascending"/>
+			<listheader label="Title" sortAscending="${core:new2('org.zkoss.zul.FieldComparator', 'title', true) }"
+					sortDescending="${core:new2('org.zkoss.zul.FieldComparator', 'title', false) }"/>
+			<listheader label="Description" sortAscending="${core:new2('org.zkoss.zul.FieldComparator', 'descr', true) }"
+					sortDescending="${core:new2('org.zkoss.zul.FieldComparator', 'descr', false) }"/>
+			<listheader label="Create Date" sortAscending="${core:new2('org.zkoss.zul.FieldComparator', 'createDate', true) }"
+					sortDescending="${core:new2('org.zkoss.zul.FieldComparator', 'createDate', false) }"/>
+		</listhead>
+		<template name="model">
+			<listitem value="@load(each)" 
+				onDoubleClick="@command('select', library=self.getValue())">
+				<listcell label="@load(each.alias)"/>
+				<listcell label="@load(each.title)"/>
+				<listcell label="@load(each.descr)"/>
+				<listcell label="@load(each.createDate) @converter(vm.dateConverter)"/>
+			</listitem>
+		</template>
+	</listbox>
+</window>
+</zk>

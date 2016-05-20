@@ -1,0 +1,85 @@
+<!--
+  This file is part of Mozaik CMS            www.mozaik.top
+  Copyright © 2016 Denis N Ivanchik       danykey@gmail.com
+-->
+<zk>
+<window viewModel="@id('vm') @init('top.mozaik.frnd.admin.vm.system.LogsVM')"
+	width="100%" height="100%" contentStyle="padding:0">
+	<hbox width="100%" style="padding-bottom:4px" pack="stretch">
+		<hlayout>
+			<button sclass="no-padding" image="/media/refresh.svg"
+					tooltiptext="Refresh List" onClick="@command('refresh')"/>
+			<toolbar id="searchToolbar" sclass="table-search-toolbar">
+				<toolbarbutton mode="toggle" image="/media/search.svg"
+						onCheck="@command('hideShowSearch', show=self.isChecked())">
+					<attribute name="onCheck">
+						boolean checked = self.isChecked();
+						resetFilterBtn.setVisible(checked);
+						searchBtn.setVisible(checked);
+						if(checked){
+							searchToolbar.setSclass("table-search-toolbar active");
+						} else {
+							searchToolbar.setSclass("table-search-toolbar");
+						}
+					</attribute>
+				</toolbarbutton>
+				<toolbarbutton id="resetFilterBtn" label="Reset" visible="false"
+					onClick="@command('resetFilter')"/>
+				<toolbarbutton id="searchBtn" label="Search" visible="false"
+					onClick="@command('search')"/>
+			</toolbar>
+		</hlayout>
+		<hlayout style="float:right">
+			<label>Page size:</label>
+			<intbox id="pageSizeIntbox" value="10" width="35px" constraint="no negative, no zero, no empty" 
+					onOK="@command('refreshAfterChangePageSize')"/>
+		</hlayout>
+	</hbox>	
+	<listbox id="logListbox" vflex="true" model="@load(vm.logList)">
+		<zscript>
+			void afterOpSelect(Combobox combobox, Component field) {
+				Comboitem item = combobox.getSelectedItem();
+				field.setVisible(!(item.getLabel().equals("Is Null")
+					|| item.getLabel().equals("Is Not Null")));
+			}
+			import top.mozaik.frnd.admin.misc.ColumnData;
+			ColumnData [] columns = {
+				new ColumnData("ID", true, "l.id"),
+				new ColumnData("Component", true, "l.component"),
+				new ColumnData("Source", true, "l.source"),
+				new ColumnData("Date", true, "l.date"),
+				new ColumnData("Message", true, "l.message")
+			};
+		</zscript>
+		<listhead sizable="true">
+			<listheader forEach="${columns}" label="${each.label}" visible="${each.visible}"
+				 width="${each.width}" value="${each}" sort="auto" onSort="@command('sort', event=event)">
+				<vlayout visible="false">
+					<combobox width="100px" onCreate="self.setSelectedIndex(0);" readonly="true"
+							onSelect="afterOpSelect(self, self.getNextSibling());">
+						<comboitem label="Like"/>
+						<comboitem label="Not Like"/>
+						<comboitem label="Equal"/>
+						<comboitem label="Not Equal"/>
+						<comboitem label="More"/>
+						<comboitem label="Less"/>
+						<comboitem label="Is Null"/>
+						<comboitem label="Is Not Null"/>
+					</combobox>
+					<textbox width="100px" onOK="@command('search')"/>
+				</vlayout>
+			</listheader>
+		</listhead>
+		<template name="model" var="bean">
+			<listitem value="@load(bean)">
+				<listcell label="@load(bean.id)"/>
+				<listcell label="@load(bean.component)"/>
+				<listcell label="@load(bean.source)"/>
+				<listcell label="@load(bean.date)"/>
+				<listcell label="@load(bean.message)"/>
+			</listitem>
+		</template>
+	</listbox>
+	<paging id="listboxPaging" autohide="false" pageSize="10" detailed="true" onPaging="@command('refreshAfterOnPage')"/>
+</window>
+</zk>

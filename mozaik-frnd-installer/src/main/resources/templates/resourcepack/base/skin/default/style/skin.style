@@ -1,0 +1,23 @@
+/* LESS */
+
+.default-skin {
+background:purple;
+border-top-left-radius:5px;
+border-top-right-radius:5px;
+padding:2px;
+}
+.default-skin .title-area{
+padding:10px;
+color:white;
+}
+.default-skin .title-area div{
+display:inline;
+}
+.default-skin .title-area div.right{
+float:right;
+cursor:pointer;
+}
+.default-skin .widget-body{
+background:white;
+padding:5px;
+}

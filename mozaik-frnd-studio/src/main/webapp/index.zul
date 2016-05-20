@@ -1,0 +1,251 @@
+<!--
+  This file is part of Mozaik CMS            www.mozaik.top
+  Copyright © 2016 Denis N Ivanchik       danykey@gmail.com
+-->
+<?page title="Mozaik CMS Studio" ?>
+<?script type="text/javascript" src="zksandbox.js.dsp"?>
+<?init class="top.mozaik.frnd.studio.init.DbInit"?>
+<zk>
+<zscript>
+<![CDATA[
+	import top.mozaik.frnd.studio.App;
+	boolean initOk = false;
+    if(session.getAttribute("db") == null) {
+		execution.sendRedirect("/@setup.zul");
+	} else if(session.getAttribute("user") == null) {
+		execution.sendRedirect("/@login.zul");
+	} else {
+		initOk = true;
+	}
+	if(initOk) {
+		App.init(application);
+	}
+							
+	import top.mozaik.bknd.api.enums.E_ResourceSetType;
+	E_ResourceSetType widgetResourceSetType = E_ResourceSetType.WIDGET;
+	E_ResourceSetType themeResourceSetType = E_ResourceSetType.THEME;
+	E_ResourceSetType skinResourceSetType = E_ResourceSetType.SKIN;
+	E_ResourceSetType libraryResourceSetType = E_ResourceSetType.LIBRARY;
+	E_ResourceSetType queryFolderResourceSetType = E_ResourceSetType.QUERY_FOLDER;
+]]>
+</zscript>
+
+<zk if="${initOk}">
+	<include src="/WEB-INF/zul/_shared_/styles.zul"/>
+	<style src="/script/codemirror5.9/codemirror.css"/>
+	<style src="/script/codemirror5.9/addon/scroll/simplescrollbars.css"/>
+	<!-- <script src="/script/codemirror5.9/diff_match_patch.js"></script>  -->
+	<script src="/script/codemirror5.9/codemirror-compressed.js"/>	
+</zk>
+
+<window if="${initOk}" width="100%" height="100%" contentStyle="padding:0"
+	viewModel="@id('vm') @init('top.mozaik.frnd.studio.vm.ResourcePackVM')">
+	<borderlayout>
+		<north border="0" height="34px;">
+			<toolbar height="34px;">
+				<image src="/media/mozaik3.png"/>
+				<toolbarbutton image="/media/file-save.svg" tooltiptext="Save"
+					onClick="@command('saveResource')"/>
+				<toolbarbutton image="/media/file-save-all.svg" tooltiptext="Save All"
+					onClick="@command('saveAllResources')"/>
+				<toolbarbutton image="/media/close-all-tabs.svg" tooltiptext="Close All" 
+					onClick="@command('closeAllResources')"/>
+				<space bar="true" style="vertical-align: middle; line-height: 20px;"/>
+				<toolbarbutton image="/media/run-build.svg" tooltiptext="Build" 
+					onClick="@command('build')"/>
+			</toolbar>
+			<!-- 
+			<menubar>
+				<menu label="File">
+					<menupopup>
+						<menuitem label="Open Resource Pack" onClick='alert("not implemented yet")'/>
+						<menuseparator/>
+						<menuitem label="Save" onClick="@command('saveResource')"/>
+						<menuitem label="Save All" onClick="@command('saveAllResources')"/>
+						<menuseparator/>
+						<menuitem label="Close"  onClick="@command('closeResource')"/>
+						<menuitem label="Close All"  onClick="@command('closeAllResources')"/>
+					</menupopup>
+				</menu>
+			</menubar>
+			 -->
+		</north>
+		<west width="20%" border="none" splittable="true">
+			<tabbox hflex="true" vflex="true">
+				<tabs>
+					<tab>Widget</tab>
+					<tab id="themeSkinTab">Theme &amp; Skin</tab>
+					<tab id="libraryTab">Library</tab>
+					<tab id="dbTab">DB</tab>
+				</tabs>
+				<tabpanels>
+					<tabpanel style="padding:0"
+							viewModel="@id('ctrl') @init('top.mozaik.frnd.studio.vm.ResourceSetVM', 
+							resourcePackController=vm, resourceSetType=widgetResourceSetType)">
+						<menupopup id="widgetTreeContextMenu" onOpen="@command('showTreeContextMenu', event=event)"/>
+						<tree model="@load(ctrl.resourceSetTreeModel)" vflex="true">
+							<auxhead>
+								<auxheader>
+									<button label="New" tooltiptext="New Widget" onClick="@command('createResourceSet')"/>
+								</auxheader>
+							</auxhead>
+							<treecols visible="false">
+								<treecol/>
+        					</treecols>
+							<template name="model">
+								<treeitem value="${each}" context="widgetTreeContextMenu"
+									onDoubleClick="@command('editResource', resource=self.value)" >                					
+                					<treerow >
+                    					<treecell label="${each}" image="@load(each) @converter(ctrl.treeitemImageUrlConverter)"/>
+                					</treerow>
+            					</treeitem>
+							</template>
+						</tree>
+					</tabpanel>
+					<tabpanel fulfill="themeSkinTab.onSelect" style="padding:0">
+						<borderlayout>
+							<north border="0" height="50%">
+								<div width="100%" height="100%"
+									viewModel="@id('ctrl') @init('top.mozaik.frnd.studio.vm.ResourceSetVM', 
+										resourcePackController=vm, resourceSetType=themeResourceSetType)">
+									<menupopup id="themeTreeContextMenu" onOpen="@command('showTreeContextMenu', event=event)"/>
+									<tree model="@load(ctrl.resourceSetTreeModel)" vflex="true">
+										<auxhead>
+											<auxheader>
+												<button label="New" tooltiptext="New Theme" onClick="@command('createResourceSet')"/>
+											</auxheader>
+										</auxhead>
+										<treecols visible="false">
+											<treecol/>
+        								</treecols>
+										<template name="model">
+											<treeitem value="${each}" context="themeTreeContextMenu"
+												onDoubleClick="@command('editResource', resource=self.value)" >                					
+                								<treerow >
+		               								<treecell label="${each}" image="@load(each) @converter(ctrl.treeitemImageUrlConverter)"/>
+        		        						</treerow>
+            								</treeitem>
+										</template>
+									</tree>
+								</div>
+							</north>
+							<center border="0">
+								<div width="100%" height="100%"
+									viewModel="@id('ctrl') @init('top.mozaik.frnd.studio.vm.ResourceSetVM', 
+										resourcePackController=vm, resourceSetType=skinResourceSetType)">
+									<menupopup id="skinTreeContextMenu" onOpen="@command('showTreeContextMenu', event=event)"/>
+									<tree model="@load(ctrl.resourceSetTreeModel)" vflex="true">
+										<auxhead>
+											<auxheader>
+												<button label="New" tooltiptext="New Skin" onClick="@command('createResourceSet')"/>
+											</auxheader>
+										</auxhead>
+										<treecols visible="false">
+											<treecol/>
+        								</treecols>
+										<template name="model">
+											<treeitem value="${each}" context="skinTreeContextMenu"
+												onDoubleClick="@command('editResource', resource=self.value)" >                					
+                								<treerow >
+		               								<treecell label="${each}" image="@load(each) @converter(ctrl.treeitemImageUrlConverter)"/>
+        		        						</treerow>
+            								</treeitem>
+										</template>
+									</tree>
+								</div>
+							</center>
+						</borderlayout>
+					</tabpanel>
+					<tabpanel fulfill="libraryTab.onSelect" style="padding:0">
+						<borderlayout>
+							<north border="0" height="50%">
+								<div width="100%" height="100%"
+									viewModel="@id('ctrl') @init('top.mozaik.frnd.studio.vm.ResourceSetVM', 
+									resourcePackController=vm, resourceSetType=libraryResourceSetType)">
+								<menupopup id="libraryTreeContextMenu" onOpen="@command('showTreeContextMenu', event=event)"/>
+								<tree model="@load(ctrl.resourceSetTreeModel)" vflex="true">
+									<auxhead>
+										<auxheader>
+											<button label="New" tooltiptext="New Library" onClick="@command('createResourceSet')"/>
+										</auxheader>
+									</auxhead>
+									<treecols visible="false">
+										<treecol/>
+        							</treecols>
+									<template name="model">
+										<treeitem value="${each}" context="libraryTreeContextMenu"
+											onDoubleClick="@command('editResource', resource=self.value)" >                					
+                							<treerow >
+                    							<treecell label="${each}" image="@load(each) @converter(ctrl.treeitemImageUrlConverter)"/>
+                							</treerow>
+            							</treeitem>
+									</template>
+								</tree>
+								</div>
+							</north>
+							<center border="0">
+								<div width="100%" height="100%"
+									viewModel="@id('ctrl') @init('top.mozaik.frnd.studio.vm.JarsVM',
+									rpa=vm.resourcePack.alias)">
+									<menupopup id="jarContextMenu" onOpen="@command('showContextMenu', event=event)"/>
+									<grid id="jarGrid" vflex="true">
+										<auxhead>
+											<auxheader>
+												<button sclass="no-padding" image="/media/refresh.svg"
+													tooltiptext="Refresh" onClick="@command('refresh')"/>
+												<button label="Upload" tooltiptext="Upload Jar" upload="true" 
+													onUpload="@command('upload', media=event.media)"/>
+											</auxheader>
+										</auxhead>
+										<columns>
+											<column/>
+										</columns>
+										<rows children="@load(ctrl.jarList)">
+											<template name="children">
+												<row value="@load(each)" context="jarContextMenu" style="cursor:pointer">
+													<label value="@load(each.name)"/>
+												</row>
+											</template>
+										</rows>
+									</grid>
+								</div>
+							</center>
+						</borderlayout>
+					</tabpanel>
+					<tabpanel fulfill="dbTab.onSelect" style="padding:0">
+						<div width="100%" height="100%"
+							viewModel="@id('ctrl') @init('top.mozaik.frnd.studio.vm.ResourceSetVM', 
+							resourcePackController=vm, resourceSetType=queryFolderResourceSetType)">
+						<menupopup id="queryTreeContextMenu" onOpen="@command('showTreeContextMenu', event=event)"/>
+						<tree model="@load(ctrl.resourceSetTreeModel)" vflex="true">
+							<auxhead>
+								<auxheader>
+									<button label="New" tooltiptext="New Query" onClick="@command('createResourceSet')"/>
+								</auxheader>
+							</auxhead>
+							<treecols visible="false">
+								<treecol/>
+        					</treecols>
+							<template name="model">
+								<treeitem value="${each}" context="queryTreeContextMenu"
+									onDoubleClick="@command('editResource', resource=self.value)" >                					
+                					<treerow >
+                    					<treecell label="${each}" image="@load(each) @converter(ctrl.treeitemImageUrlConverter)"/>
+                					</treerow>
+            					</treeitem>
+							</template>
+						</tree>
+						</div>
+					</tabpanel>
+				</tabpanels>
+			</tabbox>
+		</west>
+		<center border="none">
+			<tabbox id="centerTabbox" hflex="true" vflex="true">
+				<tabs/>				
+				<tabpanels/>
+			</tabbox>
+		</center>
+	</borderlayout>
+</window>
+</zk>

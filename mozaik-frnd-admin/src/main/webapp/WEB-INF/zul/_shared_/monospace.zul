@@ -1,0 +1,24 @@
+<!--
+  This file is part of Mozaik CMS            www.mozaik.top
+  Copyright © 2016 Denis N Ivanchik       danykey@gmail.com
+-->
+<?page title="" contentType="text/html;charset=UTF-8"?>
+<zk>
+<style>
+.z-menu-text, .z-menuitem-text {
+font-family: 'Oxygen',monospace
+}
+.z-tab {
+font-family: 'Oxygen',monospace
+}
+.z-listheader-content, .z-listcell-content, .z-listgroup-content, .z-listgroupfoot-content, .z-listfooter-content{
+font-family: 'Oxygen',monospace
+}
+.z-window-header{
+font-family: 'Oxygen',monospace
+}
+.z-label, .z-radio-content, .z-checkbox-content, .z-loading{
+font-family: 'Oxygen',monospace
+}
+</style>
+</zk>

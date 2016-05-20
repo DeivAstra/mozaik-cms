@@ -1,0 +1,621 @@
+<!--
+  This file is part of Mozaik CMS            www.mozaik.top
+  Copyright © 2016 Denis N Ivanchik       danykey@gmail.com
+-->
+<zk>
+	<idspace>
+	<zscript>
+	<![CDATA[
+		import top.mozaik.frnd.plus.callback.*;
+		import top.mozaik.frnd.admin.*;
+		import top.mozaik.bknd.api.*;
+		import top.mozaik.bknd.api.model.*;
+		import top.mozaik.bknd.api.service.*;
+		import top.mozaik.frnd.plus.zk.*;
+		import top.mozaik.frnd.plus.zk.constraint.*;
+		import top.mozaik.frnd.plus.zk.vm.*;
+		
+		WcmComponentService componentService = ServicesFacade.$().getWcmComponentService();
+		WcmDocumentService documentService = ServicesFacade.$().getWcmDocumentService();
+		WcmDocumentFolderService documentFolderService = ServicesFacade.$().getWcmDocumentFolderService();
+		WcmTemplateService templateService = ServicesFacade.$().getWcmTemplateService();
+		WcmTemplateFolderService templateFolderService = ServicesFacade.$().getWcmTemplateFolderService();
+		WcmResourceService resourceService = ServicesFacade.$().getWcmResourceService();
+		WcmResourceFolderService resourceFolderService = ServicesFacade.$().getWcmResourceFolderService();
+		WcmLibraryService libraryService = ServicesFacade.$().getWcmLibraryService();
+
+		WcmComponent component = null;
+
+		I_CallbackMap formCallback = FORM_CALLBACK;
+		
+		String DOC_TYPE = "doc";   // Document
+		String DOCF_TYPE = "docf"; 	// Document folder
+		String TEMPL_TYPE = "templ";   // Template
+		String TEMPLF_TYPE = "templf"; // Template folder
+		String RES_TYPE = "res";   // Resource
+		String RESF_TYPE = "resf"; // Resource folder
+		String LIB_TYPE = "lib"; // Library
+		String INT_TYPE = "int"; // Integer
+		String DBL_TYPE = "dbl"; // Double
+		String TXT_TYPE = "txt"; // Text
+		String MTXT_TYPE = "mtxt"; // Multiline text
+		String DATE_TYPE = "date"; // Date
+		String TIME_TYPE = "time"; // Time
+		String URL_TYPE = "url"; // URL
+
+		class Param {
+			private String type;
+			private String name;
+			private Object value;
+			public Param setType(String type){this.type=type;return this;}
+			public String getType(){return type;}
+			public Param setName(String name){this.name=name;return this;}
+			public String getName(){return name;}
+			public Param setValue(Object value){this.value=value;return this;}
+			public Object getValue(){return value;}
+			//public void toString(){return type+":"+name+":"+value;}
+		}
+
+		private List parseParams(Map paramMap) {
+			List paramList = new ArrayList();
+			for(String key : paramMap.keySet()){
+				if(key.indexOf(':') == -1) {
+					continue;
+				}
+				String [] typeName = key.split(":");
+				Param p = new Param()
+						.setType(typeName[0])
+						.setName(typeName[1]);
+				switch(p.getType()) {
+					case DOC_TYPE:
+						p.setValue(
+							documentService.read1(
+								new WcmDocument().setId(Integer.parseInt(paramMap.get(key)))));
+						break;
+					case DOCF_TYPE:
+						p.setValue(
+							documentFolderService.read1(
+								new WcmDocumentFolder().setId(Integer.parseInt(paramMap.get(key)))));
+						break;
+					case TEMPL_TYPE:
+						p.setValue(
+							templateService.read1(
+								new WcmTemplate().setId(Integer.parseInt(paramMap.get(key)))));
+						break;
+					case TEMPLF_TYPE:
+						p.setValue(
+							templateFolderService.read1(
+								new WcmTemplateFolder().setId(Integer.parseInt(paramMap.get(key)))));
+						break;
+					case RES_TYPE:
+						p.setValue(
+							resourceService.read1(
+								new WcmResource().setId(Integer.parseInt(paramMap.get(key)))));
+						break;
+					case RESF_TYPE:
+						p.setValue(
+							resourceFolderService.read1(
+								new WcmResourceFolder().setId(Integer.parseInt(paramMap.get(key)))));
+						break;
+					case LIB_TYPE:
+						p.setValue(
+							libraryService.read1(
+								new WcmLibrary().setId(Integer.parseInt(paramMap.get(key)))));
+						break;
+					case INT_TYPE:
+						p.setValue(Integer.parseInt(paramMap.get(key)));
+						break;
+					case DBL_TYPE:
+						p.setValue(Double.parseDouble(paramMap.get(key)));
+						break;
+					case TXT_TYPE:
+					case MTXT_TYPE:
+					case URL_TYPE:
+						p.setValue(paramMap.get(key));
+						break;
+					case DATE_TYPE:
+					case TIME_TYPE:
+						p.setValue(new Date(Long.parseLong(paramMap.get(key))));
+						break;
+				}
+				paramList.add(p);
+			}
+			return paramList;
+		}
+		
+		List paramList = new ListModelList(parseParams(LAYOUT_WIDGET_PARAMS));
+		
+		private void deleteParam(Param param){
+			paramList.remove(param);
+		}
+
+		private void addParam(String type) {
+			paramList.add(new Param().setType(type));
+		}
+
+		Constraint noEmptyConstr = new SwitchConstraint(false, "no empty");
+		Constraint urlConstr = new UrlConstraint(false);
+	]]>
+	</zscript>
+	<vlayout id="formLayout" style="padding:20px">
+		<hlayout>
+			<label class="form-label" value="Component:"/>
+			<labelinput class="form-label" id="selectedComponentInfoLabel" width="300px"
+				constraint="${noEmptyConstr}">
+				<attribute name="onCreate">
+				<![CDATA[
+					Integer componentId;
+					try {
+						componentId = Integer.parseInt(LAYOUT_WIDGET_PARAMS.get("COMPONENT_ID"));
+					} catch(Exception e){return;}
+					
+					component = componentService.read1(new WcmComponent().setId(componentId));
+					
+					if(component == null) {
+						self.setLabel("Component with ID = " + componentId + " not found");
+						self.setStyle("font-weight:bold;color:red");
+					} else {
+						self.setLabel(component.getTitle());
+						self.setValue(1);
+					}
+				]]>
+				</attribute>
+			</labelinput>
+			<button label="...">
+				<attribute name="onClick">
+				<![CDATA[
+					I_CallbackArg callback = new I_CallbackArg(){
+						public void call(WcmComponent c) {
+							component = c;
+							selectedComponentInfoLabel.setLabel(c.getTitle());
+							selectedComponentInfoLabel.setValue(1);
+						}
+					};
+					Dialogs.selectComponent(callback);
+				]]>
+				</attribute>
+			</button>
+		</hlayout>
+		<groupbox open="${!paramList.isEmpty()}">
+			<caption>Parameters</caption>
+			<hlayout>
+				<button label="Add" popup="menu"/>
+				<menupopup id="menu">
+					<menu label="WCM">
+						<menupopup>
+							<menuitem label="Document" onClick="addParam(DOC_TYPE)"/>
+							<menuitem label="Document Folder" onClick="addParam(DOCF_TYPE)"/>
+							<menuseparator/>
+							<menuitem label="Template" onClick="addParam(TEMPL_TYPE)"/>
+							<menuitem label="Template Folder" onClick="addParam(TEMPLF_TYPE)"/>
+							<menuseparator/>
+							<menuitem label="Resource" onClick="addParam(RES_TYPE)"/>
+							<menuitem label="Resource Folder" onClick="addParam(RESF_TYPE)"/>
+							<menuseparator/>
+							<menuitem label="Library" onClick="addParam(LIB_TYPE)"/>
+						</menupopup>
+					</menu>
+					<menuseparator/>
+					<menuitem label="Integer" onClick="addParam(INT_TYPE)"/>
+					<menuitem label="Double" onClick="addParam(DBL_TYPE)"/>
+					<menuitem label="Text" onClick="addParam(TXT_TYPE)"/>
+					<menuitem label="Multiline Text" onClick="addParam(MTXT_TYPE)"/>
+					<menuitem label="Date" onClick="addParam(DATE_TYPE)"/>
+					<menuitem label="Time" onClick="addParam(TIME_TYPE)"/>
+					<menuitem label="URL" onClick="addParam(URL_TYPE)"/>
+				</menupopup>
+			</hlayout>
+			<grid id="paramsGrid" width="800px" model="${paramList}">
+				<columns>
+					<column label="Type"/>
+					<column label="Name"/>
+					<column label="Value"/>
+					<column width="30px"/>
+				</columns>
+				<template name="model">
+					<row if="${each.type eq DOC_TYPE}">
+						<label value="Document"/>
+						<textbox value="${each.name}" constraint="${noEmptyConstr}" 
+								 onChange='self.getAttribute("param").setName(self.getValue())'>
+							<custom-attributes param="${each}"/>
+						</textbox>
+						<hlayout>
+							<idspace>
+								<labelinput id="titleLabel" value="${each.value}" 
+											label="${each.value.title}" constraint="no empty"/>
+								<button label="...">
+									<custom-attributes param="${each}"/>
+									<attribute name="onClick">
+									<![CDATA[
+										Param param = self.getAttribute("param");
+										I_CallbackArg callback = new I_CallbackArg(){
+											public void call(WcmDocument v) {
+												param.setValue(v);
+												titleLabel.setLabel(v.getTitle());
+												titleLabel.setValue(1);
+											}
+										};
+										Dialogs.selectDocument(callback);
+									]]>
+									</attribute>
+								</button>
+							</idspace>
+						</hlayout>
+						<label value="[X]" style="color:red;cursor:pointer;" 
+							   onClick='deleteParam(self.getAttribute("param"))'>
+							<custom-attributes param="${each}"/>
+						</label>
+					</row>
+					<row if="${each.type eq DOCF_TYPE}">
+						<label value="Document Folder"/>
+						<textbox value="${each.name}" constraint="${noEmptyConstr}" 
+								 onChange='self.getAttribute("param").setName(self.getValue())'>
+							<custom-attributes param="${each}"/>
+						</textbox>
+						<hlayout>
+							<idspace>
+								<labelinput id="titleLabel" value="${each.value}" 
+											label="${each.value.title}" constraint="no empty"/>
+								<button label="...">
+									<custom-attributes param="${each}"/>
+									<attribute name="onClick">
+									<![CDATA[
+										Param param = self.getAttribute("param");
+										I_CallbackArg callback = new I_CallbackArg(){
+											public void call(WcmDocumentFolder v) {
+												param.setValue(v);
+												titleLabel.setLabel(v.getTitle());
+												titleLabel.setValue(1);
+											}
+										};
+										Dialogs.selectDocumentFolder(callback);
+									]]>
+									</attribute>
+								</button>
+							</idspace>
+						</hlayout>
+						<label value="[X]" style="color:red;cursor:pointer;" 
+							   onClick='deleteParam(self.getAttribute("param"))'>
+							<custom-attributes param="${each}"/>
+						</label>
+					</row>
+					
+					<row if="${each.type eq TEMPL_TYPE}">
+						<label value="Template"/>
+						<textbox value="${each.name}" constraint="${noEmptyConstr}" 
+								 onChange='self.getAttribute("param").setName(self.getValue())'>
+							<custom-attributes param="${each}"/>
+						</textbox>
+						<hlayout>
+							<idspace>
+								<labelinput id="titleLabel" value="${each.value}" 
+											label="${each.value.title}" constraint="no empty"/>
+								<button label="...">
+									<custom-attributes param="${each}"/>
+									<attribute name="onClick">
+									<![CDATA[
+										Param param = self.getAttribute("param");
+										I_CallbackArg callback = new I_CallbackArg(){
+											public void call(WcmTemplate v) {
+												param.setValue(v);
+												titleLabel.setLabel(v.getTitle());
+												titleLabel.setValue(1);
+											}
+										};
+										Dialogs.selectTemplate(callback);
+									]]>
+									</attribute>
+								</button>
+							</idspace>
+						</hlayout>
+						<label value="[X]" style="color:red;cursor:pointer;" 
+							   onClick='deleteParam(self.getAttribute("param"))'>
+							<custom-attributes param="${each}"/>
+						</label>
+					</row>
+					<row if="${each.type eq TEMPLF_TYPE}">
+						<label value="Template Folder"/>
+						<textbox value="${each.name}" constraint="${noEmptyConstr}" 
+								 onChange='self.getAttribute("param").setName(self.getValue())'>
+							<custom-attributes param="${each}"/>
+						</textbox>
+						<hlayout>
+							<idspace>
+								<labelinput id="titleLabel" value="${each.value}" 
+											label="${each.value.title}" constraint="no empty"/>
+								<button label="...">
+									<custom-attributes param="${each}"/>
+									<attribute name="onClick">
+									<![CDATA[
+										Param param = self.getAttribute("param");
+										I_CallbackArg callback = new I_CallbackArg(){
+											public void call(WcmTemplateFolder v) {
+												param.setValue(v);
+												titleLabel.setLabel(v.getTitle());
+												titleLabel.setValue(1);
+											}
+										};
+										Dialogs.selectTemplateFolder(callback);
+									]]>
+									</attribute>
+								</button>
+							</idspace>
+						</hlayout>
+						<label value="[X]" style="color:red;cursor:pointer;" 
+							   onClick='deleteParam(self.getAttribute("param"))'>
+							<custom-attributes param="${each}"/>
+						</label>
+					</row>
+					
+					<row if="${each.type eq RES_TYPE}">
+						<label value="Resource"/>
+						<textbox value="${each.name}" constraint="${noEmptyConstr}" 
+								 onChange='self.getAttribute("param").setName(self.getValue())'>
+							<custom-attributes param="${each}"/>
+						</textbox>
+						<hlayout>
+							<idspace>
+								<labelinput id="titleLabel" value="${each.value}" 
+											label="${each.value.title}" constraint="no empty"/>
+								<button label="...">
+									<custom-attributes param="${each}"/>
+									<attribute name="onClick">
+									<![CDATA[
+										Param param = self.getAttribute("param");
+										I_CallbackArg callback = new I_CallbackArg(){
+											public void call(WcmResource v) {
+												param.setValue(v);
+												titleLabel.setLabel(v.getTitle());
+												titleLabel.setValue(1);
+											}
+										};
+										Dialogs.selectResource(callback);
+									]]>
+									</attribute>
+								</button>
+							</idspace>
+						</hlayout>
+						<label value="[X]" style="color:red;cursor:pointer;" 
+							   onClick='deleteParam(self.getAttribute("param"))'>
+							<custom-attributes param="${each}"/>
+						</label>
+					</row>
+					<row if="${each.type eq RESF_TYPE}">
+						<label value="Resource Folder"/>
+						<textbox value="${each.name}" constraint="${noEmptyConstr}" 
+								 onChange='self.getAttribute("param").setName(self.getValue())'>
+							<custom-attributes param="${each}"/>
+						</textbox>
+						<hlayout>
+							<idspace>
+								<labelinput id="titleLabel" value="${each.value}" 
+											label="${each.value.title}" constraint="no empty"/>
+								<button label="...">
+									<custom-attributes param="${each}"/>
+									<attribute name="onClick">
+									<![CDATA[
+										Param param = self.getAttribute("param");
+										I_CallbackArg callback = new I_CallbackArg(){
+											public void call(WcmResourceFolder v) {
+												param.setValue(v);
+												titleLabel.setLabel(v.getTitle());
+												titleLabel.setValue(1);
+											}
+										};
+										Dialogs.selectResourceFolder(callback);
+									]]>
+									</attribute>
+								</button>
+							</idspace>
+						</hlayout>
+						<label value="[X]" style="color:red;cursor:pointer;" 
+							   onClick='deleteParam(self.getAttribute("param"))'>
+							<custom-attributes param="${each}"/>
+						</label>
+					</row>
+					
+					<row if="${each.type eq LIB_TYPE}">
+						<label value="Library"/>
+						<textbox value="${each.name}" constraint="${noEmptyConstr}" 
+								 onChange='self.getAttribute("param").setName(self.getValue())'>
+							<custom-attributes param="${each}"/>
+						</textbox>
+						<hlayout>
+							<idspace>
+								<labelinput id="titleLabel" value="${each.value}" 
+											label="${each.value.title}" constraint="no empty"/>
+								<button label="...">
+									<custom-attributes param="${each}"/>
+									<attribute name="onClick">
+									<![CDATA[
+										Param param = self.getAttribute("param");
+										I_CallbackArg callback = new I_CallbackArg(){
+											public void call(WcmLibrary v) {
+												param.setValue(v);
+												titleLabel.setLabel(v.getTitle());
+												titleLabel.setValue(1);
+											}
+										};
+										Dialogs.selectLibrary(callback);
+									]]>
+									</attribute>
+								</button>
+							</idspace>
+						</hlayout>
+						<label value="[X]" style="color:red;cursor:pointer;" 
+							   onClick='deleteParam(self.getAttribute("param"))'>
+							<custom-attributes param="${each}"/>
+						</label>
+					</row>
+					
+					<row if="${each.type eq INT_TYPE}">
+						<label value="Integer"/>
+						<textbox value="${each.name}" constraint="${noEmptyConstr}" 
+								 onChange='self.getAttribute("param").setName(self.getValue())'>
+							<custom-attributes param="${each}"/>
+						</textbox>
+						<intbox value="${each.value}" constraint="${noEmptyConstr}"
+								onChange='self.getAttribute("param").setValue(self.getValue())'>
+							<custom-attributes param="${each}"/>
+						</intbox>
+						<label value="[X]" style="color:red;cursor:pointer;" 
+							   onClick='deleteParam(self.getAttribute("param"))'>
+							<custom-attributes param="${each}"/>
+						</label>
+					</row>
+					
+					<row if="${each.type eq DBL_TYPE}">
+						<label value="Double"/>
+						<textbox value="${each.name}" constraint="${noEmptyConstr}" 
+								 onChange='self.getAttribute("param").setName(self.getValue())'>
+							<custom-attributes param="${each}"/>
+						</textbox>
+						<doublebox value="${each.value}" constraint="${noEmptyConstr}"
+								onChange='self.getAttribute("param").setValue(self.getValue())'>
+							<custom-attributes param="${each}"/>
+						</doublebox>
+						<label value="[X]" style="color:red;cursor:pointer;" 
+							   onClick='deleteParam(self.getAttribute("param"))'>
+							<custom-attributes param="${each}"/>
+						</label>
+					</row>
+					
+					<row if="${each.type eq TXT_TYPE}">
+						<label value="Text"/>
+						<textbox value="${each.name}" constraint="${noEmptyConstr}" 
+								 onChange='self.getAttribute("param").setName(self.getValue())'>
+							<custom-attributes param="${each}"/>
+						</textbox>
+						<textbox value="${each.value}" constraint="${noEmptyConstr}"
+								onChange='self.getAttribute("param").setValue(self.getValue())'>
+							<custom-attributes param="${each}"/>
+						</textbox>
+						<label value="[X]" style="color:red;cursor:pointer;" 
+							   onClick='deleteParam(self.getAttribute("param"))'>
+							<custom-attributes param="${each}"/>
+						</label>
+					</row>
+					
+					<row if="${each.type eq MTXT_TYPE}">
+						<label value="Multiline Text"/>
+						<textbox value="${each.name}" constraint="${noEmptyConstr}" 
+								 onChange='self.getAttribute("param").setName(self.getValue())'>
+							<custom-attributes param="${each}"/>
+						</textbox>
+						<textbox value="${each.value}" multiline="true" rows="3" constraint="${noEmptyConstr}"
+								onChange='self.getAttribute("param").setValue(self.getValue())'>
+							<custom-attributes param="${each}"/>
+						</textbox>
+						<label value="[X]" style="color:red;cursor:pointer;" 
+							   onClick='deleteParam(self.getAttribute("param"))'>
+							<custom-attributes param="${each}"/>
+						</label>
+					</row>
+					
+					<row if="${each.type eq DATE_TYPE}">
+						<label value="Date"/>
+						<textbox value="${each.name}" constraint="${noEmptyConstr}" 
+								 onChange='self.getAttribute("param").setName(self.getValue())'>
+							<custom-attributes param="${each}"/>
+						</textbox>
+						<datebox value="${each.value}" constraint="${noEmptyConstr}"
+								onChange='self.getAttribute("param").setValue(self.getValue())'>
+							<custom-attributes param="${each}"/>
+						</datebox>
+						<label value="[X]" style="color:red;cursor:pointer;" 
+							   onClick='deleteParam(self.getAttribute("param"))'>
+							<custom-attributes param="${each}"/>
+						</label>
+					</row>
+					
+					<row if="${each.type eq TIME_TYPE}">
+						<label value="Time"/>
+						<textbox value="${each.name}" constraint="${noEmptyConstr}" 
+								 onChange='self.getAttribute("param").setName(self.getValue())'>
+							<custom-attributes param="${each}"/>
+						</textbox>
+						<timebox value="${each.value}" format="kk:mm" constraint="${noEmptyConstr}"
+								onChange='self.getAttribute("param").setValue(self.getValue())'>
+							<custom-attributes param="${each}"/>
+						</timebox>
+						<label value="[X]" style="color:red;cursor:pointer;" 
+							   onClick='deleteParam(self.getAttribute("param"))'>
+							<custom-attributes param="${each}"/>
+						</label>
+					</row>
+					
+					<row if="${each.type eq URL_TYPE}">
+						<label value="URL"/>
+						<textbox value="${each.name}" constraint="${noEmptyConstr}" 
+								 onChange='self.getAttribute("param").setName(self.getValue())'>
+							<custom-attributes param="${each}"/>
+						</textbox>
+						<textbox value="${each.value}" constraint="${urlConstr}"
+								onChange='self.getAttribute("param").setValue(self.getValue())'>
+							<custom-attributes param="${each}"/>
+						</textbox>
+						<label value="[X]" style="color:red;cursor:pointer;" 
+							   onClick='deleteParam(self.getAttribute("param"))'>
+							<custom-attributes param="${each}"/>
+						</label>
+					</row>
+				</template>
+			</grid>
+		</groupbox>
+		<hlayout>
+		 	<button label="Ok">
+				<attribute name="onClick">
+				<![CDATA[
+					private void checkParamNames() {
+						for(Param p : paramList) {
+							String name = p.getName();
+							int count = 0;
+							for(Param p2 : paramList) {
+								if(name.equals(p2.getName())) {
+									count++;
+								}
+								if(count > 1) {
+									throw new IllegalArgumentException(
+										"Parameter with name '" + name + "' already exists. Names should be unique.");
+								}
+							}
+						}
+					}
+					
+					ZKUtils.validate(formLayout);
+					
+					checkParamNames();
+
+					Map params = new LinkedHashMap();
+					if(component != null) {
+						params.put("COMPONENT_ID", component.getId());
+					}
+					for(Param p : paramList) {
+						Object value;
+						switch(p.getType()){
+							case DOC_TYPE:
+							case DOCF_TYPE:
+							case TEMPL_TYPE:
+							case TEMPLF_TYPE:
+							case RES_TYPE:
+							case RESF_TYPE:
+							case LIB_TYPE:
+								value = p.getValue().getId();
+								break;
+							case DATE_TYPE:
+							case TIME_TYPE:
+								value = p.getValue().getTime();
+								break;
+							default:
+								value = p.getValue();
+						}
+						params.put(p.getType()+":"+p.getName(), value);
+					}
+					formCallback.call(params);
+				]]>
+				</attribute>
+			</button>
+		</hlayout>
+	</vlayout>
+	</idspace>
+</zk>

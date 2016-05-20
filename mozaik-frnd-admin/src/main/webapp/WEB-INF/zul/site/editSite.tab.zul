@@ -1,0 +1,26 @@
+<!--
+  This file is part of Mozaik CMS            www.mozaik.top
+  Copyright © 2016 Denis N Ivanchik       danykey@gmail.com
+-->
+<window 
+	viewModel="@id('vm') @init('top.mozaik.frnd.admin.vm.site.EditSiteVM')"
+	form="@id('form') @load(vm.bean) @save(vm.bean, before='save')" contentStyle="padding:0">
+	
+	<button label="Save" onClick="@command('save')"/>
+	<vlayout style="padding:20px">	
+		<hlayout>
+			<label class="form-label" value="Title:"/>
+			<textbox class="form-field" value="@bind(form.title)" maxlength="100"
+				constraint="${application.attributes.cache.constraint.noempty}"/>
+		</hlayout>
+		<hlayout>
+			<label class="form-label" value="Domains:"/>
+			<textbox class="form-field" value="@bind(form.domains)" maxlength="255"
+				constraint="${application.attributes.cache.constraint.noempty}"/>
+		</hlayout>
+		<hlayout>
+			<label class="form-label" value="Description:"/>
+			<textbox class="form-field" value="@bind(form.descr)" rows="2" maxlength="255"/>
+		</hlayout>
+	</vlayout>
+</window>

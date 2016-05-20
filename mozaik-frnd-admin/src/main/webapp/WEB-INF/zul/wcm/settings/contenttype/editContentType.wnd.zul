@@ -1,0 +1,21 @@
+<!--
+  This file is part of Mozaik CMS            www.mozaik.top
+  Copyright © 2016 Denis N Ivanchik       danykey@gmail.com
+-->
+<zk>
+<window viewModel="@id('vm') 
+		@init('top.mozaik.frnd.admin.vm.wcm.settings.contenttype.EditContentTypeVM')" 
+	title="Edit Content Type" border="normal" position="center,center" closable="true" mode="modal">
+	<vlayout style="padding:20px">
+		<hlayout>
+			<label class="form-label" value="Mime"/>
+			<textbox value="@load(vm.bean.mime) @save(vm.bean.mime, before='save')"
+				constraint="${application.attributes.cache.constraint.noempty}"/>
+		</hlayout>
+		<hlayout>
+		 	<button label="Save" onClick="@command('save')"/>
+			<button label="Cancel" onClick="@command('detachView')"/>
+		</hlayout>
+	</vlayout>
+</window>
+</zk>

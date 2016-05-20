@@ -1,0 +1,20 @@
+<!--
+  This file is part of Mozaik CMS            www.mozaik.top
+  Copyright © 2016 Denis N Ivanchik       danykey@gmail.com
+-->
+<div class="default-skin" xmlns="native">
+	<style src="skin.style" xmlns="zul"/>
+	<header class="title-area">
+		<div class="left">
+			<span if="${!empty LAYOUT_SKIN_PARAMS.TITLE}">${LAYOUT_SKIN_PARAMS.TITLE}</span>
+			<span if="${empty LAYOUT_SKIN_PARAMS.TITLE}">${INCLUDED_RESOURCE_SET.title}</span>
+		</div>
+		<div class="right">
+			<label if="${!empty LAYOUT_SKIN_PARAMS.COLLAPSIBLE}"
+				   xmlns="zul" value="=" onClick="widgetBodyDiv.setVisible(!widgetBodyDiv.isVisible())"/>
+		</div>
+	</header>
+	<div id="widgetBodyDiv" class="widget-body" xmlns="zul">
+		<widget/>
+	</div>
+</div>

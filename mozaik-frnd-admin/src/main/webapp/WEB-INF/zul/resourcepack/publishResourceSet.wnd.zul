@@ -1,0 +1,21 @@
+<!--
+  This file is part of Mozaik CMS            www.mozaik.top
+  Copyright © 2016 Denis N Ivanchik       danykey@gmail.com
+-->
+<window 
+	viewModel="@id('vm') @init('top.mozaik.frnd.admin.vm.resourcepack.PublishResourceSetVM')"
+	title="Publish" border="normal" position="center,center" closable="true" mode="modal">
+
+	<vlayout style="padding:20px">
+		<hlayout>
+			<label class="form-label" value="Title:"/>
+			<textbox class="form-field" value="@bind(vm.title)" maxlength="100"
+				constraint="${application.attributes.cache.constraint.noempty}"/>
+		</hlayout>
+		<hlayout>
+		 	<button label="Publish" onClick="@command('publish')"/>
+			<button label="Cancel" onClick="@command('detachView')"/>
+		</hlayout>
+	</vlayout>
+
+</window>

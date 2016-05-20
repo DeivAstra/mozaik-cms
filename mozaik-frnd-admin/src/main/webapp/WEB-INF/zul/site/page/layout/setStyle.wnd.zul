@@ -1,0 +1,88 @@
+<!--
+  This file is part of Mozaik CMS            www.mozaik.top
+  Copyright © 2016 Denis N Ivanchik       danykey@gmail.com
+-->
+<window
+	viewModel="@id('vm') @init('top.mozaik.frnd.admin.vm.site.page.layout.SetStyleVM')"
+	title="Set Style" border="normal" position="center,center" closable="true" mode="modal" width="300px">
+	
+	<tabbox>
+		<tabs>
+			<tab label="Width/Height"/>
+			<tab label="Indent"/>
+			<tab label="Misc."/>
+		</tabs>
+		<tabpanels>
+			<tabpanel>
+				<vlayout style="padding:20px">
+					<hlayout>
+						<label sclass="form-label-narrow">Min.Width:</label>
+						<intbox value="@load(vm.bean.minWidth) @save(vm.bean.minWidth, before='set')"/>
+					</hlayout>
+					<hlayout>
+						<label sclass="form-label-narrow">Width:</label>
+						<intbox value="@load(vm.bean.width) @save(vm.bean.width, before='set')"/>
+					</hlayout>
+					<hlayout>
+						<label sclass="form-label-narrow">Max.Width:</label>
+						<intbox value="@load(vm.bean.maxWidth) @save(vm.bean.maxWidth, before='set')"/>
+					</hlayout>
+				</vlayout>
+				<separator bar="true"/>
+				<vlayout style="padding:20px">
+					<hlayout>
+						<label sclass="form-label-narrow">Min.Height:</label>
+						<intbox value="@load(vm.bean.minHeight) @save(vm.bean.minHeight, before='set')"/>
+					</hlayout>
+					<hlayout>
+						<label sclass="form-label-narrow">Height:</label>
+						<intbox value="@load(vm.bean.height) @save(vm.bean.height, before='set')"/>
+					</hlayout>
+					<hlayout>
+						<label sclass="form-label-narrow">Max.Height:</label>
+						<intbox value="@load(vm.bean.maxHeight) @save(vm.bean.maxHeight, before='set')"/>
+					</hlayout>
+				</vlayout>
+			</tabpanel>
+			<tabpanel>
+				<vlayout style="padding:20px">
+					<hlayout width="100%" style="text-align:center">
+						<vlayout>
+							Top<intbox width="40px" value="@load(vm.bean.indentTop) @save(vm.bean.indentTop, before='set')"/>
+						</vlayout>
+					</hlayout>
+					<hlayout width="100%" style="text-align:center">
+						<vlayout style="margin-top:15px">
+							Left<intbox width="40px" value="@load(vm.bean.indentLeft) @save(vm.bean.indentLeft, before='set')"/>
+						</vlayout>
+						<div width="100px" height="100px" style="border:1px solid gray"/>
+						<vlayout style="margin-top:15px">
+							Right<intbox width="40px" value="@load(vm.bean.indentRight) @save(vm.bean.indentRight, before='set')"/>
+						</vlayout>
+					</hlayout>
+					<hlayout width="100%" style="text-align:center">
+						<vlayout>
+							<intbox width="40px" value="@load(vm.bean.indentBottom) @save(vm.bean.indentBottom, before='set')"/>Bottom
+						</vlayout>
+					</hlayout>
+				</vlayout>
+			</tabpanel>
+			<tabpanel>
+				<vlayout style="padding:20px">
+					<hlayout>
+						<label sclass="form-label-narrow">Class:</label>
+						<textbox width="120px" rows="3" value="@load(vm.bean.clazz) @save(vm.bean.clazz, before='set')"/>
+					</hlayout>
+					<hlayout>
+						<label sclass="form-label-narrow">Style:</label>
+						<textbox width="120px" rows="3" value="@load(vm.bean.style) @save(vm.bean.style, before='set')"/>
+					</hlayout>
+				</vlayout>
+			</tabpanel>
+		</tabpanels>
+	</tabbox>
+	<hlayout style="padding:10px">
+		<button label="Set" onClick="@command('set')"/>
+		<button label="Cancel" onClick="@command('detachView')"/>
+	</hlayout>
+</window>

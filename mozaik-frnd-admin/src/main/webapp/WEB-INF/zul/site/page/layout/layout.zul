@@ -1,0 +1,67 @@
+<!--
+  This file is part of Mozaik CMS            www.mozaik.top
+  Copyright © 2016 Denis N Ivanchik       danykey@gmail.com
+-->
+<vlayout hflex="true" vflex="true"
+	viewModel="@id('vm') @init('top.mozaik.frnd.admin.vm.site.page.layout.PageLayoutVM')" 
+	sclass="mozaik-page-layout">
+	<hlayout sclass="mozaik-page-layout-bar">
+		<menubar>
+			<menu label="&#8203;" visible="@load(empty vm.bean.value)">
+				<menupopup>
+					<menuitem label="Set Style" onClick="@command('setStyle')"/>
+					<menuseparator/>
+					<menuitem label="Set Widget" onClick="@command('setWidget')" visible="@load(vm.bean.size eq 0)"/>
+					<menuitem label="Set Skin" onClick="@command('setSkin')" visible="@load(empty vm.bean.skin and vm.bean.size eq 0)"/>
+					<menuseparator visible="@load(vm.bean.size eq 0)"/>
+					<menuitem label="Add Left Column" image="/media/site/layout_add_hor_left.gif" onClick="@command('addLayoutLeft')"/>
+					<menuitem label="Add Right Column" image="/media/site/layout_add_hor_right.gif" onClick="@command('addLayoutRight')"/>
+					<menuitem label="Add Top Row" image="/media/site/layout_add_ver_top.gif" onClick="@command('addLayoutTop')"/>
+					<menuitem label="Add Bottom Row" image="/media/site/layout_add_ver_bottom.gif" onClick="@command('addLayoutBottom')"/>
+					<menuseparator/>
+					<menuitem label="Set Orient Hor" onClick="@command('setOrientHor')" />
+					<menuitem label="Set Orient Ver" onClick="@command('setOrientVer')" />
+					<menuseparator visible="@load(not empty vm.bean.skin or not empty vm.bean.parent)"/>
+					<menuitem label="Delete Skin" onClick="@command('deleteSkin')" visible="@load(not empty vm.bean.skin)"/>
+					<menuitem label="Delete Cell" onClick="@command('delete')" visible="@load(not empty vm.bean.parent)"/>
+				</menupopup>
+			</menu>
+			<menu label="&#8203;" visible="@load(not empty vm.bean.value)">
+				<menupopup>
+					<menuitem label="Set Style" onClick="@command('setStyle')"/>
+					<menuseparator/>
+					<menuitem label="Set Skin" onClick="@command('setSkin')" visible="@load(empty vm.bean.skin)"/>
+					<menuseparator visible="@load(empty vm.bean.skin)"/>
+					<menuitem label="Delete Skin" onClick="@command('deleteSkin')" visible="@load(not empty vm.bean.skin)"/>
+					<menuitem label="Delete Widget" onClick="@command('deleteWidget')"/>
+					<menuitem label="Delete Cell" onClick="@command('delete')" visible="@load(not empty vm.bean.parent)"/>
+				</menupopup>
+			</menu>
+		</menubar>
+		<!-- 
+		<image src="/media/site/layout_split_hor.gif" tooltiptext="Split Horizontally" onClick="@command('splitHor')" visible="@load(vm.bean.size eq 0)"/>
+		<image src="/media/site/layout_split_ver.gif" tooltiptext="Split Vertically" onClick="@command('splitVer')" visible="@load(vm.bean.size eq 0)"/>
+		 
+		
+		<image src="/media/site/layout_add_hor_left.gif" tooltiptext="Add Column to the Left" onClick="@command('addLayoutLeft')" visible="@load(vm.bean.size gt 0)"/>
+		<image src="/media/site/layout_add_hor_right.gif" tooltiptext="Add Column to the Right" onClick="@command('addLayoutRight')" visible="@load(vm.bean.size gt 0)"/>
+		<image src="/media/site/layout_add_ver_top.gif" tooltiptext="Add Row to the Top" onClick="@command('addLayoutTop')" visible="@load(vm.bean.size gt 0)"/>
+		<image src="/media/site/layout_add_ver_bottom.gif" tooltiptext="Add Row to the Bottom" onClick="@command('addLayoutBottom')" visible="@load(vm.bean.size gt 0)"/>
+		
+		<image src="/media/site/layout_add_hor_left.gif" tooltiptext="Add Column to the Left" onClick="@command('addLayoutLeft')"/>
+		<image src="/media/site/layout_add_hor_right.gif" tooltiptext="Add Column to the Right" onClick="@command('addLayoutRight')"/>
+		<image src="/media/site/layout_add_ver_top.gif" tooltiptext="Add Row to the Top" onClick="@command('addLayoutTop')"/>
+		<image src="/media/site/layout_add_ver_bottom.gif" tooltiptext="Add Row to the Bottom" onClick="@command('addLayoutBottom')"/>
+		
+		Orient:
+		<radiogroup>
+			<radio label="H" checked="@load(vm.bean.orientHor)" onCheck="@command('setOrientHor')"/>
+			<radio label="V" checked="@load(not vm.bean.orientHor)" onCheck="@command('setOrientVer')"/>
+		</radiogroup>
+		
+		<label style="float:right" onClick="@command('delete')">X</label>
+		
+		<label value="@load(vm.bean.parent)"/>
+		-->
+	</hlayout>
+</vlayout>

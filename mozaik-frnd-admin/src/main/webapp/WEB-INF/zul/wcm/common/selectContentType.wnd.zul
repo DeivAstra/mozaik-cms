@@ -1,0 +1,23 @@
+<!--
+  This file is part of Mozaik CMS            www.mozaik.top
+  Copyright © 2016 Denis N Ivanchik       danykey@gmail.com
+-->
+<?taglib uri="http://www.zkoss.org/dsp/web/core" prefix="core"?>
+<window viewModel="@id('vm') 
+	@init('top.mozaik.frnd.admin.vm.wcm.common.SelectContentTypeVM')"
+	title="Select Content Type" border="normal" position="center,center" closable="true" mode="modal"
+	width="100%" height="100%">
+	<listbox id="contentTypeListbox" autopaging="true" mold="paging" vflex="true" multiple="true"
+		model="@load(vm.contentTypeList)">
+		<listhead>
+			<listheader label="Mime" sortAscending="${core:new2('org.zkoss.zul.FieldComparator', 'mime', true) }"
+					sortDescending="${core:new2('org.zkoss.zul.FieldComparator', 'mime', false) }"/>
+		</listhead>
+		<template name="model">
+			<listitem value="@load(each)" 
+				onDoubleClick="@command('select', contentType=self.getValue())">
+				<listcell label="@load(each.mime)"/>
+			</listitem>
+		</template>
+	</listbox>
+</window>

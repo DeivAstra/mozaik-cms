@@ -1,0 +1,49 @@
+<!--
+  This file is part of Mozaik CMS            www.mozaik.top
+  Copyright © 2016 Denis N Ivanchik       danykey@gmail.com
+-->
+<window width="100%" height="100%" xmlns:client="http://www.zkoss.org/2005/zk/client"
+	viewModel="@id('vm') @init('top.mozaik.frnd.studio.vm.resourceeditor.QueryResourceEditorVM')"
+	contentStyle="padding:0">
+	
+	<label id="closeResultLabel" onClick="@command('hideResultPanel')" style="display:none"/>
+	<borderlayout sclass="overlapping">
+		<north border="0">
+			<hbox width="100%" style="padding-bottom:4px" pack="stretch">			
+				<toolbarbutton id="executeBtn" image="/media/execute.svg" tooltiptext="Execute" onClick="@command('execute')"
+					style="border:1px solid silver"/>
+				<hlayout style="float:right">
+					Limit:
+					<intbox id="limitIntbox" value="100" width="40px"
+						constraint="no empty, no negative, no zero"/>
+				</hlayout>
+			</hbox>
+		</north>
+		<center border="0">
+			<include id="cmInclude" src="/WEB-INF/zul/_shared_/CodeMirror.zul" _mode="text/x-mysql"/>
+			<attribute client:name="bind_">
+   			<![CDATA[
+			function() {
+				this.$supers('bind_', arguments);
+		
+				//console.log(this.$n()); 
+	
+				var wgt = this;
+				
+				$(wgt.$n()).first().click(function(){
+					zAu.send(new zk.Event(zk.Widget.$('$closeResultLabel'), "onClick"));
+				});
+				
+			}
+   			]]>
+			</attribute>
+		</center>
+		<south border="0" splittable="false" style="position:absolute;visibility:hidden;display:none" 
+			height="200px">
+			<grid id="queryResultGrid" sizedByContent="true" vflex="true">
+				<columns/>
+				<rows/>	
+			</grid>
+		</south>
+	</borderlayout>
+</window>

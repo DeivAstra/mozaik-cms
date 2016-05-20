@@ -1,0 +1,83 @@
+<!--
+  This file is part of Mozaik CMS            www.mozaik.top
+  Copyright © 2016 Denis N Ivanchik       danykey@gmail.com
+-->
+<zk>
+<window width="100%" height="100%" viewModel="@id('vm')  
+		@init('top.mozaik.frnd.admin.vm.wcm.template.EditTemplateVM')"
+		contentStyle="padding:0">
+
+	<vlayout vflex="true">
+		<hlayout>
+		 	<button label="Save" onClick="@command('save')"/>
+		</hlayout>
+		<tabbox hflex="true" vflex="true">
+		<tabs>
+			<tab>General</tab>
+			<tab id="fieldsTab">Fields</tab>
+		</tabs>
+		<tabpanels>
+			<tabpanel>
+				<vlayout style="padding:20px">
+					<hlayout>
+						<label class="form-label" value="Title:"/>
+						<textbox class="form-field" value="@load(vm.bean.title) @save(vm.bean.title, before='save')"
+							constraint="${application.attributes.cache.constraint.noempty}"/>
+					</hlayout>
+					<hlayout>
+						<label class="form-label" value="Alias:"/>
+						<textbox class="form-field" value="@load(vm.bean.alias) @save(vm.bean.alias, before='save')"
+							constraint="${application.attributes.cache.constraint.noempty}"/>
+					</hlayout>
+					<hlayout>
+						<label class="form-label" value="Description:"/>
+						<textbox class="form-field" value="@load(vm.bean.descr) @save(vm.bean.descr, before='save')" rows="2"/>
+					</hlayout>
+				</vlayout>
+			</tabpanel>
+			<tabpanel fulfill="fieldsTab.onSelect" style="padding:0">
+				<window width="100%" height="100%" viewModel="@id('edtc')
+					@init('top.mozaik.frnd.admin.vm.wcm.template.EditTemplateFieldsVM',
+						templateId=vm.bean.id, commandQueue=vm.commandQueue)" contentStyle="padding:0">
+					<listbox id="templateFieldListbox" autopaging="true" mold="paging" vflex="true" multiple="true"
+						model="@load(edtc.templateFieldList)">
+						<auxhead>
+							<auxheader colspan="7">
+								<hlayout>
+									<button sclass="no-padding" image="/media/add.svg"
+										tooltiptext="Create" onClick="@command('create')"/>
+									<button sclass="no-padding" image="/media/remove.svg"
+										tooltiptext="Remove" onClick="@command('remove')"/>
+									<button sclass="no-padding" image="/media/refresh.svg"
+										tooltiptext="Refresh" onClick="@command('refresh')"/>
+								</hlayout>
+							</auxheader>
+						</auxhead>
+						<listhead>
+							<listheader label="Code" />
+							<listheader label="Type" />
+							<listheader label="Title" />
+							<listheader label="Value" />
+							<listheader label="Description" />
+							<listheader label="Constraint" />
+							<listheader label="Constraint Regex" />
+						</listhead>
+						<template name="model">
+							<listitem value="@load(each)" onDoubleClick="@command('edit', bean=self.getValue())">
+								<listcell label="@load(each.code)"/>
+								<listcell label="@load(each.type.uiname())"/>
+								<listcell label="@load(each.title)"/>
+								<listcell label="@load(each.value)"/>
+								<listcell label="@load(each.descr)"/>
+								<listcell label="@load(empty each.constraint?null:'*')"/>
+								<listcell label="@load(empty each.constraintRegex?null:'*')"/>
+							</listitem>
+						</template>
+					</listbox>
+				</window>
+			</tabpanel>
+		</tabpanels>
+		</tabbox>
+	</vlayout>
+</window>
+</zk>

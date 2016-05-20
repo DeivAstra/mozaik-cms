@@ -1,0 +1,62 @@
+<!--
+  This file is part of Mozaik CMS            www.mozaik.top
+  Copyright © 2016 Denis N Ivanchik       danykey@gmail.com
+-->
+<window width="100%" height="100%"
+	viewModel="@id('vm') @init('top.mozaik.frnd.admin.vm.site.page.EditPageVM')"
+	contentStyle="padding:0">
+
+	<vlayout vflex="true">
+		<hlayout>
+			<button label="Save" onClick="@command('validateAndSave')"/>
+		</hlayout>
+		
+		<tabbox hflex="true" vflex="true">
+		<tabs>
+			<tab>General</tab>
+			<tab id="layoutTab">Layout</tab>
+			<!-- 
+			<tab>Access</tab>
+			<tab>Properties</tab>
+			 -->
+		</tabs>
+		<tabpanels>
+			<tabpanel>
+				<vlayout style="padding:20px">
+					<hlayout>
+						<label class="form-label" value="Theme:"/>
+						<label class="form-label" id="selectedThemeInfoLabel" width="300px"/>
+						<button label="..." onClick="@command('selectTheme')"/>
+					</hlayout>
+					<hlayout>
+						<label class="form-label" value="Title:"/>
+						<textbox class="form-field" maxlength="100"
+							value="@load(vm.bean.title) @save(vm.bean.title,before='save')" 
+							constraint="${application.attributes.cache.constraint.noempty}"/>
+					</hlayout>
+					<hlayout>
+						<label class="form-label" value="Alias:"/>
+						<textbox class="form-field" maxlength="255"
+							value="@load(vm.bean.alias) @save(vm.bean.alias,before='save')"/>
+					</hlayout>
+					<hlayout>
+						<label class="form-label" value="Description:"/>
+						<textbox class="form-field" rows="2" maxlength="255"
+							value="@load(vm.bean.descr) @save(vm.bean.descr,before='save')" />
+					</hlayout>
+				</vlayout>
+			</tabpanel>
+			<tabpanel fulfill="layoutTab.onSelect">
+				<window hflex="true" vflex="true" 
+					viewModel="@id('plc') @init('top.mozaik.frnd.admin.vm.site.page.layout.EditPageLayoutsVM', 
+						pageId=vm.bean.id, commandQueue=vm.commandQueue)">
+				</window>
+			</tabpanel>
+			<!-- 
+			<tabpanel></tabpanel>
+			<tabpanel></tabpanel>
+			 -->
+		</tabpanels>
+		</tabbox>
+	</vlayout>
+</window>

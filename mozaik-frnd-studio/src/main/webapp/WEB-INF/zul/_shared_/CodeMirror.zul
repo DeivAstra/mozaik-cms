@@ -1,0 +1,46 @@
+<!--
+  This file is part of Mozaik CMS            www.mozaik.top
+  Copyright © 2016 Denis N Ivanchik       danykey@gmail.com
+-->
+<?page title="" contentType="text/html;charset=UTF-8"?>
+<zk xmlns:client="http://www.zkoss.org/2005/zk/client">
+<div hflex="true" vflex="true" style="overflow-x:hidden;overflow-y:auto;"
+	 id="cm" use="top.mozaik.frnd.plus.zk.component.CodeMirror" mode="${arg._mode}">
+
+	<attribute client:name="bind_">		
+    <![CDATA[
+    function() {
+    	this.$supers('bind_', arguments);
+    		
+    	//console.log(this.$n()); 
+    	
+    	var wgt = this;
+    	
+    	this.editor = CodeMirror(wgt.$n(), {
+    		mode: "${arg._mode}",
+    		lineNumbers: true,
+    		indentUnit: 4,
+    		indentWithTabs: true/*,
+    		viewportMargin: Infinity*/
+    	});
+    	window.cm = this.editor;
+    	this.editor.on('blur', function(cm){
+    		zAu.send(new zk.Event(wgt, "onBlur", {
+    			value:cm.doc.getValue(),
+    			selectedValue:cm.doc.getSelection()
+    		}));
+    	});
+    	var mac = CodeMirror.keyMap.default == CodeMirror.keyMap.macDefault;
+    	CodeMirror.keyMap.default[(mac ? "Cmd" : "Ctrl") + "-Space"] = "autocomplete";
+    }
+    ]]>
+    </attribute>
+    <attribute client:name="setValue">
+    	<![CDATA[
+    	function (data) {
+    		this.editor.setValue(data.value);
+    	}
+    	]]>
+    </attribute>
+</div>
+</zk>

@@ -1,0 +1,22 @@
+<!--
+  This file is part of Mozaik CMS            www.mozaik.top
+  Copyright © 2016 Denis N Ivanchik       danykey@gmail.com
+-->
+<zk>
+<window viewModel="@id('vm')
+		@init('top.mozaik.frnd.studio.vm.build.BuildVM')"
+	title="Build" border="normal" position="center,center" closable="false" mode="modal"
+	width="100%" height="100%" onClose="@command('close')">
+	<script type="text/javascript">
+	function scrollDown(uuid) {
+		var el = document.getElementById(uuid);
+		if(el == null) return;
+		el.scrollTop = el.scrollHeight;
+	}
+	</script>
+	<vlayout vflex="true">
+		<atextbox id="logTextbox" multiline="true" vflex="true" hflex="true" style="font-size:90%"/>
+		<button id="closeBtn" disabled="true" label="Close" onClick="@command('detachView')"/>
+	</vlayout>
+</window>
+</zk>

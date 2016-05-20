@@ -1,0 +1,14 @@
+<!--
+  This file is part of Mozaik CMS            www.mozaik.top
+  Copyright © 2016 Denis N Ivanchik       danykey@gmail.com
+-->
+<?page contentType="text/html;charset=UTF-8"?>
+<zk>
+<menubar>
+	<menu label="Resource Pack">
+		<menupopup>
+			<menuitem label="Open" onClick=''/>
+		</menupopup>
+	</menu>
+</menubar>
+</zk>

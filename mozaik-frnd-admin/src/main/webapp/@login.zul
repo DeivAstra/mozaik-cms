@@ -1,0 +1,62 @@
+<!--
+  This file is part of Mozaik CMS            www.mozaik.top
+  Copyright © 2016 Denis N Ivanchik       danykey@gmail.com
+-->
+<?page title="Mozaik Admin Login" ?>
+<zk xmlns:h="xhtml">
+<?init class="top.mozaik.frnd.admin.init.DbInit"?>
+<zscript>
+<![CDATA[
+    import top.mozaik.frnd.admin.App;
+	boolean initOk = false;
+    if(session.getAttribute("db") == null) {
+		execution.sendRedirect("/@setup.zul");
+	} else {
+		initOk = true;
+	}
+	if(initOk) {
+		App.init(application);
+	}
+]]>
+</zscript>
+
+<zk if="${initOk}">
+<include src="/WEB-INF/zul/_shared_/styles.zul"/>
+</zk>
+
+<window if="${initOk}" mode="overlapped" width="510px" border="normal" position="center" 
+	zclass="z-window-popup" style="box-shadow: 0 0 2px gray;"
+	viewModel="@id('vm') @init('top.mozaik.frnd.admin.vm.LoginVM',redirect=execution.getParameter('r'))">
+	<vlayout style="padding:20px">
+		<div style="max-height:33px;overflow:hidden">
+			<image src="/media/mozaik3.png"/>
+			<h:span style="font-family:arial;float:right">ADMIN</h:span>
+		</div>
+		
+		<groupbox open="true">
+			<caption>Log In</caption>
+			<div if="${execution.getParameter('wrong') eq '1'}" vflex="true" style="color:red;text-align:center">
+				Wrong Username or Password
+			</div>
+			<vlayout style="padding:20px">
+    			<hlayout>
+					<label class="form-label" value="Username: "/>
+					<textbox id="usernameTextbox" class="form-field-short" focus="true"
+						constraint="${application.attributes.cache.constraint.noempty}"/>
+				</hlayout>
+				<hlayout>
+					<label class="form-label" value="Password: "/>
+					<textbox id="passwordTextbox" class="form-field-short" type="password"
+						constraint="${application.attributes.cache.constraint.noempty}"
+						onOK="@command('login', username=usernameTextbox.value, password=passwordTextbox.value)"/>
+				</hlayout>
+			</vlayout>
+		</groupbox>
+		<separator/>
+		<div align="right" style="width:100%">
+			<button id="continueBtn" label="Continue &gt;&gt;" 
+				onClick="@command('login', username=usernameTextbox.value, password=passwordTextbox.value)"/>
+		</div>
+	</vlayout>
+</window>
+</zk>

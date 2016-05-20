@@ -1,0 +1,10 @@
+<!--
+  This file is part of Mozaik CMS            www.mozaik.top
+  Copyright © 2016 Denis N Ivanchik       danykey@gmail.com
+-->
+<?script type="text/javascript" src="/zul/zksandbox.js.dsp"?>
+<window 
+	viewModel="@id('vm') @init('top.mozaik.frnd.studio.vm.widget.preview.PreviewWidgetVM')"
+	title="Preview">
+	
+</window>

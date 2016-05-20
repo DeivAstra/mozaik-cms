@@ -1,0 +1,26 @@
+<!--
+  This file is part of Mozaik CMS            www.mozaik.top
+  Copyright © 2016 Denis N Ivanchik       danykey@gmail.com
+-->
+<window
+	viewModel="@id('vm') @init('top.mozaik.frnd.admin.vm.site.page.layout.SelectSkinVM')"
+	title="Select Skin" border="normal" position="center,center" closable="true" mode="modal" width="600px">
+	
+	<vlayout style="padding:20px">
+		<listbox id="resourcePackSetListbox" model="@load(vm.resourcePackSetList)" 
+			autopaging="true" mold="paging" vflex="true" multiple="true">
+
+			<listhead>
+				<listheader label="Resource Pack"/>
+				<listheader label="Name"/>
+			</listhead>
+			<template name="model">
+				<listitem value="@load(each)" 
+					onDoubleClick="@command('select', resourceSet=self.getValue())">
+					<listcell label="@load(vm.getResourcePackTitle(each.resourcePackId))"/>
+					<listcell label="@load(each.title)"/>
+				</listitem>
+		</template>
+		</listbox>
+	</vlayout>
+</window>

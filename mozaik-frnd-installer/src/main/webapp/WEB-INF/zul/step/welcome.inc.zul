@@ -1,0 +1,17 @@
+<!--
+  This file is part of Mozaik CMS            www.mozaik.top
+  Copyright © 2016 Denis N Ivanchik       danykey@gmail.com
+-->
+<zk>
+	<vlayout style="padding:20px">
+		You are Welcome!
+		<separator/>
+		<hlayout>
+			Mozaik is based on <a target="_blank" href="http://www.zkoss.org">ZKoss</a>  Java Web Framework.
+		</hlayout>
+		<separator/>
+		<label>Please, click 'Next' to continue.</label>
+		<separator/>
+		<label style="color:black;font-size:80%">System Requirements: Installed MySQL 5.5 and later.</label>
+	</vlayout>
+</zk>

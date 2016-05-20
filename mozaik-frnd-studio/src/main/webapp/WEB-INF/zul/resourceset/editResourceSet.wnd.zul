@@ -1,0 +1,29 @@
+<!--
+  This file is part of Mozaik CMS            www.mozaik.top
+  Copyright © 2016 Denis N Ivanchik       danykey@gmail.com
+-->
+<window
+	viewModel="@id('vm') @init('top.mozaik.frnd.studio.vm.resourceset.EditResourceSetVM')"
+	title="Edit" border="normal" position="center,center" closable="true" mode="modal">
+	
+	<vlayout style="padding:20px">
+		<hlayout>
+			<label class="form-label" value="Title:"/>
+			<textbox class="form-field"
+				value="@load(vm.bean.title) @save(vm.bean.title, before='save')"
+				constraint="${application.attributes.cache.constraint.noempty}"/>
+		</hlayout>
+		<hlayout if="${arg.treeResourceSetFolder.value.type.name() eq 'WIDGET'
+				|| arg.treeResourceSetFolder.value.type.name() eq 'LIBRARY'}">
+			<label class="form-label" value="Alias:"/>
+			<textbox class="form-field"
+				value="@load(vm.bean.alias) @save(vm.bean.alias, before='save')"
+				constraint="${application.attributes.cache.constraint.noempty}"/>
+		</hlayout>
+		<hlayout>
+		 	<button label="Save" onClick="@command('save')"/>
+			<button label="Cancel" onClick="@command('detachView')"/>
+		</hlayout>
+	</vlayout>
+
+</window>

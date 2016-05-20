@@ -1,0 +1,28 @@
+<!--
+  This file is part of Mozaik CMS            www.mozaik.top
+  Copyright © 2016 Denis N Ivanchik       danykey@gmail.com
+-->
+<zk>
+<window
+	viewModel="@id('vm') @init('top.mozaik.frnd.admin.vm.SetupLoginVM')"
+	title="Please enter credentials of the admin cms user" 
+	border="normal" position="center,center" closable="true" mode="modal">
+	<vlayout style="padding:20px">
+		<hlayout>
+			<label class="form-label" value="Login:"/>
+			<textbox class="form-field-short" maxlength="100"
+				value="@save(vm.bean.login)"
+				constraint="${application.attributes.cache.constraint.noempty}"/>
+		</hlayout>
+		<hlayout>
+			<label class="form-label" value="Password:"/>
+			<textbox class="form-field-short" maxlength="100" type="password" 
+				value="@save(vm.bean.password)" onOK="@command('save')"
+				constraint="${application.attributes.cache.constraint.noempty}"/>
+		</hlayout>
+		<hlayout>
+			<button label="OK" onClick="@command('save')"/>
+		</hlayout>
+	</vlayout>
+</window>
+</zk>

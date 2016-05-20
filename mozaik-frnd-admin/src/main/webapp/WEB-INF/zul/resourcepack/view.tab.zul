@@ -1,0 +1,44 @@
+<!--
+  This file is part of Mozaik CMS            www.mozaik.top
+  Copyright © 2016 Denis N Ivanchik       danykey@gmail.com
+-->
+<zk>
+<borderlayout sclass="overlapping"
+		viewModel="@id('vm') @init('top.mozaik.frnd.admin.vm.resourcepack.ResourcePacksVM')">
+	<center border="none">
+		<tree id="resourcePackTree" vflex="true" model="@load(vm.resourcePackTreeModel)">
+			<auxhead>
+				<auxheader colspan="1">
+					<menupopup id="resourcePackTreeContextMenu" onOpen="@command('showTreeContextMenu', event=event)"/>
+					<button sclass="no-padding" image="/media/refresh.svg"
+						tooltiptext="Refresh" onClick="@command('refresh')"/>
+					<button label="New" tooltiptext="New Resource Pack" onClick="@command('createResourcePack')"/>
+					<button label="Delete" tooltiptext="Delete Resource Pack" onClick="@command('deleteResourcePack')"/>
+					<button label="Import" tooltiptext="Import Resource Pack" onClick="@command('importResourcePack')"/>
+					<button label="Export" tooltiptext="Export Resource Pack" onClick="@command('exportResourcePack')"/>
+				</auxheader>
+			</auxhead>
+			<treecols>
+				<treecol/>
+   			</treecols>
+   			<template name="model">
+				<treeitem value="${each}" context="resourcePackTreeContextMenu">
+              		<treerow>
+                  		<treecell label="${each}" image="@load(each) @converter(vm.treeitemImageUrlConverter)"/>
+             		</treerow>
+          		</treeitem>
+			</template>
+		</tree>
+	</center>
+	<east border="none" splittable="false" width="80%" style="visibility:hidden">
+		<tabbox id="resourcePackCenterTabbox" hflex="true" vflex="true">
+			<tabs>
+				<tab label="&#160;" sclass="close-panel" closable="true"/>
+			</tabs>
+			<tabpanels>
+				<tabpanel/>
+			</tabpanels>
+		</tabbox>
+	</east>
+</borderlayout>
+</zk>

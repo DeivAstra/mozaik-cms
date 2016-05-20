@@ -1,0 +1,34 @@
+<!--
+  This file is part of Mozaik CMS            www.mozaik.top
+  Copyright © 2016 Denis N Ivanchik       danykey@gmail.com
+-->
+<?taglib uri="http://www.zkoss.org/dsp/web/core" prefix="core"?>
+<window width="100%" height="100%" viewModel="@id('vm') 
+	@init('top.mozaik.frnd.admin.vm.wcm.settings.contenttype.ContentTypesVM',
+		commandQueue=arg.commandQueue)" contentStyle="padding:0">
+	<listbox id="contentTypeListbox" autopaging="true" mold="paging" vflex="true" multiple="true"
+		model="@load(vm.contentTypeList)">
+		<auxhead>
+			<auxheader colspan="1">
+				<hlayout>
+					<button sclass="no-padding" image="/media/add.svg"
+						tooltiptext="Create" onClick="@command('create')"/>
+					<button sclass="no-padding" image="/media/remove.svg"
+						tooltiptext="Remove" onClick="@command('remove')"/>
+					<button sclass="no-padding" image="/media/refresh.svg"
+						tooltiptext="Refresh" onClick="@command('refresh')"/>
+				</hlayout>
+			</auxheader>
+		</auxhead>
+		<listhead>
+			<listheader label="Mime" sortAscending="${core:new2('org.zkoss.zul.FieldComparator', 'mime', true) }"
+					sortDescending="${core:new2('org.zkoss.zul.FieldComparator', 'mime', false) }"/>
+		</listhead>
+		<template name="model">
+			<listitem value="@load(each)" 
+				onDoubleClick="@command('edit', bean=self.getValue())">
+				<listcell label="@load(each.mime)"/>
+			</listitem>
+		</template>
+	</listbox>
+</window>

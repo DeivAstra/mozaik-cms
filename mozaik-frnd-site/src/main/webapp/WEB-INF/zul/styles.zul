@@ -1,0 +1,168 @@
+<!--
+  This file is part of Mozaik CMS            www.mozaik.top
+  Copyright © 2016 Denis N Ivanchik       danykey@gmail.com
+-->
+<?page contentType="text/html;charset=UTF-8"?>
+<?component name="include" class="org.zkoss.zul.Include"?>
+<zk>
+<style>
+body{
+background-color:white;
+padding:0;
+}
+.clickable{
+cursor:pointer;
+}
+.link{
+cursor:pointer;
+color: blue;
+text-decoration: none;
+}
+.form-label-narrow{
+display:block;
+width:100px;
+}
+.form-label{
+display:block;
+width:200px;
+}
+.form-label-wide{
+display:block;
+width:400px;
+}
+.form-section-label{
+display: block;
+width: 100%;
+font-weight: bold;
+padding: 5px;
+background: whitesmoke;
+margin: 10px 0;
+}
+.form-field{
+display:block;
+width:400px
+}
+.form-field-short{
+display:block;
+width:200px
+}
+.welcome{
+font-size:140%;
+color:gray;
+text-align:center;
+text-shadow: 1px 1px 1px white;
+background: lightblue;
+}
+
+.no-padding.z-button {
+padding:0;
+}
+
+#zk_log{
+background: black;
+color: silver;
+font-size: 11px;
+box-shadow: 2px 2px 15px black;
+}
+
+.scroll-x.z-window .z-window-content {
+overflow-x:auto;
+}
+
+.z-splitter-nosplitter span{
+color:red;
+}
+
+.disabled.z-listbox .z-listbox-body {
+background:whitesmoke;
+}
+
+.inherit-color a {
+color:inherit;
+}
+
+.disabled.z-menu{
+opacity:0.5;
+}
+.disabled.z-menu .z-menu-content:hover{
+background:none;
+border-color:transparent;
+}
+
+div.closeable-label{
+border:1px solid white;
+display:inline-block;
+padding:0 3px;
+border-radius:5px;
+background:gainsboro;
+}
+div.closeable-label .z-a{
+text-decoration:none
+}
+div.closeable-label .z-label{
+cursor:pointer;
+}
+div.closeable-label .z-label:hover{
+color:red;
+}
+
+.z-tree * {
+-webkit-touch-callout: none;
+-webkit-user-select: none;
+-khtml-user-select: none;
+-moz-user-select: none;
+-ms-user-select: none;
+user-select: none;
+}
+
+.mozaik-page-layout {
+/*margin: 10px;*/
+border: 1px dotted silver;
+background:#fff;
+}
+.mozaik-page-layout .mozaik-page-layout-bar {
+
+}
+.mozaik-page-layout .mozaik-page-layout-bar .z-menu-icon {
+right:7px;
+}
+.mozaik-page-layout .mozaik-page-layout-bar .z-menubar {
+padding:0;
+border:none;
+background:none;
+}
+.mozaik-page-layout .mozaik-page-layout-childs {
+padding:5px;
+}
+.mozaik-page-layout .mozaik-page-layout-childs.z-hlayout > .z-hlayout-inner {
+/*background:gold;
+padding:0 !important;
+margin-right:5px;*/
+}
+
+.z-borderlayout.overlapping .z-center {
+min-width:100%
+}
+.z-borderlayout.overlapping .z-east-splitter{
+box-shadow:-2px 0px 3px silver
+}
+.z-borderlayout.overlapping .z-south-splitter{
+box-shadow:-2px 0px 3px silver
+}
+
+.z-tab.close-panel{
+background:gainsboro
+}
+.z-tab.close-panel .z-tab-button+.z-tab-text {
+margin:0
+}
+
+.z-tab.only-icons-left .z-tab-text {
+padding:5px 0;
+margin-left:5px;
+text-overflow:clip;
+}
+
+</style>
+<include src="/WEB-INF/zul/theme.zul"/>
+</zk>

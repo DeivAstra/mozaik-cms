@@ -1,0 +1,148 @@
+<!--
+  This file is part of Mozaik CMS            www.mozaik.top
+  Copyright © 2016 Denis N Ivanchik       danykey@gmail.com
+-->
+<?page contentType="text/html;charset=UTF-8"?>
+<zk>
+<style>
+.z-window{
+border-radius:0 !important;
+/*box-shadow:none !important;*/
+}
+/*
+.z-menu-text, .z-menuitem-text{
+font-family:'Ubuntu',monospace
+}
+.z-tab{
+font-family:'Ubuntu',monospace
+}
+.z-tabbox-icon{
+border-radius:0;
+}
+.z-listheader-content, .z-listcell-content, .z-listgroup-content, .z-listgroupfoot-content, .z-listfooter-content{
+font-family:'Ubuntu',monospace
+}
+.z-window-header{
+font-family:'Ubuntu',monospace
+}
+.z-label, .z-radio-content, .z-checkbox-content, .z-loading{
+font-family:'Ubuntu',monospace
+}
+*/
+.z-tab{
+border-radius:0 !important;
+}
+.z-tab-text{
+line-height:18px;
+}
+.z-tabbox-icon {
+padding-top:0;
+}
+
+.z-tab.image14px>a>span>.z-tab-image {
+width:14px;
+height:14px;
+}
+.z-treerow.image14px img{
+width:14px;
+height:14px;
+}
+
+/* MOZAIK */
+.z-auxheader, .z-tab {
+background: whitesmoke;
+}
+.z-tab{
+border:0;
+}
+.z-tabpanel {
+border:0;
+}
+.z-tab-selected {
+background:white;
+border-width: 1px;
+border-color: whitesmoke;
+border-style: solid;
+border-bottom:0;
+}
+.z-tabs-content {
+border-bottom: 1px solid whitesmoke;
+}
+.z-tabbox-top>.z-tabs .z-tab:first-child.z-tab-selected+.z-tab{
+box-shadow:none;
+}
+.z-tabbox-left>.z-tabs .z-tab-selected,.z-tabbox-left>.z-tabs .z-tab {
+border:0;
+}
+.z-tabbox-icon {
+border-radius:0;
+border:0;
+background:whitesmoke;
+}
+
+.z-button{
+border-radius:0;
+/*padding:3px;*/
+}
+.z-button,.z-button:focus{
+color:black;
+background:white;
+text-shadow: none;
+border:1px solid whitesmoke;
+}
+.z-button:hover {
+text-shadow:none;
+background:#FFCCBC;
+border:0;
+}
+.z-button[disabled] {
+background:whitesmoke;
+}
+
+.z-tree {
+border: 1px solid whitesmoke;
+}
+.z-treecol {
+background: white;
+}
+.z-window-popup,.z-textbox, .z-decimalbox, .z-intbox, .z-longbox, .z-doublebox {
+border-radius:0;
+}
+.z-window-modal.z-window-shadow, .z-window-highlighted.z-window-shadow {
+box-shadow:none;
+}
+.z-window {
+background: #9E9E9E;
+border:0;
+}
+.z-window-header {
+color:white;
+}
+.z-window-icon {
+background:whitesmoke;
+border-radius:0;
+}
+
+.z-textbox, .z-decimalbox, .z-intbox, .z-longbox, .z-doublebox{
+border: 1px solid whitesmoke;
+}
+
+.z-listheader, .z-column {
+background:whitesmoke;
+}
+
+.z-toolbar {
+background:whitesmoke;
+padding:0;
+border-color:white;
+}
+.z-toolbarbutton, .z-toolbarbutton:hover {
+border:0;
+}
+
+.z-auxheader-content {
+padding:0;
+}
+
+</style>
+</zk>

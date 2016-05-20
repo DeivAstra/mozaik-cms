@@ -1,0 +1,4 @@
+<package name="zkplus" language="xul/html" depends="zul">
+	<widget name="LabelInput"/>
+	<widget name="AppendTextbox"/>
+</package>

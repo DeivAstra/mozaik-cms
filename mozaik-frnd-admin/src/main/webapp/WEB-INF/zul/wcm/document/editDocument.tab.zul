@@ -1,0 +1,56 @@
+<!--
+  This file is part of Mozaik CMS            www.mozaik.top
+  Copyright © 2016 Denis N Ivanchik       danykey@gmail.com
+-->
+<zk>
+<window width="100%" height="100%" contentStyle="padding:0"
+	viewModel="@id('vm') @init('top.mozaik.frnd.admin.vm.wcm.document.EditDocumentVM')">
+
+	<vlayout vflex="true">
+		<hlayout>
+		 	<button label="Save" onClick="@command('validateAndSave')" />
+		</hlayout>
+		<tabbox hflex="true" vflex="true">
+		<tabs>
+			<tab>General</tab>
+			<tab id="fieldsTab" visible="@load(not empty vm.template)">Fields</tab>
+		</tabs>
+		<tabpanels>
+			<tabpanel>
+				<vlayout style="padding:20px">
+					<hlayout>
+						<label class="form-label" value="Template:"/>
+						<label value="@load(empty vm.template?'None':vm.template.title)"/>
+						<label value="[X]" onClick="@command('deleteTemplate')" tooltiptext="Delete"
+							visible="@load(not empty vm.template)" style="cursor:pointer;color:red"/>
+						<button label="Select" onClick="@command('selectTemplate')" visible="@load(empty vm.template)"/>
+					</hlayout>
+					<hlayout>
+						<label class="form-label" value="Title:"/>
+						<textbox value="@load(vm.bean.title) @save(vm.bean.title, before='save')" width="300px"
+							constraint="${application.attributes.cache.constraint.noempty}"/>
+					</hlayout>
+					<hlayout>
+						<label class="form-label" value="Alias:"/>
+						<textbox value="@load(vm.bean.alias) @save(vm.bean.alias, before='save')" width="300px"
+							constraint="${application.attributes.cache.constraint.noempty}"/>
+					</hlayout>
+					<hlayout>
+						<label class="form-label" value="Description:"/>
+						<textbox value="@load(vm.bean.descr) @save(vm.bean.descr, before='save')" width="300px" rows="2"/>
+					</hlayout>
+				</vlayout>
+			</tabpanel>
+			<tabpanel children="@load(vm) @template(empty vm.template?'empty':'fields')">
+				<template name="empty"/>
+				<template name="fields">
+					<include if="${not empty vm.template}" src="/WEB-INF/zul/wcm/document/editFields.inc.zul" 
+						documentId="${vm.bean.id}" templateId="${vm.template.id}" ctrl="${vm}"
+						loadTemplateValues="${vm.loadTemplateValues}"/>
+				</template>
+			</tabpanel>
+		</tabpanels>
+		</tabbox>
+	</vlayout>
+</window>
+</zk>

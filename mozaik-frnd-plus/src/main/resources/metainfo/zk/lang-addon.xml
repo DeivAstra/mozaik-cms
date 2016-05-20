@@ -1,0 +1,23 @@
+<language-addon>
+    <addon-name>mozaik.zkplus</addon-name>
+    <language-name>xul/html</language-name>
+	<component>
+		<component-name>labelinput</component-name>
+		<component-class>top.mozaik.frnd.plus.zk.component.LabelInput</component-class>
+		<widget-class>zkplus.LabelInput</widget-class>
+		<mold>
+		<mold-name>default</mold-name>
+			<mold-uri>mold/labelinput.js</mold-uri>
+			<css-uri>css/labelinput.css.dsp</css-uri>
+		</mold>
+	</component>
+	<component>
+		<component-name>atextbox</component-name>
+		<component-class>top.mozaik.frnd.plus.zk.component.AppendTextbox</component-class>
+		<widget-class>zkplus.AppendTextbox</widget-class>
+		<mold>
+		<mold-name>default</mold-name>
+			<mold-uri>mold/appendtextbox.js</mold-uri>
+		</mold>
+	</component>
+</language-addon>

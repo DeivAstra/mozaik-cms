@@ -1,0 +1,51 @@
+<!--
+  This file is part of Mozaik CMS            www.mozaik.top
+  Copyright © 2016 Denis N Ivanchik       danykey@gmail.com
+-->
+<zk>
+<borderlayout sclass="overlapping"
+		viewModel="@id('vm') @init('top.mozaik.frnd.admin.vm.wcm.WcmVM')">
+	<center border="none">
+		<tabbox orient="left" vflex="true">
+			<tabs width="35px">
+				<tab image="/media/wcm/document.svg" tooltiptext="Documents" sclass="only-icons-left"/>
+				<tab id="templateTab" image="/media/wcm/template.svg" tooltiptext="Templates" sclass="only-icons-left"/>
+				<tab id="componentTab" image="/media/wcm/component.svg" tooltiptext="Components" sclass="only-icons-left"/>
+				<tab id="resourceTab" image="/media/wcm/resource.svg" tooltiptext="Resources" sclass="only-icons-left"/>
+				<tab id="libraryTab" image="/media/wcm/library.svg" tooltiptext="Libraries" sclass="only-icons-left"/>
+				<tab id="settingsTab" image="/media/wcm/settings.svg" tooltiptext="Settings" sclass="only-icons-left"/>
+			</tabs>
+			<tabpanels style="border:0">
+				<tabpanel style="padding:0">
+					<include src="/WEB-INF/zul/wcm/document/view.tab.zul" wcmCtrl="${vm}"/>
+				</tabpanel>
+				<tabpanel fulfill="templateTab.onSelect" style="padding:0">
+					<include src="/WEB-INF/zul/wcm/template/view.tab.zul" wcmCtrl="${vm}"/>
+				</tabpanel>
+				<tabpanel fulfill="componentTab.onSelect" style="padding:0">
+					<include src="/WEB-INF/zul/wcm/component/view.tab.zul" wcmCtrl="${vm}"/>
+				</tabpanel>
+				<tabpanel fulfill="resourceTab.onSelect" style="padding:0">
+					<include src="/WEB-INF/zul/wcm/resource/view.tab.zul" wcmCtrl="${vm}"/>
+				</tabpanel>
+				<tabpanel fulfill="libraryTab.onSelect" style="padding:0">
+					<include src="/WEB-INF/zul/wcm/library/view.tab.zul" wcmCtrl="${vm}"/>
+				</tabpanel>
+				<tabpanel fulfill="settingsTab.onSelect" style="padding:0">
+					<include src="/WEB-INF/zul/wcm/settings/view.tab.zul" wcmCtrl="${vm}"/>
+				</tabpanel>
+			</tabpanels>
+		</tabbox>
+	</center>
+	<east border="none" splittable="false" width="80%" style="visibility:hidden">
+		<tabbox id="wcmCenterTabbox" hflex="true" vflex="true">
+			<tabs>
+				<tab label="&#160;" sclass="close-panel" closable="true"/>
+			</tabs>
+			<tabpanels>
+				<tabpanel/>
+			</tabpanels>
+		</tabbox>
+	</east>
+</borderlayout>
+</zk>

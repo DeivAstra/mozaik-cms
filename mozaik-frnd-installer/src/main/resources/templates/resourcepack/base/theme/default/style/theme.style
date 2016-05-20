@@ -1,0 +1,28 @@
+/* LESS */
+
+body{
+background:silver;
+}
+/*
+.z-include{
+width:auto !important;
+}
+*/
+.theme-body{
+max-width:1000px;
+margin:0 auto;
+visibility:visible !important;
+background:whitesmoke;
+}
+.page-layout{
+min-height:600px;
+}
+table.layout {
+border-spacing:0;
+width:100%;
+}
+table.layout>tbody>tr>td {
+padding:0;
+vertical-align:top;
+overflow:auto;
+}

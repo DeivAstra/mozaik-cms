@@ -1,0 +1,62 @@
+<!--
+  This file is part of Mozaik CMS            www.mozaik.top
+  Copyright © 2016 Denis N Ivanchik       danykey@gmail.com
+-->
+<?page title="Mozaik Admin Login" ?>
+<?component name="include" class="org.zkoss.zul.Include"?>
+<?init class="top.mozaik.frnd.site.init.DbInit"?>
+<zk xmlns:h="xhtml">
+<zscript>
+<![CDATA[
+    import top.mozaik.frnd.site.App;
+	boolean initOk = false;
+    if(session.getAttribute("db") == null) {
+		execution.sendRedirect("/@setup.zul");
+	} else {
+		initOk = true;
+	}
+	if(initOk) {
+		App.init(application);
+	}
+]]>
+</zscript>
+
+<zk if="${initOk}">
+<include src="/WEB-INF/zul/styles.zul"/>
+</zk>
+
+<window if="${initOk}" mode="overlapped" width="510px" border="normal" position="center" zclass="z-window-popup" 
+	style="box-shadow: 0 0 2px gray;"
+	viewModel="@id('vm') @init('top.mozaik.frnd.site.vm.LoginVM',redirect=execution.getParameter('r'))">
+	<vlayout style="padding:20px">
+		<div style="width:149px;max-height:33px;overflow:hidden">
+			<image src="data:image/png;base64,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" />
+		</div>
+		
+		<groupbox open="true">
+			<caption>Log In</caption>
+			<div if='${execution.getParameter("wrong") eq "1"}' vflex="true" style="color:red;text-align:center">
+				Wrong Username or Password
+			</div>
+			<vlayout style="padding:20px">
+    			<hlayout>
+					<label class="form-label" value="Username: "/>
+					<textbox id="usernameTextbox" class="form-field-short" focus="true"
+						constraint="${application.attributes.cache.constraint.noempty}"/>
+				</hlayout>
+				<hlayout>
+					<label class="form-label" value="Password: "/>
+					<textbox id="passwordTextbox" class="form-field-short" type="password"
+						constraint="${application.attributes.cache.constraint.noempty}"
+						onOK="@command('login', username=usernameTextbox.value, password=passwordTextbox.value)"/>
+				</hlayout>
+			</vlayout>
+		</groupbox>
+		<separator/>
+		<div align="right" style="width:100%">
+			<button id="continueBtn" label="Continue &gt;&gt;" 
+				onClick="@command('login', username=usernameTextbox.value, password=passwordTextbox.value)"/>
+		</div>
+	</vlayout>
+</window>
+</zk>

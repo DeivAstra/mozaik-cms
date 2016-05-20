@@ -1,0 +1,26 @@
+<!--
+  This file is part of Mozaik CMS            www.mozaik.top
+  Copyright © 2016 Denis N Ivanchik       danykey@gmail.com
+-->
+<window 
+	viewModel="@id('vm') @init('top.mozaik.frnd.studio.vm.library.resourcemanager.CreateResourceVM')"
+	title="@bind(vm.title)" border="normal" position="center,center" closable="true" mode="modal">
+	
+	<vlayout style="padding:20px">
+		<hlayout>
+			<label class="form-label" value="Path:"/>
+			<label class="form-field" value="@bind(vm.path)"/>
+		</hlayout>
+		<hlayout>
+			<label class="form-label" value="Name:"/>
+			<textbox class="form-field"
+				value="@save(vm.bean.name)"
+				constraint="${application.attributes.cache.constraint.noempty}"/>
+		</hlayout>
+		<hlayout>
+		 	<button id="createBtn" label="Create" onClick="@command('create')"/>
+			<button label="Cancel" onClick="@command('detachView')"/>
+		</hlayout>
+	</vlayout>
+	
+</window>

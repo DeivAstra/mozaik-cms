@@ -1,0 +1,15 @@
+<!--
+  This file is part of Mozaik CMS            www.mozaik.top
+  Copyright © 2016 Denis N Ivanchik       danykey@gmail.com
+-->
+<zk>
+	<vlayout>
+		<label style="color:green">Congratulations!</label>
+ 		<label style="color:green">CMS was installed successfuly.</label>
+ 		<separator/>
+ 		<hlayout>
+ 			<label>Now, you can go to the CMS admin interface (default context root: </label>
+ 			<a href="/../mzkadmin">/mzkadmin</a>).
+ 		</hlayout>
+	</vlayout>
+</zk>

@@ -1,0 +1,26 @@
+<!--
+  This file is part of Mozaik CMS            www.mozaik.top
+  Copyright © 2016 Denis N Ivanchik       danykey@gmail.com
+-->
+<window 
+	viewModel="@id('vm') @init('top.mozaik.frnd.studio.vm.library.librarymanager.CreateLibraryVM')"
+	title="New Library" border="normal" position="center,center" closable="true" mode="modal">
+	
+	<vlayout style="padding:20px">
+		<hlayout>
+			<label class="form-label" value="Name:"/>
+			<textbox class="form-field"
+				value="@load(vm.bean.name) @save(vm.bean.name, before='create')"
+				constraint="${application.attributes.cache.constraint.noempty}"/>
+		</hlayout>
+		<hlayout>
+			<label class="form-label" value="Description:"/>
+			<textbox class="form-field" rows="3"
+				value="@load(vm.bean.descr) @save(vm.bean.descr, before='create')"/>
+		</hlayout>
+		<hlayout>`
+		 	<button label="Create" onClick="@command('create')"/>
+			<button label="Cancel" onClick="@command('detachView')"/>
+		</hlayout>
+	</vlayout>
+</window>

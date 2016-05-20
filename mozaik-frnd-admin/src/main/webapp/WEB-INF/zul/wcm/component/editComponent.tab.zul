@@ -1,0 +1,57 @@
+<!--
+  This file is part of Mozaik CMS            www.mozaik.top
+  Copyright © 2016 Denis N Ivanchik       danykey@gmail.com
+-->
+<zk>
+<window width="100%" height="100%" viewModel="@id('vm')  
+		@init('top.mozaik.frnd.admin.vm.wcm.component.EditComponentVM')" 
+		contentStyle="padding:0">
+
+	<vlayout vflex="true">
+		<hlayout>
+		 	<button label="Save" onClick="@command('validateAndSave')" />
+		</hlayout>
+		<tabbox hflex="true" vflex="true">
+		<tabs>
+			<tab>General</tab>
+			<tab id="dataTab">Data</tab>
+		</tabs>
+		<tabpanels>
+			<tabpanel>
+				<vlayout style="padding:20px">
+					<hlayout>
+						<label class="form-label" value="Document / Folder (TODO):"/>
+						<label class="form-label" id="selectedElementInfoLabel" width="300px"/>
+						<label id="deleteElement" value="X" onClick="@command('deleteElement')" 
+							visible="@load(vm.bean.elementId ne null)" style="cursor:pointer" tooltiptext="Delete"/>
+						<button label="..." onClick="@command('selectDocumentOrFolder')"/>
+					</hlayout>
+					<hlayout>
+						<label class="form-label" value="Title:"/>
+						<textbox value="@load(vm.bean.title) @save(vm.bean.title, before='save')" width="300px"
+							constraint="${application.attributes.cache.constraint.noempty}"/>
+					</hlayout>
+					<hlayout>
+						<label class="form-label" value="Alias:"/>
+						<textbox value="@load(vm.bean.alias) @save(vm.bean.alias, before='save')" width="300px"
+							constraint="${application.attributes.cache.constraint.noempty}"/>
+					</hlayout>
+					<hlayout>
+						<label class="form-label" value="Description:"/>
+						<textbox value="@load(vm.bean.descr) @save(vm.bean.descr, before='save')" width="300px" rows="2"/>
+					</hlayout>
+				</vlayout>
+			</tabpanel>
+			<tabpanel fulfill="dataTab.onSelect" style="padding:0">
+				<window width="100%" height="100%" viewModel="@id('ecdc')
+					@init('top.mozaik.frnd.admin.vm.wcm.component.EditComponentDataVM',
+						bean=vm.bean, commandQueue=vm.commandQueue)"
+						contentStyle="padding:0">
+					<include id="cmInclude" src="/WEB-INF/zul/_shared_/CodeMirror.zul" _mode="text/html"/>
+				</window>
+			</tabpanel>
+		</tabpanels>
+		</tabbox>
+	</vlayout>
+</window>
+</zk>

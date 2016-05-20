@@ -1,0 +1,27 @@
+<!--
+  This file is part of Mozaik CMS            www.mozaik.top
+  Copyright © 2016 Denis N Ivanchik       danykey@gmail.com
+-->
+<window 
+	viewModel="@id('vm') @init('top.mozaik.frnd.studio.vm.resource.RenameResourceVM')"
+	title="Rename" border="normal" position="center,center" closable="true" mode="modal">
+	
+	<vlayout style="padding:20px">
+		<!-- 
+		<hlayout>
+			<label class="form-label" value="Path:"/>
+			<label class="form-field" value="@bind(vm.path)"/>
+		</hlayout>
+		-->
+		<hlayout>
+			<label class="form-label" value="Name:"/>
+			<textbox class="form-field"
+				value="@load(vm.bean.name) @save(vm.bean.name, before='rename')"
+				constraint="${application.attributes.cache.constraint.noempty}"/>
+		</hlayout>
+		<hlayout>
+		 	<button label="Rename" onClick="@command('rename')"/>
+			<button label="Cancel" onClick="@command('detachView')"/>
+		</hlayout>
+	</vlayout>
+</window>

@@ -1,0 +1,40 @@
+<!--
+  This file is part of Mozaik CMS            www.mozaik.top
+  Copyright © 2016 Denis N Ivanchik       danykey@gmail.com
+-->
+<borderlayout sclass="overlapping"
+		viewModel="@id('vm') @init('top.mozaik.frnd.admin.vm.site.SitesVM')">
+	<center border="none">
+		<div width="100%" height="100%">
+			<menupopup id="siteTreeItemContextMenu" onOpen="@command('showTreeItemContextMenu', event=event)"/>
+			<tree id="siteTree" vflex="true" model="@load(vm.siteTreeModel)">
+				<auxhead>
+					<auxheader>
+						<button label="New" tooltip="New Site" onClick="@command('createSite')"/>
+					</auxheader>
+				</auxhead>
+				<treecols visible="false">
+					<treecol/>
+      			</treecols>
+				<template name="model">
+					<treeitem value="${each}" context="siteTreeItemContextMenu"
+						onDoubleClick="@command('editElement', el=self.value)">
+              				<treerow sclass="image16px">
+                  				<treecell label="${each.value.title}" image="@load(each) @converter(vm.treeitemImageUrlConverter)"/>
+              				</treerow>
+          				</treeitem>
+				</template>
+			</tree>
+		</div>
+	</center>
+	<east border="none" splittable="false" width="80%" style="visibility:hidden">
+		<tabbox id="siteCenterTabbox" hflex="true" vflex="true">
+			<tabs>
+				<tab label="&#160;" sclass="close-panel" closable="true"/>
+			</tabs>
+			<tabpanels>
+				<tabpanel/>
+			</tabpanels>
+		</tabbox>
+	</east>
+</borderlayout>

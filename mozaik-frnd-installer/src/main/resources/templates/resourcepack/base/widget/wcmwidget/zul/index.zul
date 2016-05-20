@@ -1,0 +1,12 @@
+<!--
+  This file is part of Mozaik CMS            www.mozaik.top
+  Copyright © 2016 Denis N Ivanchik       danykey@gmail.com
+-->
+<zk>
+	<!--
+	${execution.attributes}
+	-->
+	<div width="100%" height="100%"
+		viewModel="@id('vm') @init('top.mozaik.base.widget.wcmwidget.ComponentVM')">
+	</div>
+</zk>

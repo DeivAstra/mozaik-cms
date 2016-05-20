@@ -1,0 +1,23 @@
+<!--
+  This file is part of Mozaik CMS            www.mozaik.top
+  Copyright © 2016 Denis N Ivanchik       danykey@gmail.com
+-->
+<zk>
+<div width="100%" height="100%" 
+	viewModel="@id('vm') @init('top.mozaik.frnd.installer.vm.step.SetupRpRootFolderVM',
+		installer=installer, bean=bean)">
+	<vlayout style="padding:20px">
+		<label style="font-weight:bold">Setup Resource Pack Root Folder</label>
+		<separator/>
+		
+		<label style="font-size:90%">The CMS needs a folder(with read/write permission) to collect resource packs libraries.</label>
+		
+		<separator/>
+		<hlayout>
+			<label class="form-label" value="Path:"/>
+			<textbox id="pathTextbox" class="form-field-short" maxlength="100" value="@bind(vm.bean.path)"
+				constraint="${application.attributes.cache.constraint.noempty}"/>
+		</hlayout>
+	</vlayout>
+</div>
+</zk>

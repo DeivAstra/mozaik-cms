@@ -1,0 +1,49 @@
+<!--
+  This file is part of Mozaik CMS            www.mozaik.top
+  Copyright © 2016 Denis N Ivanchik       danykey@gmail.com
+-->
+<zk>
+<div width="100%" height="100%" 
+	viewModel="@id('vm') @init('top.mozaik.frnd.installer.vm.step.SetupDbVM', 
+		installer=installer, bean=bean.dbBean)">
+	<vlayout style="padding:20px">
+		<label style="font-weight:bold">Setup Database</label>
+		<separator/>
+		<hlayout>
+			<label class="form-label" value="Host:"/>
+			<textbox class="form-field-short" maxlength="100" 
+				value="@bind(vm.bean.host)" disabled="@load(vm.disableDbFields)"
+				constraint="${application.attributes.cache.constraint.noempty}"/>
+			<label value="Port:"/>
+			<intbox width="5em" value="@bind(vm.bean.port)" disabled="@load(vm.disableDbFields)"
+				constraint="${application.attributes.cache.constraint.noempty}"/>
+		</hlayout>
+		<hlayout>
+			<label class="form-label" value="Username:"/>
+			<textbox class="form-field-short" maxlength="100"
+				value="@bind(vm.bean.username)" disabled="@load(vm.disableDbFields)"
+				constraint="${application.attributes.cache.constraint.noempty}"/>
+		</hlayout>
+		<hlayout>
+			<label class="form-label" value="Password:"/>
+			<textbox class="form-field-short" maxlength="100" type="password" 
+				value="@save(vm.bean.password)" disabled="@load(vm.disableDbFields)"
+				constraint="${application.attributes.cache.constraint.noempty}"/>
+		</hlayout>
+		<label value="Test Connection" onClick="@command('validateAndTestConnection')"
+			style="cursor:pointer;text-decoration:underline"/>
+		<separator orient="vertical"/>
+		<div visible="@load(vm.showDbNameTextbox)">
+			<vlayout>
+				<label style="font-size:90%;color:green">Connection parameters are correct.
+						Next, please set database name for new CMS instance.</label>
+				<hlayout>
+					<label class="form-label" value="Database Name:"/>
+					<textbox id="dbNameTextbox" class="form-field-short" maxlength="100" value="@bind(vm.bean.dbName)"
+						constraint="${application.attributes.cache.constraint.noempty}"/>
+				</hlayout>
+			</vlayout>
+		</div>
+	</vlayout>
+</div>
+</zk>

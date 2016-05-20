@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
+	<appender name="Console" class="org.apache.log4j.ConsoleAppender"> 
+		<layout class="org.apache.log4j.PatternLayout"> 
+			<!-- Print the date in ISO 8601 format -->
+			<param name="ConversionPattern" value="%d [%t] %-5p %c - %m%n"/> 
+		</layout> 
+	</appender> 	
+	<root> 
+		<priority value="debug" /> 
+		<appender-ref ref="Console" /> 
+	</root>
+	<category name="org.springframework">
+    	<priority value="debug" />
+	</category>
+	<!-- 
+	<category name="org.springframework.jdbc.core">
+		<priority value="trace" />
+	</category>
+	<category name="org.springframework.transaction.support.TransactionSynchronizationManager">
+		<priority value="debug" />
+	</category>
+	<category name="org.springframework.jdbc.core.JdbcTemplate">
+		<priority value="debug" />
+	</category>
+	 -->
+</log4j:configuration>

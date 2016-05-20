@@ -1,0 +1,42 @@
+<!--
+  This file is part of Mozaik CMS            www.mozaik.top
+  Copyright © 2016 Denis N Ivanchik       danykey@gmail.com
+-->
+<zk>
+	<idspace>
+	<zscript>
+	<![CDATA[
+		import top.mozaik.frnd.plus.callback.*;
+		
+		I_CallbackMap formCallback = FORM_CALLBACK;
+	]]>
+	</zscript>
+	<vlayout style="padding:20px">
+		<hlayout>
+			<label class="form-label" value="Title:"/>
+			<textbox id="titleTextbox" value="${LAYOUT_SKIN_PARAMS.get('TITLE')}" width="300px"/>
+		</hlayout>
+		<hlayout>
+			<label class="form-label" value="Collapsible:"/>
+			<checkbox id="collapsibleCheckbox" checked="${LAYOUT_SKIN_PARAMS.get('COLLAPSIBLE')}"/>
+		</hlayout>
+		<hlayout>
+		 	<button label="Ok">
+				<attribute name="onClick">
+				<![CDATA[
+					//System.out.println(callback);
+					Map params = new HashMap();
+					if(titleTextbox.getValue().trim().length() > 0) {
+						params.put("TITLE", titleTextbox.getValue());
+					}
+					if(collapsibleCheckbox.isChecked()) {
+						params.put("COLLAPSIBLE", Boolean.TRUE);
+					}
+					formCallback.call(params);
+				]]>
+				</attribute>
+			</button>
+		</hlayout>
+	</vlayout>
+	</idspace>
+</zk>

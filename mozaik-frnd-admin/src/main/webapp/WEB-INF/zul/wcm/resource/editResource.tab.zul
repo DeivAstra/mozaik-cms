@@ -1,0 +1,58 @@
+<!--
+  This file is part of Mozaik CMS            www.mozaik.top
+  Copyright © 2016 Denis N Ivanchik       danykey@gmail.com
+-->
+<zk>
+<window width="100%" height="100%" viewModel="@id('vm')  
+		@init('top.mozaik.frnd.admin.vm.wcm.resource.EditResourceVM')" 
+		contentStyle="padding:0">
+
+	<vlayout vflex="true">
+		<hlayout>
+		 	<button label="Save" onClick="@command('validateAndSave')"/>
+		</hlayout>
+		<tabbox hflex="true" vflex="true">
+		<tabs>
+			<tab>General</tab>
+			<tab id="dataTab">Data</tab>
+		</tabs>
+		<tabpanels>
+			<tabpanel>
+				<vlayout style="padding:20px">
+					<hlayout>
+						<label class="form-label" value="Title:"/>
+						<textbox class="form-field" value="@bind(vm.bean.title)"
+							constraint="${application.attributes.cache.constraint.noempty}"/>
+					</hlayout>
+					<hlayout>
+						<label class="form-label" value="Alias:"/>
+						<textbox class="form-field" value="@bind(vm.bean.alias)"
+							constraint="${application.attributes.cache.constraint.noempty}"/>
+					</hlayout>
+					<hlayout>
+						<label class="form-label" value="Description:"/>
+						<textbox class="form-field" value="@bind(vm.bean.descr)" rows="2"/>
+					</hlayout>
+					<hlayout>
+						<label class="form-label" value="Content Type:"/>
+						<label class="form-field"
+							value="@load(empty vm.contentType?'Auto':vm.contentType.mime)"/>
+						<label value="[X]" style="cursor:pointer;color:red" tooltiptext="Delete"
+							visible="@load(not empty vm.contentType)" onClick="@command('deleteContentType')"/>
+						<button label="..." onClick="@command('selectContentType')"/>
+					</hlayout>
+				</vlayout>
+			</tabpanel>
+			<tabpanel fulfill="dataTab.onSelect">
+				<window width="100%" height="100%" viewModel="@id('ecdc')
+					@init('top.mozaik.frnd.admin.vm.wcm.resource.EditResourceDataVM',
+						bean=vm.bean, commandQueue=vm.commandQueue)"
+						contentStyle="padding:0">
+					
+				</window>
+			</tabpanel>
+		</tabpanels>
+		</tabbox>
+	</vlayout>
+</window>
+</zk>

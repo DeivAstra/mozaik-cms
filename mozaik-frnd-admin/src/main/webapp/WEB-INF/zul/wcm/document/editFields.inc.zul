@@ -1,0 +1,120 @@
+<!--
+  This file is part of Mozaik CMS            www.mozaik.top
+  Copyright © 2016 Denis N Ivanchik       danykey@gmail.com
+-->
+<zk>
+<window width="100%" height="100%" viewModel="@id('edfc')
+		@init('top.mozaik.frnd.admin.vm.wcm.document.EditDocumentFieldsVM',
+		documentId=arg.documentId, templateId=arg.templateId, ctrl=arg.ctrl, loadTemplateValues=arg.loadTemplateValues)" 
+		contentStyle="padding:0;overflow:auto">
+	<vlayout children="@load(edfc.documentTemplateFieldPairList)" style="padding:20px">
+		<template name="children">
+			<idspace>
+			<popup id="fieldInfoPopup">
+            	<vlayout>
+					<hlayout>
+						<label value="Code:"/>
+						<label value="${each.templateField.code}"/>
+					</hlayout>
+					<hlayout>
+						<label value="Type:"/>
+						<label value="${each.templateField.type.uiname()}"/>
+					</hlayout>
+					<hlayout if="${each.templateField.descr != null}">
+						<label value="Description:"/>
+						<label value="${each.templateField.descr}"/>
+					</hlayout>
+					<hlayout if="${each.templateField.constraint != null}">
+						<label value="Constraint:"/>
+						<label value="${each.templateField.constraint}"/>
+					</hlayout>
+					<hlayout if="${each.templateField.constraintRegex != null}">
+						<label value="Regex:"/>
+						<label value="${each.templateField.constraintRegex}"/>
+					</hlayout>
+					<hlayout if="${each.templateField.constraintRegexErrorMessage != null}">
+						<label value="Regex Error Message:"/>
+						<label value="${each.templateField.constraintRegexErrorMessage}"/>
+					</hlayout>
+				</vlayout>
+			</popup>
+			<vlayout>
+				<hlayout>
+					<label class="form-label" value="@bind(each.templateField.title)"/>
+
+					<longbox if="${each.templateField.type.name() eq 'INTEGER'}" width="300px"
+							value="@bind(each.documentFieldValue) @converter(edfc.templateIntegerFieldConverter)"
+							constraint="@load(edfc.getConstraint(each.templateField))"
+					/>
+
+					<doublebox if="${each.templateField.type.name() eq 'DOUBLE'}" width="300px"
+							value="@bind(each.documentFieldValue) @converter(edfc.templateDoubleFieldConverter)"
+							constraint="@load(edfc.getConstraint(each.templateField))"
+					/>
+
+					<textbox if="${each.templateField.type.name() eq 'TEXT'}" width="300px"
+							value="@bind(each.documentFieldValue)" multiline="false"
+							constraint="@load(edfc.getConstraint(each.templateField))"
+					/>
+
+					<textbox if="${each.templateField.type.name() eq 'MTEXT'}" width="300px"
+							value="@bind(each.documentFieldValue)" rows="5" multiline="true"
+							constraint="@load(edfc.getConstraint(each.templateField))"
+					/>
+
+					<datebox if="${each.templateField.type.name() eq 'DATE'}" width="300px"
+							value="@bind(each.documentFieldValue) @converter(edfc.templateDateFieldConverter)"
+							constraint="@load(edfc.getConstraint(each.templateField))"
+					/>
+					
+					<timebox if="${each.templateField.type.name() eq 'TIME'}" width="300px" format="kk:mm"
+							value="@bind(each.documentFieldValue) @converter(edfc.templateDateFieldConverter)"
+							constraint="@load(edfc.getConstraint(each.templateField))"
+					/>
+
+					<textbox if="${each.templateField.type.name() eq 'URL'}" width="300px"
+							value="@bind(each.documentFieldValue)"
+							constraint="@load(edfc.getConstraint(each.templateField))"
+					/>
+
+					<combobox if="${each.templateField.type.name() eq 'LIST'}" width="300px"
+							model="@load(each) @converter(edfc.templateListFieldConverter)"
+							value="@bind(each.documentFieldValue)"
+							onChange="if(self.getSelectedItem()==null){self.setRawValue(null);}"
+							constraint="@load(edfc.getConstraint(each.templateField))"
+					/>
+
+					<hlayout id="documentArea" if="${each.templateField.type.name() eq 'DOCUMENT'}">
+						<labelinput style="display:block;width:300px"
+							label="@load(empty each.documentFieldValue?'None':edfc.getDocument(each.documentFieldValue).title)"
+							value="@bind(each.documentFieldValue)"
+							constraint="@load(edfc.getConstraint(each.templateField))"/>
+						<label value="[X]" tooltiptext="Delete"
+								onClick="@command('deleteDocument', pair=each, documentArea=documentArea)" 
+								visible="@load(not empty each.documentFieldValue)" style="cursor:pointer;color:red"/>
+						<label value="[..]"  tooltiptext="Select" sclass="link"
+							visible="@load(empty each.documentFieldValue)"
+							onClick="@command('selectDocument', pair=each, documentArea=documentArea)"/>
+					</hlayout>
+
+					<hlayout id="resourceArea" if="${each.templateField.type.name() eq 'RESOURCE'}">
+						<labelinput style="display:block;width:300px"
+							label="@load(empty each.documentFieldValue?'None':edfc.getResource(each.documentFieldValue).title)"
+							value="@bind(each.documentFieldValue)"
+							constraint="@load(edfc.getConstraint(each.templateField))"/>
+						<label value="[X]" tooltiptext="Delete"
+								onClick="@command('deleteResource', pair=each, resourceArea=resourceArea)" 
+								visible="@load(not empty each.documentFieldValue)" style="cursor:pointer;color:red"/>
+						<label value="[..]" tooltiptext="Select" sclass="link"
+							visible="@load(empty each.documentFieldValue)"
+							onClick="@command('selectResource', pair=each, resourceArea=resourceArea)"/>
+					</hlayout>
+
+					<label value="(?)" sclass="link" tooltip="fieldInfoPopup"/>
+				</hlayout>
+			</vlayout>
+			</idspace>
+		</template>
+	</vlayout>
+</window>
+</zk>

@@ -1,0 +1,84 @@
+<!--
+  This file is part of Mozaik CMS            www.mozaik.top
+  Copyright © 2016 Denis N Ivanchik       danykey@gmail.com
+-->
+<?page title="Mozaik CMS Admin" ?>
+<?init class="top.mozaik.frnd.admin.init.DbInit"?>
+<!--  <?init class="top.mozaik.frnd.admin.init.UserInit"?> -->
+
+<?script type="text/javascript" src="zksandbox.js.dsp"?>
+<zk>
+
+<zscript>
+<![CDATA[
+    import top.mozaik.frnd.admin.App;
+	boolean initOk = false;
+    if(session.getAttribute("db") == null) {
+		execution.sendRedirect("/@setup.zul");
+	} else if(session.getAttribute("user") == null) {
+		execution.sendRedirect("/@login.zul");
+	} else {
+		initOk = true;
+	}
+	if(initOk) {
+		App.init(application);
+	}
+]]>
+</zscript>
+
+<zk if="${initOk}">
+<!-- <style src='https://fonts.googleapis.com/css?family=Oxygen'/>  
+<style src='https://fonts.googleapis.com/css?family=Ubuntu&amp;subset=latin,cyrillic'/> -->
+<include src="/WEB-INF/zul/_shared_/styles.zul"/>
+<style src="/script/codemirror5.9/codemirror.css"/>
+<style src="/script/codemirror5.9/addon/scroll/simplescrollbars.css"/>
+<!-- <script src="/script/codemirror5.9/diff_match_patch.js"></script>  -->
+<script src="/script/codemirror5.9/codemirror-compressed.js"/>
+</zk>
+<style>
+.z-tab.mozaik-tab img {
+}
+.z-tab.mozaik-tab span {
+padding:0;
+font-size:0;
+}
+.z-tabs-content {
+vertical-align:bottom;
+}
+</style>
+<window if="${initOk}" width="100%" height="100%" contentStyle="padding:0"
+	viewModel="@id('vm') @init('top.mozaik.frnd.admin.vm.AdminVM')">
+	<tabbox hflex="true" vflex="true">
+		<tabs>
+			<tab sclass="mozaik-tab" style="padding:0;border:0;max-height:33px" image="/media/mozaik3.png"/>
+			<tab id="siteTab" style="padding:0;top:8px">Site</tab>
+			<tab id="wcmTab" style="padding:0;top:8px">WCM</tab>
+			<tab id="logoutTab" style="padding:0;float:right;top:8px">Log Out</tab>
+			<tab id="resourcePackTab" style="padding:0;float:right;top:8px">Resource Pack</tab>
+			<tab id="systemTab" style="padding:0;float:right;top:8px">System</tab>
+		</tabs>
+		<tabpanels>
+			<tabpanel>
+				Here will be a home!
+			</tabpanel>
+			<tabpanel fulfill="siteTab.onSelect" style="padding:0">
+				<include src="/WEB-INF/zul/site/view.tab.zul"/>
+			</tabpanel>
+			<tabpanel fulfill="wcmTab.onSelect" style="padding:0">
+				<include src="/WEB-INF/zul/wcm/view.tab.zul"/>
+			</tabpanel>
+			<tabpanel fulfill="logoutTab.onSelect">
+				You are sure?
+				<a label="Yes!" onClick='session.removeAttribute("user");execution.sendRedirect("/")'/>
+			</tabpanel>
+			<tabpanel fulfill="resourcePackTab.onSelect" style="padding:0">
+				<include src="/WEB-INF/zul/resourcepack/view.tab.zul"/>
+			</tabpanel>
+			<tabpanel fulfill="systemTab.onSelect" style="padding:0">
+				<include src="/WEB-INF/zul/system/view.tab.zul"/>
+			</tabpanel>
+			
+		</tabpanels>
+	</tabbox>
+</window>
+</zk>

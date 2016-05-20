@@ -1,0 +1,27 @@
+<!--
+  This file is part of Mozaik CMS            www.mozaik.top
+  Copyright © 2016 Denis N Ivanchik       danykey@gmail.com
+-->
+<zk>
+<window viewModel="@id('vm') 
+		@init('top.mozaik.frnd.admin.vm.wcm.library.EditLibraryVM')">
+	<vlayout vflex="true">
+		<button label="Save" onClick="@command('save')"/>
+		<separator/>
+		<hlayout>
+			<label class="form-label" value="Title:"/>
+			<textbox class="form-field" value="@load(vm.bean.title) @save(vm.bean.title, before='save')"
+				constraint="${application.attributes.cache.constraint.noempty}"/>
+		</hlayout>
+		<hlayout>
+			<label class="form-label" value="Alias:"/>
+			<textbox class="form-field" value="@load(vm.bean.alias) @save(vm.bean.alias, before='save')"
+				constraint="${application.attributes.cache.constraint.noempty}"/>
+		</hlayout>
+		<hlayout>
+			<label class="form-label" value="Description:"/>
+			<textbox class="form-field" value="@load(vm.bean.descr) @save(vm.bean.descr, before='save')" rows="2"/>
+		</hlayout>
+	</vlayout>
+</window>
+</zk>

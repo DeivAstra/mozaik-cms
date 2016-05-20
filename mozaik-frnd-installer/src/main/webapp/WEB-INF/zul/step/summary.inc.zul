@@ -1,0 +1,58 @@
+<!--
+  This file is part of Mozaik CMS            www.mozaik.top
+  Copyright © 2016 Denis N Ivanchik       danykey@gmail.com
+-->
+<zk>
+	<vlayout style="padding:20px">
+		<label>All settings are gathered. Please check them. 
+			If all are OK then click 'Next' to start install. Otherwise refresh page to set settings again.</label>
+		<separator/>
+		<label style="font-weight:bold">Database</label>
+		<hlayout>
+			<label class="form-label" value="Host:"/>
+			<hlayout>
+				<label value="${bean.dbBean.host}"/>:<label value="${bean.dbBean.port}"/>
+			</hlayout>
+		</hlayout>
+		<hlayout>
+			<label class="form-label" value="Username:"/>
+			<label value="${bean.dbBean.username}"/>
+		</hlayout>
+		<label style="font-weight:bold">CMS</label>
+		<hlayout>
+			<label class="form-label" value="Database Name:"/>
+			<label value="${bean.dbBean.dbName}"/>
+		</hlayout>
+		<hlayout>
+			<label class="form-label" value="Database User:"/>
+			<label value="${bean.dbUserBean.login}"/>
+		</hlayout>
+		<hlayout>
+			<label class="form-label" value="Admin User:"/>
+			<label value="${bean.adminUserBean.login}"/>
+		</hlayout>
+		<label style="font-weight:bold">Resource Pack Root Folder</label>
+		<hlayout>
+			<label class="form-label" value="Path:"/>
+			<label value="${bean.rpRootFolderBean.path}"/>
+		</hlayout>
+		<label style="font-weight:bold">Install Demo Data</label>
+		<hlayout>
+			<label class="form-label" value="Yes"/>
+			<checkbox checked="${bean.installDemoData}">
+			<attribute name="onCheck">
+				bean.installDemoData = self.isChecked();
+			</attribute>
+			</checkbox>
+		</hlayout>
+		<label style="font-weight:bold">Hide Installer After Finish</label>
+		<hlayout>
+			<label class="form-label" value="Yes"/>
+			<checkbox checked="${bean.hideInstallerAfterFinish}">
+			<attribute name="onCheck">
+				bean.hideInstallerAfterFinish = self.isChecked();
+			</attribute>
+			</checkbox>
+		</hlayout>
+	</vlayout>
+</zk>

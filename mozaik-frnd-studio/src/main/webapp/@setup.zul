@@ -1,0 +1,61 @@
+<!--
+  This file is part of Mozaik CMS            www.mozaik.top
+  Copyright © 2016 Denis N Ivanchik       danykey@gmail.com
+-->
+<?page title="Mozaik Studio Setup" ?>
+<zk>
+<include src="/WEB-INF/zul/_shared_/styles.zul"/>
+<zscript>
+<![CDATA[
+	import top.mozaik.frnd.studio.App;
+	boolean initOk = false;
+    if(session.getAttribute("db") != null &&
+    		session.getAttribute("user") == null) {
+		execution.sendRedirect("/@login.zul?r=/@setup.zul");
+	} else {
+		initOk = true;
+	}
+	if(initOk) {
+		App.init(application);
+	}
+]]>
+</zscript>
+<window if="${initOk}" width="100%" height="100%" contentStyle="padding: 4px 0 0 0"
+	viewModel="@id('vm') @init('top.mozaik.frnd.studio.vm.SetupVM')">
+	<vlayout style="padding:20px">
+		<label style="font-weight:bold">Setup Configuration</label>
+		<separator orient="vertical"/>
+		<hlayout>
+			<label class="form-label" value="Host:"/>
+			<textbox class="form-field-short" maxlength="100" 
+				value="@bind(vm.bean.host)"
+				constraint="${application.attributes.cache.constraint.noempty}"/>
+			<label value="Port:"/>
+			<intbox width="5em" value="@bind(vm.bean.port)"
+				constraint="${application.attributes.cache.constraint.noempty}"/>
+		</hlayout>
+		<hlayout>
+			<label class="form-label" value="Database Name:"/>
+			<textbox class="form-field-short" maxlength="100" value="@bind(vm.bean.dbName)"
+					constraint="${application.attributes.cache.constraint.noempty}"/>
+			</hlayout>
+		<hlayout>
+			<label class="form-label" value="Username:"/>
+			<textbox class="form-field-short" maxlength="100"
+				value="@bind(vm.bean.username)"
+				constraint="${application.attributes.cache.constraint.noempty}"/>
+		</hlayout>
+		<hlayout>
+			<label class="form-label" value="Password:"/>
+			<textbox class="form-field-short" maxlength="100" type="password" 
+				value="@save(vm.bean.password)"
+				constraint="${application.attributes.cache.constraint.noempty}"/>
+		</hlayout>
+		<hlayout>
+			<button label="Goto Home" onClick='execution.sendRedirect("/")'/>
+		 	<button label="Test Connection" onClick="@command('validateAndTestConnection')"/>
+			<button label="Save" disabled="@load(empty vm.bean.jdbc)" onClick="@command('save')"/>
+		</hlayout>
+	</vlayout>
+</window>
+</zk>

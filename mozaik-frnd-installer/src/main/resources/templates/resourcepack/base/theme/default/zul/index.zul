@@ -1,0 +1,15 @@
+<!--
+  This file is part of Mozaik CMS            www.mozaik.top
+  Copyright © 2016 Denis N Ivanchik       danykey@gmail.com
+-->
+<?page title="${SITE.title} - ${PAGE.title}"?>
+<html xmlns="native">
+	<style src="theme.style" xmlns="zul"/>
+	<body>
+		<div class="theme-body" xmlns="zul">
+			<include src="header.zul" sclass="header"/>
+			<page-layout/>
+			<include src="footer.zul" sclass="footer"/>
+		</div>
+	</body>
+</html>

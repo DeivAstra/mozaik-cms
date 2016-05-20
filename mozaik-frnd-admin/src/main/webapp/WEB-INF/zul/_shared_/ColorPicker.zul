@@ -1,0 +1,17 @@
+<!--
+  This file is part of Mozaik CMS            www.mozaik.top
+  Copyright © 2016 Denis N Ivanchik       danykey@gmail.com
+-->
+<zk xmlns:client="http://www.zkoss.org/2005/zk/client">
+<div class="colorpicker-holder" style="background-color:${arg.color}">
+	<attribute client:name="onBind">
+		var wgt = this;
+		$(wgt.$n()).ColorPicker({
+			onSubmit: function(hsb, hex) {
+				//console.log(hex)
+				zAu.send(new zk.Event(wgt, '${arg.eventName}', "#"+hex));
+			}
+		});
+	</attribute>
+</div>
+</zk>

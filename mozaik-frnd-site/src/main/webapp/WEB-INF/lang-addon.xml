@@ -1,0 +1,34 @@
+<language-addon>
+    <addon-name>top.mozaik</addon-name>
+    <language-name>xul/html</language-name> 
+    <component>
+        <component-name>include</component-name>
+        <extends>include</extends>
+        <component-class>top.mozaik.frnd.common.component.Include</component-class>
+    </component>
+    <component>
+        <component-name>script</component-name>
+        <extends>script</extends>
+        <component-class>top.mozaik.frnd.common.component.Script</component-class>
+    </component>
+    <component>
+        <component-name>style</component-name>
+        <extends>style</extends>
+        <component-class>top.mozaik.frnd.common.component.Style</component-class>
+    </component>
+    <component>
+        <component-name>page-layout</component-name>
+        <extends>div</extends>
+        <component-class>top.mozaik.frnd.site.component.PageLayout</component-class>
+    </component>
+    <component>
+        <component-name>widget</component-name>
+        <extends>div</extends>
+        <component-class>top.mozaik.frnd.site.component.Widget</component-class>
+    </component>
+    <javascript package="zul.menu" merge="true"/>
+    <javascript package="zul.mesh" merge="true"/>
+    <javascript package="zul.sel" merge="true"/>
+    <javascript package="zul.utl" merge="true"/>
+    <javascript package="zul.wnd" merge="true"/>
+</language-addon>

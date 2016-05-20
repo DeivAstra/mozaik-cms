@@ -1,0 +1,26 @@
+<!--
+  This file is part of Mozaik CMS            www.mozaik.top
+  Copyright © 2016 Denis N Ivanchik       danykey@gmail.com
+-->
+<window
+	viewModel="@id('vm') @init('top.mozaik.frnd.admin.vm.site.page.CreatePageVM')"
+	title="Create Page" border="normal" position="center,center" closable="true" mode="modal">
+	
+	<vlayout style="padding:20px">
+		<hlayout>
+			<label class="form-label" value="Theme:"/>
+			<label class="form-label" id="selectedThemeInfoLabel" width="300px"/>
+			<button label="..." onClick="@command('selectTheme')"/>
+		</hlayout>
+		<hlayout>
+			<label class="form-label" value="Title:"/>
+			<textbox class="form-field" value="@save(vm.bean.title)"
+				constraint="${application.attributes.cache.constraint.noempty}"/>
+		</hlayout>
+		<hlayout>
+		 	<button id="createBtn" label="Create" onClick="@command('create')"/>
+			<button label="Cancel" onClick="@command('detachView')"/>
+		</hlayout>
+	</vlayout>
+	
+</window>

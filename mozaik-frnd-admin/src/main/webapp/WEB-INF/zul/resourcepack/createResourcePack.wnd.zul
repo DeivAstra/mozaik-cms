@@ -1,0 +1,24 @@
+<!--
+  This file is part of Mozaik CMS            www.mozaik.top
+  Copyright © 2016 Denis N Ivanchik       danykey@gmail.com
+-->
+<window 
+	viewModel="@id('vm') @init('top.mozaik.frnd.admin.vm.resourcepack.CreateResourcePackVM')"
+	title="Create Resource Pack" border="normal" position="center,center" closable="true" mode="modal">
+	<vlayout style="padding:20px">
+		<hlayout>
+			<label class="form-label" value="Title:"/>
+			<textbox class="form-field" value="@save(vm.bean.title)" maxlength="100"
+				constraint="${application.attributes.cache.constraint.noempty}"/>
+		</hlayout>
+		<hlayout>
+			<label class="form-label" value="Alias:"/>
+			<textbox class="form-field" value="@save(vm.bean.alias)" maxlength="100"
+				constraint="no empty,/([a-z_]*(\.)?([a-z_])+(\d)*)+/:Accepted lowercase a-z; dots; underscores; digits after letter"/>
+		</hlayout>
+		<hlayout>
+		 	<button label="Create" onClick="@command('validateAndCreate')"/>
+			<button label="Cancel" onClick="@command('detachView')"/>
+		</hlayout>
+	</vlayout>
+</window>

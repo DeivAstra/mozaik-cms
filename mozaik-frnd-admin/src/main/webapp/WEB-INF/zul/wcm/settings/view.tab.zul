@@ -1,0 +1,33 @@
+<!--
+  This file is part of Mozaik CMS            www.mozaik.top
+  Copyright © 2016 Denis N Ivanchik       danykey@gmail.com
+-->
+<window width="100%" height="100%"
+	viewModel="@id('vm') @init('top.mozaik.frnd.admin.vm.wcm.settings.SettingsVM')"
+	contentStyle="padding:0">
+	<vlayout vflex="true">
+		<hlayout>
+			<button label="Save" onClick="@command('save')"/>
+		</hlayout>
+		
+		<tabbox hflex="true" vflex="true">
+		<tabs>
+			<tab>General</tab>
+			<tab id="contentTypeTab">Content Type</tab>
+		</tabs>
+		<tabpanels>
+			<tabpanel>
+				<vlayout style="padding:20px">
+					<hlayout>
+						<label class="form-label" value="Resource Data Max. Size (Kb):"/>
+						<intbox value="100000" constraint="${application.attributes.cache.constraint.noempty}"/>
+					</hlayout>
+				</vlayout>
+			</tabpanel>
+			<tabpanel fulfill="contentTypeTab.onSelect" style="padding:0">
+				<include src="/WEB-INF/zul/wcm/settings/contenttype/view.tab.zul" commandQueue="${vm.commandQueue}"/>
+			</tabpanel>
+		</tabpanels>
+		</tabbox>
+	</vlayout>
+</window>

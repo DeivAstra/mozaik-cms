@@ -1,0 +1,27 @@
+<!--
+  This file is part of Mozaik CMS            www.mozaik.top
+  Copyright © 2016 Denis N Ivanchik       danykey@gmail.com
+-->
+<zk>
+<window width="100%" height="100%" contentStyle="padding:0"
+	viewModel="@id('vm') @init('top.mozaik.frnd.admin.vm.system.SettingsVM')">
+	<grid vflex="true" style="border:0">
+		<columns>
+			<column label="Key"/>
+			<column label="Value"/>
+			<column label="Descr"/>
+		</columns>
+		<rows children="@load(vm.settingsList)">
+			<template name="children">
+				<row value="@load(each)">
+					<label value="@load(each.key)"/>
+					<textbox value="@load(each.value) @save(each.value,before='save')" 
+						inplace="true" hflex="true" constraint="@load(each.key.constraint)"
+						onChange="@command('save', bean=each)"/>
+					<label value="@load(each.descr)"/>
+				</row>
+			</template>
+		</rows>
+	</grid>
+</window>
+</zk>

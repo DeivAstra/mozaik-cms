@@ -1,0 +1,27 @@
+<!--
+  This file is part of Mozaik CMS            www.mozaik.top
+  Copyright © 2016 Denis N Ivanchik       danykey@gmail.com
+-->
+<window width="100%" height="100%" contentStyle="padding:0">
+	<vlayout vflex="true">
+		<!-- 
+		<hlayout>
+			<button label="Save" onClick="@command('save')"/>
+		</hlayout>
+		 -->
+		<tabbox hflex="true" vflex="true">
+		<tabs>
+			<tab>Settings</tab>
+			<tab id="logTab">Logs</tab>
+		</tabs>
+		<tabpanels>
+			<tabpanel style="padding:0">
+				<include src="/WEB-INF/zul/system/settings.tab.zul"/>				
+			</tabpanel>
+			<tabpanel fulfill="logTab.onSelect" style="padding:0">
+				<include src="/WEB-INF/zul/system/logs.tab.zul"/>
+			</tabpanel>
+		</tabpanels>
+		</tabbox>
+	</vlayout>
+</window>

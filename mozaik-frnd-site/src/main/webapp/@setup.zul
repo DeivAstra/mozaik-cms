@@ -1,0 +1,94 @@
+<!--
+  This file is part of Mozaik CMS            www.mozaik.top
+  Copyright © 2016 Denis N Ivanchik       danykey@gmail.com
+-->
+<?page title="Mozaik Site Setup" ?>
+<?init class="top.mozaik.frnd.site.init.DbInit"?>
+<?component name="include" class="org.zkoss.zul.Include"?>
+<zk>
+<include src="/WEB-INF/zul/styles.zul"/>
+<zscript>
+<![CDATA[
+	import top.mozaik.frnd.site.App;
+	boolean needDbConf = false;
+	boolean dbOk = session.getAttribute("db") != null;
+    if(dbOk && session.getAttribute("user") == null) {
+		execution.sendRedirect("/@login.zul?r=/@setup.zul");
+	} else {
+		needDbConf = true;
+	}
+	if(needDbConf) {
+		App.init(application);
+	}
+]]>
+</zscript>
+
+<window if="${needDbConf}" width="100%" height="100%">
+	<button label="Goto Home" onClick='execution.sendRedirect("/")'/>
+	<tabbox>
+		<tabs>
+			<tab>Database</tab>
+			<tab if="${dbOk}">Code Loader</tab>
+		</tabs>
+		<tabpanels>
+			<tabpanel
+				viewModel="@id('vm') @init('top.mozaik.frnd.site.vm.SetupVM')">
+				<vlayout style="padding:20px">
+					<hlayout>
+						<label class="form-label" value="Host:"/>
+						<textbox class="form-field-short" maxlength="100" 
+							value="@bind(vm.bean.host)"
+							constraint="${application.attributes.cache.constraint.noempty}"/>
+						<label value="Port:"/>
+						<intbox width="5em" value="@bind(vm.bean.port)"
+							constraint="${application.attributes.cache.constraint.noempty}"/>
+					</hlayout>
+					<hlayout>
+						<label class="form-label" value="Database Name:"/>
+						<textbox class="form-field-short" maxlength="100" value="@bind(vm.bean.dbName)"
+								constraint="${application.attributes.cache.constraint.noempty}"/>
+						</hlayout>
+					<hlayout>
+						<label class="form-label" value="Username:"/>
+						<textbox class="form-field-short" maxlength="100"
+							value="@bind(vm.bean.username)"
+							constraint="${application.attributes.cache.constraint.noempty}"/>
+					</hlayout>
+					<hlayout>
+						<label class="form-label" value="Password:"/>
+						<textbox class="form-field-short" maxlength="100" type="password" 
+							value="@save(vm.bean.password)"
+							constraint="${application.attributes.cache.constraint.noempty}"/>
+					</hlayout>
+					<hlayout>
+					 	<button label="Test Connection" onClick="@command('validateAndTestConnection')"/>
+						<button label="Save" disabled="@load(empty vm.bean.jdbc)" onClick="@command('save')"/>
+					</hlayout>
+				</vlayout>
+			</tabpanel>
+			<tabpanel if="${dbOk}" viewModel="@id('vm') 
+				@init('top.mozaik.frnd.site.vm.CodeLoaderVM')" style="padding:0">
+				<listbox id="resPackListbox" model="@load(vm.resourcePackList)" autopaging="true" mold="paging" vflex="true">
+					<auxhead>
+						<auxheader colspan="2">
+							<hlayout>
+								<button label="Build &amp; Load" onClick="@command('buildAndLoad')"/>
+							</hlayout>
+						</auxheader>
+					</auxhead>
+					<listhead>
+						<listheader label="Title"/>
+						<listheader label="Alias"/>
+					</listhead>
+					<template name="model">
+						<listitem value="@load(each)" onDoubleClick="@command('select')">
+							<listcell label="@load(each.title)"/>
+							<listcell label="@load(each.alias)"/>
+						</listitem>
+					</template>
+				</listbox>
+			</tabpanel>
+		</tabpanels>
+	</tabbox>
+</window>
+</zk>
