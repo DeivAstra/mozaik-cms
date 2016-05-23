@@ -19,8 +19,8 @@ import org.zkoss.zk.ui.util.Initiator;
 
 import top.mozaik.bknd.api.ServicesFacade;
 import top.mozaik.bknd.api.enums.E_DbSettings;
-import top.mozaik.bknd.api.orm.service.A_CRUDService;
-import top.mozaik.bknd.api.orm.service.A_CRUDService.DataAccessExceptionListener;
+import top.mozaik.bknd.api.orm.service.A_CrudService;
+import top.mozaik.bknd.api.orm.service.A_CrudService.DataAccessExceptionListener;
 
 public class DbInit implements Initiator {
 	
@@ -35,7 +35,7 @@ public class DbInit implements Initiator {
 	};
 	
 	static {
-		A_CRUDService.setDaeListener(daeListener);
+		A_CrudService.setDaeListener(daeListener);
 	}
 	
 	@Override
