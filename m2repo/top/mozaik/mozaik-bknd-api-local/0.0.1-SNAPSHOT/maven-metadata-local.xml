@@ -1,23 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <metadata modelVersion="1.1.0">
-  <groupId>mozaik-bknd</groupId>
+  <groupId>top.mozaik</groupId>
   <artifactId>mozaik-bknd-api-local</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   <versioning>
     <snapshot>
       <localCopy>true</localCopy>
     </snapshot>
-    <lastUpdated>20160520192419</lastUpdated>
+    <lastUpdated>20160530151647</lastUpdated>
     <snapshotVersions>
       <snapshotVersion>
         <extension>jar</extension>
         <value>0.0.1-SNAPSHOT</value>
-        <updated>20160520192419</updated>
+        <updated>20160530151647</updated>
       </snapshotVersion>
       <snapshotVersion>
         <extension>pom</extension>
         <value>0.0.1-SNAPSHOT</value>
-        <updated>20160513212911</updated>
+        <updated>20160526212901</updated>
       </snapshotVersion>
     </snapshotVersions>
   </versioning>

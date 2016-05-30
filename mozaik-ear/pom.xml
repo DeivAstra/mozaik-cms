@@ -1,0 +1,103 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>top.mozaik</groupId>
+		<artifactId>mozaik-parent</artifactId>
+		<version>1.0-SNAPSHOT</version>
+	</parent>
+
+	<artifactId>mozaik-ear</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<packaging>ear</packaging>
+
+	<dependencies>
+		<dependency>
+			<groupId>${parent.groupId}</groupId>
+			<artifactId>mozaik-bknd-api-local</artifactId>
+			<version>${project.version}</version>
+			<type>jar</type>
+		</dependency>
+		<dependency>
+			<groupId>${parent.groupId}</groupId>
+			<artifactId>mozaik-bknd-api</artifactId>
+			<version>${project.version}</version>
+			 <type>jar</type>
+		</dependency>
+		<dependency>
+			<groupId>${parent.groupId}</groupId>
+			<artifactId>mozaik-frnd-plus</artifactId>
+			<version>${project.version}</version>
+			 <type>jar</type>
+		</dependency>
+		<dependency>
+			<groupId>${parent.groupId}</groupId>
+			<artifactId>mozaik-frnd-common</artifactId>
+			<version>${project.version}</version>
+			 <type>jar</type>
+		</dependency>
+		<dependency>
+			<groupId>${parent.groupId}</groupId>
+			<artifactId>mozaik-frnd-admin</artifactId>
+		   	<version>${project.version}</version>
+			<type>war</type>
+		</dependency>
+		<dependency>
+			<groupId>${parent.groupId}</groupId>
+			<artifactId>mozaik-frnd-studio</artifactId>
+			<version>${project.version}</version>
+			<type>war</type>
+		</dependency>
+		<dependency>
+			<groupId>${parent.groupId}</groupId>
+			<artifactId>mozaik-frnd-installer</artifactId>
+			<version>${project.version}</version>
+			<type>war</type>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-ear-plugin</artifactId>
+				<version>2.10.1</version>
+				<configuration>
+					<modules>
+						<!--
+						<jarModule>
+							<groupId>mozaik-bknd</groupId>
+							<artifactId>mozaik-bknd-api</artifactId>
+							<bundleFileName>mozaik-bknd-api.jar</bundleFileName>
+						</jarModule>
+						<jarModule>
+							<groupId>mozaik-bknd</groupId>
+							<artifactId>mozaik-bknd-api-local</artifactId>
+							<bundleFileName>mozaik-bknd-api-local.jar</bundleFileName>
+						</jarModule>
+						 -->
+						<webModule>
+							<groupId>${parent.groupId}</groupId>
+							<artifactId>mozaik-frnd-admin</artifactId>
+							<contextRoot>/mzkadmin</contextRoot>
+						</webModule>
+						<webModule>
+							<groupId>${parent.groupId}</groupId>
+							<artifactId>mozaik-frnd-studio</artifactId>
+							<contextRoot>/mzkstudio</contextRoot>
+						</webModule>
+						<webModule>
+							<groupId>${parent.groupId}</groupId>
+							<artifactId>mozaik-frnd-installer</artifactId>
+							<contextRoot>/mzkinstaller</contextRoot>
+						</webModule>
+					</modules>
+					<displayName>Mozaik CMS</displayName>
+					<generateApplicationXml>true</generateApplicationXml>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
+</project>

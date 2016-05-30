@@ -3,14 +3,14 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>top.mozaik</groupId>
-	<artifactId>mozaik-cms-parent</artifactId>
+	<artifactId>mozaik-parent</artifactId>
 	<version>1.0-SNAPSHOT</version>
 
 	<packaging>pom</packaging>
 
-	<name>Parent Mozaik CMS Modules</name>
-
+	<name>mozaik-parent</name>
 	<inceptionYear>2014</inceptionYear>
+
 	<organization>
 		<name>Mozaik CMS</name>
 		<url>http://www.mozaik.top</url>
@@ -19,7 +19,7 @@
 	<developers>
 		<developer>
 			<id>ivanchik.d.n</id>
-			<name>Denis Ivanchik</name>
+			<name>Denis N Ivanchik</name>
 			<email>founder@mozaik.top</email>
 			<organization>Mozaik CMS</organization>
 			<organizationUrl>www.mozaik.top</organizationUrl>
@@ -62,6 +62,7 @@
 		<module>mozaik-frnd-studio</module>
 		<module>mozaik-frnd-installer</module>
 		<module>mozaik-frnd-site</module>
+		<module>mozaik-ear</module>
 	</modules>
 
 	<repositories>
@@ -81,10 +82,10 @@
 			<url>http://mavensync.zkoss.org/eval</url>
 		</repository>
 		<repository>
-        	<id>Mozaik Local</id>
-        	<name>Mozaik Local Repository</name>
-        	<url>file://${project.basedir}${file.separator}../m2repo</url>
-    	</repository>
+			<id>Mozaik Local</id>
+			<name>Mozaik Local Repository</name>
+			<url>file://${project.basedir}${file.separator}../m2repo</url>
+		</repository>
 	</repositories>
 
 	<build>
@@ -98,6 +99,7 @@
 					<target>1.7</target>
 				</configuration>
 			</plugin>
+			<!-- 
 			<plugin>
 				<groupId>com.github.wvengen</groupId>
 				<artifactId>proguard-maven-plugin</artifactId>
@@ -111,6 +113,7 @@
 					</dependency>
 				</dependencies>
 			</plugin>
+			 -->
 		</plugins>
 	</build>
 

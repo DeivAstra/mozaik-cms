@@ -14,7 +14,7 @@ import java.util.Properties;
 
 import javax.servlet.ServletContext;
 
-import org.apache.tomcat.jdbc.pool.DataSource;
+import org.apache.commons.dbcp.BasicDataSource;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.zkoss.bind.annotation.AfterCompose;
 import org.zkoss.bind.annotation.Command;
@@ -50,7 +50,7 @@ public class SetupVM extends BaseVM {
 	}
 	
 	private JdbcTemplate connect() {
-		final DataSource ds = new DataSource();
+		final BasicDataSource ds = new BasicDataSource();
 		
 		ds.setDriverClassName("com.mysql.jdbc.Driver");
 		ds.setUrl("jdbc:mysql://" + bean.getHost() 

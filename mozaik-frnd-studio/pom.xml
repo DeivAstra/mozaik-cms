@@ -4,33 +4,31 @@
 	
 	<parent>
 		<groupId>top.mozaik</groupId>
-		<artifactId>mozaik-cms-parent</artifactId>
+		<artifactId>mozaik-parent</artifactId>
 		<version>1.0-SNAPSHOT</version>
 	</parent>
-	
-	<groupId>mozaik-frnd</groupId>
+
 	<artifactId>mozaik-frnd-studio</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>war</packaging>
 
 	<dependencies>
 		<dependency>
-            <groupId>mozaik-bknd</groupId>
+            <groupId>${parent.groupId}</groupId>
             <artifactId>mozaik-bknd-api</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
+            <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>mozaik-frnd</groupId>
+            <groupId>${parent.groupId}</groupId>
             <artifactId>mozaik-frnd-plus</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
+            <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>mozaik-frnd</groupId>
+            <groupId>${parent.groupId}</groupId>
             <artifactId>mozaik-frnd-common</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
+            <version>${project.version}</version>
         </dependency>
 	
-		<!-- Spring -->
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-context</artifactId>
@@ -51,6 +49,7 @@
     		<groupId>javax.servlet</groupId>
     		<artifactId>servlet-api</artifactId>
     		<version>2.5</version>
+    		<scope>provided</scope>
 		</dependency>
 		
 		<dependency>
@@ -71,7 +70,6 @@
             <version>2.3.20</version>
         </dependency>
 		
-		<!-- MySQL -->
 		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
@@ -85,7 +83,6 @@
 		</dependency>
 		 -->
 		
-		<!-- ZK -->	
 		<dependency>
 			<groupId>org.zkoss.zk</groupId>
 			<artifactId>zkplus</artifactId>
@@ -122,11 +119,10 @@
 			<artifactId>commons-lang</artifactId>
 			<version>2.4</version>
 		</dependency>
-		
 		<dependency>
-			<groupId>org.apache.tomcat</groupId>
-			<artifactId>tomcat-jdbc</artifactId>
-			<version>${tomcat.version}</version>
+			<groupId>commons-dbcp</groupId>
+			<artifactId>commons-dbcp</artifactId>
+			<version>1.4</version>
 		</dependency>
 		
 		<dependency>

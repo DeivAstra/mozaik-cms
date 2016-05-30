@@ -4,7 +4,7 @@
 **/
 package top.mozaik.frnd.installer.vm.step;
 
-import org.apache.tomcat.jdbc.pool.DataSource;
+import org.apache.commons.dbcp.BasicDataSource;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.zkoss.bind.annotation.AfterCompose;
 import org.zkoss.bind.annotation.BindingParam;
@@ -89,7 +89,6 @@ public class SetupDbVM extends BaseVM implements I_Step {
 	public void validateAndTestConnection() {
 		ZKUtils.validate(getView());
 		
-		jdbc = null;
 		jdbc = connect();
 		
 		final StringBuilder query = new StringBuilder("select count(*) from information_schema.USER_PRIVILEGES")
@@ -109,7 +108,7 @@ public class SetupDbVM extends BaseVM implements I_Step {
 	}
 	
 	private JdbcTemplate connect() {
-		final DataSource ds = new DataSource();
+		final BasicDataSource ds = new BasicDataSource();
 		
 		ds.setDriverClassName("com.mysql.jdbc.Driver");
 		ds.setUrl("jdbc:mysql://" + bean.getHost() 

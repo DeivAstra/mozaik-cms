@@ -153,8 +153,8 @@ public class DocumentsVM extends BaseVM {
 		return result;
 	}
 	
-	public List getDocumentElements(Integer folderId, Integer templateId, String folderSortingRule) {
-		return getDocumentElements(folderId, templateId, folderSortingRule, null);
+	public List getDocumentElements(Integer folderId, Integer templateId, String folderSortRule) {
+		return getDocumentElements(folderId, templateId, folderSortRule, null);
 	}
 	
 	public List getDocumentElements(Integer folderId, Integer templateId) {

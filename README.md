@@ -1,6 +1,6 @@
 Mozaik CMS
 ---
-The Web CMS based on Java and ZKoss Web Framework<br/>
+Based on Java and ZKoss Web Framework<br/>
 
 Official site [www.mozaik.top](http://www.mozaik.top) still in development.
 

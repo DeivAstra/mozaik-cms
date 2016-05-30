@@ -11,7 +11,7 @@ import java.util.Properties;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
 
-import org.apache.tomcat.jdbc.pool.DataSource;
+import org.apache.commons.dbcp.BasicDataSource;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.Page;
@@ -75,7 +75,7 @@ public class DbInit implements Initiator {
 		}
 		final Properties props = new Properties();
 		props.load(is);
-		final DataSource ds = new DataSource();
+		final BasicDataSource ds = new BasicDataSource();
 		ds.setDriverClassName("com.mysql.jdbc.Driver");
 		ds.setUrl("jdbc:mysql://"
 				+ props.getProperty("jdbc.host") 
