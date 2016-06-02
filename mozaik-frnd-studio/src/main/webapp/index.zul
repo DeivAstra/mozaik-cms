@@ -4,7 +4,7 @@
 -->
 <?page title="Mozaik CMS Studio" ?>
 <?script type="text/javascript" src="zksandbox.js.dsp"?>
-<?init class="top.mozaik.frnd.studio.init.DbInit"?>
+<?init class="top.mozaik.frnd.common.init.DbInit"?>
 <zk>
 <zscript>
 <![CDATA[
@@ -42,8 +42,8 @@
 	viewModel="@id('vm') @init('top.mozaik.frnd.studio.vm.ResourcePackVM')">
 	<borderlayout>
 		<north border="0" height="34px;">
-			<toolbar height="34px;">
-				<image src="/media/mozaik3.png"/>
+			<toolbar height="35px;" style="background:#00bcd4" hflex="1">
+				<image sclass="mozaik" src="/media/mozaik5_arrow.png"/>
 				<toolbarbutton image="/media/file-save.svg" tooltiptext="Save"
 					onClick="@command('saveResource')"/>
 				<toolbarbutton image="/media/file-save-all.svg" tooltiptext="Save All"
@@ -53,6 +53,8 @@
 				<space bar="true" style="vertical-align: middle; line-height: 20px;"/>
 				<toolbarbutton image="/media/run-build.svg" tooltiptext="Build" 
 					onClick="@command('build')"/>
+				<label sclass="clickable" style="float:right;font-size:120%;color:white;padding:10px 10px 0 0"
+					onClick="@command('logout')">Log Out</label>
 			</toolbar>
 			<!-- 
 			<menubar>

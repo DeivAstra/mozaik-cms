@@ -22,12 +22,13 @@ import org.zkoss.zk.ui.Execution;
 import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.Sessions;
 
+import top.mozaik.frnd.common.bean.SetupBean;
+import top.mozaik.frnd.common.init.DbInit;
 import top.mozaik.frnd.plus.callback.I_Callback;
 import top.mozaik.frnd.plus.zk.ZKUtils;
 import top.mozaik.frnd.plus.zk.component.Dialog;
 import top.mozaik.frnd.plus.zk.component.Notification;
 import top.mozaik.frnd.plus.zk.vm.BaseVM;
-import top.mozaik.frnd.studio.init.DbInit;
 
 public class SetupVM extends BaseVM {
 	
@@ -36,7 +37,7 @@ public class SetupVM extends BaseVM {
 	private final Execution ex = Executions.getCurrent();
 	private final ServletContext ctx = ex.getSession().getWebApp().getServletContext();
 	
-	private SettingsBean bean = new SettingsBean();
+	private SetupBean bean = new SetupBean();
 	
 	@AfterCompose(superclass=true)
 	public void doAfterCompose() throws Exception {
@@ -68,7 +69,7 @@ public class SetupVM extends BaseVM {
 	
 	/// BINDING ///
 	
-	public SettingsBean getBean() {
+	public SetupBean getBean() {
 		return bean;
 	}
 	
@@ -119,66 +120,6 @@ public class SetupVM extends BaseVM {
 				}
 			}
 		});
-		Executions.createComponents("/WEB-INF/zul/setuplogin.zul", null, args);
-	}
-	
-	public static class SettingsBean {
-		private String host = "127.0.0.1";
-		private Integer port = 3306;
-		private String username = "mozaik";
-		private String password;
-		private String dbName = "mozaik";
-		private JdbcTemplate jdbc;
-		
-		public SettingsBean() {
-		}
-		
-		public String getHost() {
-			return host;
-		}
-		
-		public void setHost(String host) {
-			this.host = host;
-		}
-		
-		public Integer getPort() {
-			return port;
-		}
-		
-		public void setPort(Integer port) {
-			this.port = port;
-		}
-		
-		public String getUsername() {
-			return username;
-		}
-		
-		public void setUsername(String username) {
-			this.username = username;
-		}
-		
-		public String getPassword() {
-			return password;
-		}
-		
-		public void setPassword(String password) {
-			this.password = password;
-		}
-		
-		public String getDbName() {
-			return dbName;
-		}
-		
-		public void setDbName(String dbName) {
-			this.dbName = dbName;
-		}
-		
-		public JdbcTemplate getJdbc() {
-			return jdbc;
-		}
-		
-		public void setJdbc(JdbcTemplate jdbc) {
-			this.jdbc = jdbc;
-		}
+		Executions.createComponents("/WEB-INF/zul/setuplogin.wnd.zul", null, args);
 	}
 }

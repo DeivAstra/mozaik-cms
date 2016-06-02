@@ -1,0 +1,14 @@
+<!--
+  This file is part of Mozaik CMS            www.mozaik.top
+  Copyright © 2016 Denis N Ivanchik       danykey@gmail.com
+-->
+<zk>
+<zscript>
+	import top.mozaik.bknd.api.enums.E_DbSettings;
+	String dbInfo = E_DbSettings.DATABASE.getValue();
+</zscript>
+<vlayout>
+	<hlayout>Welcome!</hlayout>
+	<hlayout>You are connected to: ${dbInfo}</hlayout>
+</vlayout>
+</zk>

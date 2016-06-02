@@ -1,0 +1,22 @@
+<!--
+  This file is part of Mozaik CMS            www.mozaik.top
+  Copyright © 2016 Denis N Ivanchik       danykey@gmail.com
+-->
+<zk>
+<vlayout viewModel="@id('vm') @init('top.mozaik.frnd.common.vm.LogoutVM')">
+	<hlayout>
+		Just logout?
+		<a label="Yes!" onClick="@command('logout')"/>
+	</hlayout>
+	<hlayout>
+		No..I want logout and delete saved setup properties.
+		Type "go": 
+		<textbox width="50px">
+			<attribute name="onChanging">
+				goLabel.setDisabled(!"go".equals(event.getValue()));
+			</attribute>
+		</textbox>
+		<a label="Go!" id="goLabel" disabled="true" onClick="@command('logoutAndDeleteSetup')"/>
+	</hlayout>
+</vlayout>
+</zk>

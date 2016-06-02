@@ -4,7 +4,7 @@
 -->
 <?page title="Mozaik Studio Login" ?>
 <zk xmlns:h="xhtml">
-<?init class="top.mozaik.frnd.studio.init.DbInit"?>
+<?init class="top.mozaik.frnd.common.init.DbInit"?>
 <zscript>
 <![CDATA[
     import top.mozaik.frnd.studio.App;

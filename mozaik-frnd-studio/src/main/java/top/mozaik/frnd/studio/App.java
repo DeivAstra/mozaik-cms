@@ -12,8 +12,8 @@ import org.zkoss.zk.ui.WebApp;
 
 import top.mozaik.bknd.api.enums.E_DbSettings;
 import top.mozaik.bknd.api.utils.SpringPropertiesUtil;
+import top.mozaik.frnd.common.init.DbInit;
 import top.mozaik.frnd.plus.zk.constraint.SwitchConstraint;
-import top.mozaik.frnd.studio.init.DbInit;
 
 public final class App {
 	private static final String CACHE_PARAM_NAME = "cache";

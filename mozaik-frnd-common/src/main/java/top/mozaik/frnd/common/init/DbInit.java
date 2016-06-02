@@ -2,7 +2,7 @@
  * This file is part of Mozaik CMS            www.mozaik.top
  * Copyright © 2016 Denis N Ivanchik       danykey@gmail.com
 **/
-package top.mozaik.frnd.studio.init;
+package top.mozaik.frnd.common.init;
 
 import java.io.InputStream;
 import java.util.Map;
@@ -18,8 +18,10 @@ import org.zkoss.zk.ui.WebApp;
 import org.zkoss.zk.ui.util.Initiator;
 
 import top.mozaik.bknd.api.ServicesFacade;
+import top.mozaik.bknd.api.enums.E_DbSettings;
 import top.mozaik.bknd.api.orm.service.A_CrudService;
 import top.mozaik.bknd.api.orm.service.A_CrudService.DataAccessExceptionListener;
+import top.mozaik.frnd.common.bean.SetupBean;
 
 public class DbInit implements Initiator {
 	
@@ -44,7 +46,7 @@ public class DbInit implements Initiator {
 			return;
 		}
 		final WebApp app = page.getDesktop().getWebApp();
-		final InputStream is = app.getServletContext().getResourceAsStream("WEB-INF/mozaik.properties");
+		final InputStream is = app.getServletContext().getResourceAsStream("WEB-INF/" + SetupBean.SETUP_FILE_NAME);
 		if(is == null) {
 			//Executions.sendRedirect("/setup.zul");
 			return;
@@ -64,8 +66,11 @@ public class DbInit implements Initiator {
 				
 		final JdbcTemplate jdbc = new JdbcTemplate(ds);
 		jdbc.queryForObject("select 1", Integer.class);
-		session.setAttribute(DB_ATTR_NAME, jdbc.queryForObject("select database()", String.class));
 		
 		ServicesFacade.$().setJdbc(jdbc);
+		
+		//session.setAttribute(DB_ATTR_NAME, jdbc.queryForObject("select database()", String.class));
+		E_DbSettings.DATABASE.setValue(jdbc.getDataSource().getConnection().getCatalog());
+		session.setAttribute(DB_ATTR_NAME, E_DbSettings.DATABASE.getValue());
 	}
 }

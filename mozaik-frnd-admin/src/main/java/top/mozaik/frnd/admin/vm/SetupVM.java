@@ -22,7 +22,8 @@ import org.zkoss.zk.ui.Execution;
 import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.Sessions;
 
-import top.mozaik.frnd.admin.init.DbInit;
+import top.mozaik.frnd.common.bean.SetupBean;
+import top.mozaik.frnd.common.init.DbInit;
 import top.mozaik.frnd.plus.callback.I_Callback;
 import top.mozaik.frnd.plus.zk.ZKUtils;
 import top.mozaik.frnd.plus.zk.component.Dialog;
@@ -31,16 +32,14 @@ import top.mozaik.frnd.plus.zk.vm.BaseVM;
 
 public class SetupVM extends BaseVM {
 	
-	private static final String PROPS_FILE_NAME = "mozaik.properties";
-	
 	private final Execution ex = Executions.getCurrent();
 	private final ServletContext ctx = ex.getSession().getWebApp().getServletContext();
 	
-	private SettingsBean bean = new SettingsBean();
+	private final SetupBean bean = new SetupBean();
 	
 	@AfterCompose(superclass=true)
 	public void doAfterCompose() throws Exception {
-		final InputStream is = ctx.getResourceAsStream("WEB-INF/" + PROPS_FILE_NAME);
+		final InputStream is = ctx.getResourceAsStream("WEB-INF/" + SetupBean.SETUP_FILE_NAME);
 		if(is == null) return;
 		final Properties props = new Properties();
 		props.load(is);
@@ -68,7 +67,7 @@ public class SetupVM extends BaseVM {
 	
 	/// BINDING ///
 	
-	public SettingsBean getBean() {
+	public SetupBean getBean() {
 		return bean;
 	}
 	
@@ -89,7 +88,7 @@ public class SetupVM extends BaseVM {
 		args.put("callback", new I_Callback() {
 			@Override
 			public void call() {
-				final String propsFilePath = ctx.getRealPath("/")+ "WEB-INF/" + PROPS_FILE_NAME;
+				final String propsFilePath = ctx.getRealPath("/")+ "WEB-INF/" + SetupBean.SETUP_FILE_NAME;
 				final File file = new File(propsFilePath);
 				BufferedWriter writer = null;
 				try {
@@ -108,7 +107,7 @@ public class SetupVM extends BaseVM {
 					writer.write("jdbc.password="+bean.getPassword());
 					writer.newLine();
 					writer.close();
-					Notification.showMessage("Properties file writen successfully");
+					Notification.showMessage("Setup properties were saved successfully");
 					
 					Sessions.getCurrent().removeAttribute(DbInit.DB_ATTR_NAME);
 				} catch (Exception e) {
@@ -119,66 +118,6 @@ public class SetupVM extends BaseVM {
 				}
 			}
 		});
-		Executions.createComponents("/WEB-INF/zul/setuplogin.zul", null, args);
+		Executions.createComponents("/WEB-INF/zul/setuplogin.wnd.zul", null, args);
 	}
-	
-	public static class SettingsBean {
-		private String host = "127.0.0.1";
-		private Integer port = 3306;
-		private String username = "mozaik";
-		private String password;
-		private String dbName = "mozaik";
-		private JdbcTemplate jdbc;
-		
-		public SettingsBean() {
-		}
-		
-		public String getHost() {
-			return host;
-		}
-		
-		public void setHost(String host) {
-			this.host = host;
-		}
-		
-		public Integer getPort() {
-			return port;
-		}
-		
-		public void setPort(Integer port) {
-			this.port = port;
-		}
-		
-		public String getUsername() {
-			return username;
-		}
-		
-		public void setUsername(String username) {
-			this.username = username;
-		}
-		
-		public String getPassword() {
-			return password;
-		}
-		
-		public void setPassword(String password) {
-			this.password = password;
-		}
-		
-		public String getDbName() {
-			return dbName;
-		}
-		
-		public void setDbName(String dbName) {
-			this.dbName = dbName;
-		}
-		
-		public JdbcTemplate getJdbc() {
-			return jdbc;
-		}
-		
-		public void setJdbc(JdbcTemplate jdbc) {
-			this.jdbc = jdbc;
-		}
-	}	
 }
