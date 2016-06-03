@@ -2,10 +2,8 @@
   This file is part of Mozaik CMS            www.mozaik.top
   Copyright © 2016 Denis N Ivanchik       danykey@gmail.com
 -->
-<window
-	viewModel="@id('vm') @init('top.mozaik.frnd.admin.vm.site.page.SelectThemeVM')"
+<window viewModel="@id('vm') @init('top.mozaik.frnd.admin.vm.site.page.SelectThemeVM')"
 	title="Select Theme" border="normal" position="center,center" closable="true" mode="modal" width="600px">
-	
 	<vlayout style="padding:20px">
 		<listbox id="resourcePackSetListbox" model="@load(vm.resourcePackSetList)" 
 			autopaging="true" mold="paging" vflex="true" multiple="true">
@@ -23,5 +21,4 @@
 		</template>
 		</listbox>
 	</vlayout>
-	
 </window>

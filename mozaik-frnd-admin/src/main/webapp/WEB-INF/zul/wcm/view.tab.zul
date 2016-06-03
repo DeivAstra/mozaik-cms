@@ -3,8 +3,7 @@
   Copyright © 2016 Denis N Ivanchik       danykey@gmail.com
 -->
 <zk>
-<borderlayout sclass="overlapping"
-		viewModel="@id('vm') @init('top.mozaik.frnd.admin.vm.wcm.WcmVM')">
+<borderlayout viewModel="@id('vm') @init('top.mozaik.frnd.admin.vm.wcm.WcmVM')" sclass="overlapping">
 	<center border="none">
 		<tabbox orient="left" vflex="true">
 			<tabs width="35px">

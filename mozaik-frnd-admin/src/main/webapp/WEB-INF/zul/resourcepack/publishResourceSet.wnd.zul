@@ -2,10 +2,8 @@
   This file is part of Mozaik CMS            www.mozaik.top
   Copyright © 2016 Denis N Ivanchik       danykey@gmail.com
 -->
-<window 
-	viewModel="@id('vm') @init('top.mozaik.frnd.admin.vm.resourcepack.PublishResourceSetVM')"
+<window viewModel="@id('vm') @init('top.mozaik.frnd.admin.vm.resourcepack.PublishResourceSetVM')"
 	title="Publish" border="normal" position="center,center" closable="true" mode="modal">
-
 	<vlayout style="padding:20px">
 		<hlayout>
 			<label class="form-label" value="Title:"/>
@@ -17,5 +15,4 @@
 			<button label="Cancel" onClick="@command('detachView')"/>
 		</hlayout>
 	</vlayout>
-
 </window>

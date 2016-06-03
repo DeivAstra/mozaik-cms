@@ -3,8 +3,7 @@
   Copyright © 2016 Denis N Ivanchik       danykey@gmail.com
 -->
 <zk>
-<window viewModel="@id('vm') 
-		@init('top.mozaik.frnd.admin.vm.wcm.resource.CreateFolderVM')" 
+<window viewModel="@id('vm') @init('top.mozaik.frnd.admin.vm.wcm.resource.CreateFolderVM')" 
 	title="Create Folder" border="normal" position="center,center" closable="true" mode="modal">
 	<vlayout style="padding:20px">
 		<hlayout>

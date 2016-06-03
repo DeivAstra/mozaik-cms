@@ -3,9 +3,8 @@
   Copyright © 2016 Denis N Ivanchik       danykey@gmail.com
 -->
 <?taglib uri="http://www.zkoss.org/dsp/web/core" prefix="core"?>
-<window width="100%" height="100%" viewModel="@id('vm') 
-	@init('top.mozaik.frnd.admin.vm.wcm.settings.contenttype.ContentTypesVM',
-		commandQueue=arg.commandQueue)" contentStyle="padding:0">
+<window viewModel="@id('vm') @init('top.mozaik.frnd.admin.vm.wcm.settings.contenttype.ContentTypesVM',
+	commandQueue=arg.commandQueue)" width="100%" height="100%" contentStyle="padding:0">
 	<listbox id="contentTypeListbox" autopaging="true" mold="paging" vflex="true" multiple="true"
 		model="@load(vm.contentTypeList)">
 		<auxhead>

@@ -3,8 +3,7 @@
   Copyright © 2016 Denis N Ivanchik       danykey@gmail.com
 -->
 <zk>
-<window viewModel="@id('vm') 
-		@init('top.mozaik.frnd.admin.vm.wcm.settings.contenttype.CreateContentTypeVM')" 
+<window viewModel="@id('vm') @init('top.mozaik.frnd.admin.vm.wcm.settings.contenttype.CreateContentTypeVM')" 
 	title="Create Content Type" border="normal" position="center,center" closable="true" mode="modal">
 	<vlayout style="padding:20px">
 		<hlayout>

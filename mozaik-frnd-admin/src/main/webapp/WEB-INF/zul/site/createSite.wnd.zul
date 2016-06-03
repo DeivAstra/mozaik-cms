@@ -17,5 +17,4 @@
 			<button label="Cancel" onClick="@command('detachView')"/>
 		</hlayout>
 	</vlayout>
-	
 </window>

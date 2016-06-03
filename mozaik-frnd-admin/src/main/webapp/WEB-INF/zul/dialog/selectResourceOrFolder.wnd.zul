@@ -3,8 +3,7 @@
   Copyright © 2016 Denis N Ivanchik       danykey@gmail.com
 -->
 <zk>
-<window viewModel="@id('vm') 
-		@init('top.mozaik.frnd.admin.vm.dialog.SelectResourceOrFolderVM',target=arg.target)"
+<window viewModel="@id('vm') @init('top.mozaik.frnd.admin.vm.dialog.SelectResourceOrFolderVM',target=arg.target)"
 	title="@load(vm.title)" border="normal" position="center,center" closable="true" mode="modal"
 	width="100%" height="100%">
 	<tree id="resourceTree" vflex="true" model="@load(vm.resourceTreeModel)" nonselectableTags="*">

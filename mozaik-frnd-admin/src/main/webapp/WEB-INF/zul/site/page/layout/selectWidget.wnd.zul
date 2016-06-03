@@ -2,14 +2,11 @@
   This file is part of Mozaik CMS            www.mozaik.top
   Copyright © 2016 Denis N Ivanchik       danykey@gmail.com
 -->
-<window
-	viewModel="@id('vm') @init('top.mozaik.frnd.admin.vm.site.page.layout.SelectWidgetVM')"
+<window viewModel="@id('vm') @init('top.mozaik.frnd.admin.vm.site.page.layout.SelectWidgetVM')"
 	title="Select Widget" border="normal" position="center,center" closable="true" mode="modal" width="600px">
-	
 	<vlayout style="padding:20px">
 		<listbox id="resourcePackSetListbox" model="@load(vm.resourcePackSetList)" 
 			autopaging="true" mold="paging" vflex="true" multiple="true">
-
 			<listhead>
 				<listheader label="Resource Pack"/>
 				<listheader label="Name"/>
@@ -23,5 +20,4 @@
 		</template>
 		</listbox>
 	</vlayout>
-	
 </window>

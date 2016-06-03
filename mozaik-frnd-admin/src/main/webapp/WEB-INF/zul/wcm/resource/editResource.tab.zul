@@ -3,10 +3,8 @@
   Copyright © 2016 Denis N Ivanchik       danykey@gmail.com
 -->
 <zk>
-<window width="100%" height="100%" viewModel="@id('vm')  
-		@init('top.mozaik.frnd.admin.vm.wcm.resource.EditResourceVM')" 
-		contentStyle="padding:0">
-
+<window viewModel="@id('vm')  @init('top.mozaik.frnd.admin.vm.wcm.resource.EditResourceVM')" 
+	width="100%" height="100%" contentStyle="padding:0">
 	<vlayout vflex="true">
 		<hlayout>
 		 	<button label="Save" onClick="@command('validateAndSave')"/>
@@ -48,7 +46,6 @@
 					@init('top.mozaik.frnd.admin.vm.wcm.resource.EditResourceDataVM',
 						bean=vm.bean, commandQueue=vm.commandQueue)"
 						contentStyle="padding:0">
-					
 				</window>
 			</tabpanel>
 		</tabpanels>

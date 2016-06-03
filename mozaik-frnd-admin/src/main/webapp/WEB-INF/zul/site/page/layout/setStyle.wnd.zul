@@ -2,10 +2,8 @@
   This file is part of Mozaik CMS            www.mozaik.top
   Copyright © 2016 Denis N Ivanchik       danykey@gmail.com
 -->
-<window
-	viewModel="@id('vm') @init('top.mozaik.frnd.admin.vm.site.page.layout.SetStyleVM')"
+<window viewModel="@id('vm') @init('top.mozaik.frnd.admin.vm.site.page.layout.SetStyleVM')"
 	title="Set Style" border="normal" position="center,center" closable="true" mode="modal" width="300px">
-	
 	<tabbox>
 		<tabs>
 			<tab label="Width/Height"/>

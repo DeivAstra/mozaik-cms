@@ -24,15 +24,15 @@
 <include src="/WEB-INF/zul/_shared_/styles.zul"/>
 </zk>
 
-<window if="${initOk}" mode="overlapped" width="510px" border="normal" position="center" 
-	zclass="z-window-popup" style="box-shadow: 0 0 2px gray;"
-	viewModel="@id('vm') @init('top.mozaik.frnd.admin.vm.LoginVM',redirect=execution.getParameter('r'))">
+<window if="${initOk}" viewModel="@id('vm') 
+	@init('top.mozaik.frnd.admin.vm.LoginVM',redirect=execution.getParameter('r'))"
+	mode="overlapped" width="510px" border="normal" position="center" 
+	zclass="z-window-popup" style="box-shadow: 0 0 2px gray;">
 	<vlayout style="padding:20px">
 		<div style="max-height:33px;overflow:hidden">
 			<image src="/media/mozaik3.png"/>
 			<h:span style="font-family:arial;float:right">ADMIN</h:span>
 		</div>
-		
 		<groupbox open="true">
 			<caption>Log In</caption>
 			<div if="${execution.getParameter('wrong') eq '1'}" vflex="true" style="color:red;text-align:center">

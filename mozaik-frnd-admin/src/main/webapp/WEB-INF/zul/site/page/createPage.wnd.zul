@@ -2,10 +2,8 @@
   This file is part of Mozaik CMS            www.mozaik.top
   Copyright © 2016 Denis N Ivanchik       danykey@gmail.com
 -->
-<window
-	viewModel="@id('vm') @init('top.mozaik.frnd.admin.vm.site.page.CreatePageVM')"
+<window viewModel="@id('vm') @init('top.mozaik.frnd.admin.vm.site.page.CreatePageVM')"
 	title="Create Page" border="normal" position="center,center" closable="true" mode="modal">
-	
 	<vlayout style="padding:20px">
 		<hlayout>
 			<label class="form-label" value="Theme:"/>
@@ -22,5 +20,4 @@
 			<button label="Cancel" onClick="@command('detachView')"/>
 		</hlayout>
 	</vlayout>
-	
 </window>

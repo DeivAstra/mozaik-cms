@@ -10,6 +10,7 @@
 	<tree id="templateTree" vflex="true" model="@load(vm.templateTreeModel)" nonselectableTags="*">
 		<auxhead>
 			<auxheader colspan="3">
+				<label style="font-weight:bold">&#160;Templates</label>
 				<button sclass="no-padding" image="/media/refresh.svg"
 						tooltiptext="Refresh" onClick="@command('refresh')"/>
 				<!-- <button label="New" tooltip="New Template" onClick="@command('createTemplate')"/>  -->

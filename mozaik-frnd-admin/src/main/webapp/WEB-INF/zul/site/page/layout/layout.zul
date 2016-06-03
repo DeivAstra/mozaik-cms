@@ -2,9 +2,8 @@
   This file is part of Mozaik CMS            www.mozaik.top
   Copyright © 2016 Denis N Ivanchik       danykey@gmail.com
 -->
-<vlayout hflex="true" vflex="true"
-	viewModel="@id('vm') @init('top.mozaik.frnd.admin.vm.site.page.layout.PageLayoutVM')" 
-	sclass="mozaik-page-layout">
+<vlayout viewModel="@id('vm') @init('top.mozaik.frnd.admin.vm.site.page.layout.PageLayoutVM')" 
+	hflex="true" vflex="true" sclass="mozaik-page-layout">
 	<hlayout sclass="mozaik-page-layout-bar">
 		<menubar>
 			<menu label="&#8203;" visible="@load(empty vm.bean.value)">

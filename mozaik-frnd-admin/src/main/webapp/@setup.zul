@@ -20,8 +20,8 @@
 	}
 ]]>
 </zscript>
-<window if="${initOk}" width="100%" height="100%" contentStyle="padding: 4px 0 0 0"
-	viewModel="@id('vm') @init('top.mozaik.frnd.admin.vm.SetupVM')">
+<window if="${initOk}" viewModel="@id('vm') @init('top.mozaik.frnd.admin.vm.SetupVM')"
+	width="100%" height="100%" contentStyle="padding: 4px 0 0 0">
 	<vlayout style="padding:20px">
 		<label style="font-weight:bold">Setup Configuration</label>
 		<separator orient="vertical"/>

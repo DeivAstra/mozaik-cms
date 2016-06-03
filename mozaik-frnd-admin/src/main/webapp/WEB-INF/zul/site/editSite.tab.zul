@@ -2,8 +2,7 @@
   This file is part of Mozaik CMS            www.mozaik.top
   Copyright © 2016 Denis N Ivanchik       danykey@gmail.com
 -->
-<window 
-	viewModel="@id('vm') @init('top.mozaik.frnd.admin.vm.site.EditSiteVM')"
+<window viewModel="@id('vm') @init('top.mozaik.frnd.admin.vm.site.EditSiteVM')"
 	form="@id('form') @load(vm.bean) @save(vm.bean, before='save')" contentStyle="padding:0">
 	
 	<button label="Save" onClick="@command('save')"/>

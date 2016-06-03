@@ -2,8 +2,7 @@
   This file is part of Mozaik CMS            www.mozaik.top
   Copyright © 2016 Denis N Ivanchik       danykey@gmail.com
 -->
-<borderlayout sclass="overlapping"
-		viewModel="@id('vm') @init('top.mozaik.frnd.admin.vm.site.SitesVM')">
+<borderlayout viewModel="@id('vm') @init('top.mozaik.frnd.admin.vm.site.SitesVM')" sclass="overlapping">
 	<center border="none">
 		<div width="100%" height="100%">
 			<menupopup id="siteTreeItemContextMenu" onOpen="@command('showTreeItemContextMenu', event=event)"/>

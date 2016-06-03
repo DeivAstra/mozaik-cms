@@ -4,8 +4,7 @@
 -->
 <?taglib uri="http://www.zkoss.org/dsp/web/core" prefix="core"?>
 <zk>
-<window viewModel="@id('vm') 
-		@init('top.mozaik.frnd.admin.vm.wcm.resource.CreateResourceVM')" 
+<window viewModel="@id('vm') @init('top.mozaik.frnd.admin.vm.wcm.resource.CreateResourceVM')" 
 	title="Create Resource" border="normal" position="center,center" closable="true" mode="modal">
 	<vlayout style="padding:20px">
 		<hlayout>

@@ -3,8 +3,7 @@
   Copyright © 2016 Denis N Ivanchik       danykey@gmail.com
 -->
 <zk>
-<borderlayout sclass="overlapping"
-		viewModel="@id('vm') @init('top.mozaik.frnd.admin.vm.resourcepack.ResourcePacksVM')">
+<borderlayout viewModel="@id('vm') @init('top.mozaik.frnd.admin.vm.resourcepack.ResourcePacksVM')" sclass="overlapping">
 	<center border="none">
 		<tree id="resourcePackTree" vflex="true" model="@load(vm.resourcePackTreeModel)">
 			<auxhead>
