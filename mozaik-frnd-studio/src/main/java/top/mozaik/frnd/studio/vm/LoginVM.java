@@ -74,7 +74,7 @@ public class LoginVM extends BaseVM {
 					new User()
 						.setLogin(username)
 						.setPassword(MDUtils.toMD5(password))
-						.setRole(E_UserRole.DEV)
+						.setRole(E_UserRole.STUDIO)
 						.setActive(true)
 			);
 		}

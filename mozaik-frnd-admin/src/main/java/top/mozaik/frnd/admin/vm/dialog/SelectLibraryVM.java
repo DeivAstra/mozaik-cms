@@ -40,7 +40,7 @@ public class SelectLibraryVM extends BaseVM {
 	/// BINDING ///
 	
 	public List<WcmLibrary> getLibraryList() {
-		return libraryService.read(new WcmLibrary());
+		return libraryService.readAll();
 	}
 	
 	public DateToStringConverter getDateConverter() {

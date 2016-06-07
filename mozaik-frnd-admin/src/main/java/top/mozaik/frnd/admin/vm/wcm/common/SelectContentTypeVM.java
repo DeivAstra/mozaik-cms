@@ -37,7 +37,7 @@ public class SelectContentTypeVM extends BaseVM {
 	/// BINDING ///
 	
 	public List<WcmContentType> getContentTypeList() {
-		return contentTypeService.read(new WcmContentType());
+		return contentTypeService.readAll();
 	}
 	
 	/// COMMANDS ///

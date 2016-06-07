@@ -4,7 +4,9 @@
 **/
 package top.mozaik.frnd.admin.vm.site.page.layout;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.zkoss.bind.annotation.AfterCompose;
@@ -41,11 +43,16 @@ public class EditPageLayoutsVM extends BaseVM implements I_CommandExecutor {
 		commandQueue.addListener(this);
 	}
 	
+	private static final List<String> isNullFields = new ArrayList<String>();
+	static {
+		isNullFields.add("parentLayoutId");
+	}
+	
 	@AfterCompose(superclass=true)
 	public void doAfterCompose(){
 		
 		final SitePageLayout filter = new SitePageLayout().setPageId(pageId);
-		filter.getFilter().putNullField("parentLayoutId");
+		filter.getFilter().setIsNullFields(isNullFields);
 		final SitePageLayout rootLayout = sitePageLayoutService.read1(filter);
 		
 		/// APPEND ROOT LAYOUT

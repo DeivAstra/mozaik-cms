@@ -35,7 +35,7 @@ public class ComponentTreeModel extends AbstractTreeModel<A_TreeElement<A_TreeNo
 		
 		/// LOAD LIBRARY LIST
 		final List<WcmLibrary> libraries = 
-				ServicesFacade.$().getWcmLibraryService().read(new WcmLibrary());
+				ServicesFacade.$().getWcmLibraryService().readAll();
 		
 		for(final WcmLibrary bean : libraries) {			
 			rootFolder.addChild(new TreeLibraryComponentFolder(bean));

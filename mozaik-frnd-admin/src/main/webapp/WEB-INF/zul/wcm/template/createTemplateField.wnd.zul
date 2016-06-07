@@ -4,7 +4,7 @@
 -->
 <zk>
 <window viewModel="@id('vm') 
-		@init('top.mozaik.frnd.admin.vm.wcm.template.CreateTemplateFieldVM')" 
+		@init('top.mozaik.frnd.admin.vm.wcm.template.CreateTemplateFieldVM')"
 	title="Create Template Field" border="normal" position="center,center" closable="true" mode="modal">
 	<vlayout style="padding:20px">
 		<hlayout>

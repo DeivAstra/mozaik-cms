@@ -12,6 +12,7 @@ import static top.mozaik.frnd.site.PageAttrs.PAGE;
 import static top.mozaik.frnd.site.PageAttrs.RESOURCE_PACK;
 import static top.mozaik.frnd.site.PageAttrs.RESOURCE_SET;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -50,6 +51,11 @@ public class PageLayout extends Div {
 	private final SitePageLayoutService sitePageLayoutService = ServicesFacade.$().getSitePageLayoutService();
 	private final SitePageLayoutWidgetService sitePageLayoutWidgetService =ServicesFacade.$().getSitePageLayoutWidgetService();
 	
+	private static final List<String> isNullFields = new ArrayList<String>();
+	static {
+		isNullFields.add("parentLayoutId");
+	}
+	
 	public PageLayout() {
 		
 		setSclass("page-layout");
@@ -62,7 +68,7 @@ public class PageLayout extends Div {
 		final SitePageLayout rootLayout = sitePageLayoutService.read1(
 				new SitePageLayout()
 					.setPageId(sitePage.getId())
-					.getFilter().putNullField("parentLayoutId")
+					.getFilter().setIsNullFields(isNullFields)
 					.getDelegate()
 		);
 		

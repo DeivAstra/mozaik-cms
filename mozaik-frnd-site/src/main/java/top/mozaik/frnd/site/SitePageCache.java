@@ -23,17 +23,21 @@ public class SitePageCache {
 	private final Map<String/*domain*/, Map<String/*path*/, SitePageNode>> map = new HashMap<>();
 	
 	public SitePageCache() {
-		for(Site site: siteService.read(new Site())) {
+		for(Site site: siteService.readAll()) {
 			final List<SitePageNode> pageNodes = new ArrayList<>();
 			final SiteNode siteNode = new SiteNode(site, pageNodes);
 			map.put(site.getDomains(), loadPages(siteNode, pageNodes));
 		}
 	}
 	
+	private static final List<String> isNullFields = new ArrayList<String>();
+	static {
+		isNullFields.add("parentId");
+	}
 	private Map<String, SitePageNode> loadPages(SiteNode site, List<SitePageNode> pageNodes) {
 		final Map<String, SitePageNode> pageNodeMap = new HashMap<>();
 		final SitePage pageFilter = new SitePage().setSiteId(site.getId());
-		pageFilter.getFilter().putNullField("parentId");
+		pageFilter.getFilter().setIsNullFields(isNullFields);
 		for(SitePage page: sitePageService.read(pageFilter)) {
 			final List<SitePageNode> subPageNodes = new ArrayList<>();
 			final SitePageNode pageNode = new SitePageNode(site, null, page, subPageNodes);

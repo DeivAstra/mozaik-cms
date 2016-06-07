@@ -69,7 +69,7 @@ public class ContentTypesVM extends BaseVM implements I_CommandExecutor {
 	/// BINDING ///
 	
 	public List<WcmContentType> getContentTypeList() {
-		return contentTypeService.read(new WcmContentType());
+		return contentTypeService.readAll();
 	}
 	
 	/// COMMANDS ///

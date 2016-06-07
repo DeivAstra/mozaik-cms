@@ -74,7 +74,7 @@ public class EditTemplateFieldsVM extends BaseVM implements I_CommandExecutor {
 		// NEED TO REMOVE DELETED FIELDS FROM DOCS
 		
 		// GET CURRENT FIELDS
-		final List<WcmTemplateField> currentFields = templateFieldService.read(new WcmTemplateField());
+		final List<WcmTemplateField> currentFields = templateFieldService.readAll();
 		
 		//if(currentFields)
 		

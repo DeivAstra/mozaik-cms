@@ -35,7 +35,7 @@ public class CodeLoaderVM extends BaseVM {
 	/// BINDING ///
 	
 	public List<ResourcePack> getResourcePackList() {
-		return resPackService.read(new ResourcePack());
+		return resPackService.readAll();
 	}
 	
 	/// COMMANDS ///

@@ -1,0 +1,54 @@
+<!--
+  This file is part of Mozaik CMS            www.mozaik.top
+  Copyright © 2016 Denis N Ivanchik       danykey@gmail.com
+-->
+<zk>
+<window viewModel="@id('vm') @init('top.mozaik.frnd.admin.vm.access.user.EditUserVM')" 
+	title="Edit User" border="normal" position="center,center" closable="true" mode="modal">
+	<vlayout style="padding:20px">
+		<hlayout>
+			<label class="form-label" value="Login"/>
+			<textbox class="form-field" maxlength="20"
+				value="@bind(vm.bean.login)"
+				constraint="@load(vm.userLoginConstraint)" />
+		</hlayout>
+		<hlayout>
+			<label class="form-label" value="Password:"/>
+			<textbox class="form-field" maxlength="100" type="password"
+				value="@save(vm.bean.password)"/>
+		</hlayout>
+		<hlayout>
+			<label class="form-label" value="Confirm Password:"/>
+			<textbox id="confirmPasswordTextbox" class="form-field" maxlength="100" 
+				type="password" value="@save(vm.confirmPassword)"/>
+		</hlayout>
+		<hlayout>
+			<label class="form-label" value="Description:"/>
+			<textbox class="form-field" rows="2"
+				value="@bind(vm.bean.descr)"/>
+		</hlayout>
+		<hlayout>
+			<label class="form-label" value="Role:"/>
+			<combobox model="@load(vm.roleList)" width="400px"
+				value="@bind(vm.bean.role) @converter(
+					'top.mozaik.frnd.plus.zk.converter.ComboboxBindConverter', toUi='uiname')"
+				constraint="${application.attributes.cache.constraint.noempty}">
+				<template name="model">
+					<comboitem value="@load(each)" label="@load(each.uiname())"/>
+				</template>
+				<attribute name="onChange">
+					if(self.getSelectedItem()==null){self.setRawValue(null);}
+				</attribute>
+			</combobox>
+		</hlayout>
+		<hlayout>
+			<label class="form-label" value="Active:"/>
+			<checkbox checked="@bind(vm.bean.active)"/>
+		</hlayout>
+		<hlayout>
+		 	<button label="Save" onClick="@command('save')"/>
+			<button label="Cancel" onClick="@command('detachView')"/>
+		</hlayout>
+	</vlayout>
+</window>
+</zk>

@@ -35,7 +35,7 @@ public class DocumentTreeModel extends AbstractTreeModel<A_TreeElement<A_TreeNod
 		
 		/// LOAD LIBRARY LIST
 		final List<WcmLibrary> libraries = 
-				ServicesFacade.$().getWcmLibraryService().read(new WcmLibrary());
+				ServicesFacade.$().getWcmLibraryService().readAll();
 		
 		for(final WcmLibrary bean : libraries) {			
 			rootFolder.addChild(new TreeLibraryDocumentFolder(bean));

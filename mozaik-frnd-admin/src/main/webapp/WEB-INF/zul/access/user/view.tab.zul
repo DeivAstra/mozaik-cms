@@ -1,0 +1,49 @@
+<!--
+  This file is part of Mozaik CMS            www.mozaik.top
+  Copyright © 2016 Denis N Ivanchik       danykey@gmail.com
+-->
+<?taglib uri="http://www.zkoss.org/dsp/web/core" prefix="core"?>
+<zk>
+<window viewModel="@id('vm') @init('top.mozaik.frnd.admin.vm.access.user.UsersVM')"
+	width="100%" height="100%" contentStyle="padding:0">
+	<listbox id="userListbox" autopaging="true" mold="paging" vflex="true" multiple="true"
+		model="@load(vm.userList)">
+		<auxhead>
+			<auxheader colspan="5">
+				<hlayout>
+					<button sclass="no-padding" image="/media/refresh.svg"
+						tooltiptext="Refresh" onClick="@command('refresh')"/>
+					<button sclass="no-padding" image="/media/add.svg"
+						tooltiptext="Create" onClick="@command('create')"/>
+					<button sclass="no-padding" image="/media/remove.svg"
+						tooltiptext="Remove" onClick="@command('remove')"/>
+				</hlayout>
+			</auxheader>
+		</auxhead>
+		<listhead>
+			<listheader label="Title" sortAscending="${core:new2('org.zkoss.zul.FieldComparator', 'login', true) }"
+					sortDescending="${core:new2('org.zkoss.zul.FieldComparator', 'login', false) }"/>
+			<listheader label="Description" sortAscending="${core:new2('org.zkoss.zul.FieldComparator', 'descr', true) }"
+					sortDescending="${core:new2('org.zkoss.zul.FieldComparator', 'descr', false) }"/>
+			<listheader label="Role" sortAscending="${core:new2('org.zkoss.zul.FieldComparator', 'active', true) }"
+					sortDescending="${core:new2('org.zkoss.zul.FieldComparator', 'active', false) }"
+					sortDirection="ascending"/>
+			<listheader label="Active" sortAscending="${core:new2('org.zkoss.zul.FieldComparator', 'role', true) }"
+					sortDescending="${core:new2('org.zkoss.zul.FieldComparator', 'role', false) }"
+					sortDirection="ascending"/>
+			<listheader label="Create Date" sortAscending="${core:new2('org.zkoss.zul.FieldComparator', 'createDate', true) }"
+					sortDescending="${core:new2('org.zkoss.zul.FieldComparator', 'createDate', false) }"/>
+		</listhead>
+		<template name="model">
+			<listitem value="@load(each)" 
+				onDoubleClick="@command('edit', bean=self.getValue())">
+				<listcell label="@load(each.login)"/>
+				<listcell label="@load(each.descr)"/>
+				<listcell label="@load(each.role)"/>
+				<listcell label="@load(each.active)"/>
+				<listcell label="@load(each.createDate) @converter(vm.dateConverter)"/>
+			</listitem>
+		</template>
+	</listbox>
+</window>
+</zk>

@@ -54,6 +54,7 @@ vertical-align:bottom;
 			<tab sclass="home-tab" style="padding:0;border:0;max-height:33px" image="/media/mozaik5_arrow.png"/>
 			<tab id="siteTab" style="padding:0;top:5px">Site</tab>
 			<tab id="wcmTab" style="padding:0;top:5px">WCM</tab>
+			<tab id="accessTab" style="padding:0;top:5px">Access</tab>
 			<tab id="logoutTab" style="padding:0;float:right;top:5px">Log Out</tab>
 			<tab id="resourcePackTab" style="padding:0;float:right;top:5px">Resource Pack</tab>
 			<tab id="systemTab" style="padding:0;float:right;top:5px">System</tab>
@@ -67,6 +68,9 @@ vertical-align:bottom;
 			</tabpanel>
 			<tabpanel fulfill="wcmTab.onSelect" style="padding:0">
 				<include src="/WEB-INF/zul/wcm/view.tab.zul"/>
+			</tabpanel>
+			<tabpanel fulfill="accessTab.onSelect" style="padding:0">
+				<include src="/WEB-INF/zul/access/view.tab.zul"/>
 			</tabpanel>
 			<tabpanel fulfill="logoutTab.onSelect">
 				<include src="/WEB-INF/zul/logout.tab.zul"/>

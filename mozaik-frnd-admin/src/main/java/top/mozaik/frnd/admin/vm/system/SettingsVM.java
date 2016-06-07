@@ -46,7 +46,7 @@ public class SettingsVM extends BaseVM {
 	/// BINDING ///
 	
 	public List<Settings> getSettingsList() {
-		return settingsService.read(new Settings());
+		return settingsService.readAll();
 	}
 	
 	/// COMMANDS ///

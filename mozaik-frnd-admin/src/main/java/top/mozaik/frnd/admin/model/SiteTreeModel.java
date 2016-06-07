@@ -4,6 +4,7 @@
 **/
 package top.mozaik.frnd.admin.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.zkoss.zul.AbstractTreeModel;
@@ -30,7 +31,7 @@ public class SiteTreeModel extends AbstractTreeModel<A_TreeSiteElement> {
 				
 		/// LOAD SITES LIST
 		final List<Site> sites = 
-				ServicesFacade.$().getSiteService().read(new Site());
+				ServicesFacade.$().getSiteService().readAll();
 		
 		for(final Site bean : sites) {			
 			rootFolder.addChild(new TreeSite(bean));
@@ -39,6 +40,10 @@ public class SiteTreeModel extends AbstractTreeModel<A_TreeSiteElement> {
 	}
 	
 	private final SitePage _childsFilter = new SitePage(); /// NOT BEAUTYFUL BUT FAST
+	private static final List<String> isNullFields = new ArrayList<String>();
+	static {
+		isNullFields.add("parentId");
+	}
 	private void loadChildrens(final A_TreeSiteElement folder){
 		if(folder instanceof TreeSiteRootFolder || !folder.childsIsNull()) return;
 		try {
@@ -46,7 +51,7 @@ public class SiteTreeModel extends AbstractTreeModel<A_TreeSiteElement> {
 			if(folder instanceof TreeSite) {
 				final TreeSite siteFolder = (TreeSite) folder;
 				final SitePage page = new SitePage().setSiteId(siteFolder.getValue().getId());
-				page.getFilter().putNullField("parentId");
+				page.getFilter().setIsNullFields(isNullFields);
 				pages = sitePageService.read(page);
 			} else {
 				final TreeSitePage treeSitePage = ((TreeSitePage) folder);

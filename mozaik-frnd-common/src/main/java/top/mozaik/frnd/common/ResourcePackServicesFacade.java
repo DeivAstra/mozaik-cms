@@ -41,7 +41,7 @@ public class ResourcePackServicesFacade {
 		resourceService.setJdbcTemplate(ServicesFacade.$().getJdbc());
 		// fix session timeout. another schema throws exception anyway
 		try {
-			resourceSetService.read(new _ResourceSet());
+			resourceSetService.readAll();
 		} catch (Exception e) {}
 	}
 

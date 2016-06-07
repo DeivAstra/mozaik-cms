@@ -36,7 +36,7 @@ public class ResourcePackTreeModel extends AbstractTreeModel<I_TreeElement> {
 
 		/// LOAD RESOURCE PACK LIST
 		final List<ResourcePack> resourcePacks = 
-				ServicesFacade.$().getResourcePackService().read(new ResourcePack());
+				ServicesFacade.$().getResourcePackService().readAll();
 
 		for(final ResourcePack bean : resourcePacks) {
 			rootFolder.addChild(new TreeResourcePackFolder(bean));
