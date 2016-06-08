@@ -5,7 +5,6 @@
 <window 
 	viewModel="@id('vm') @init('top.mozaik.frnd.admin.vm.site.CreateSiteVM')"
 	title="Create Site" border="normal" position="center,center" closable="true" mode="modal">
-	
 	<vlayout style="padding:20px">
 		<hlayout>
 			<label class="form-label" value="Title:"/>

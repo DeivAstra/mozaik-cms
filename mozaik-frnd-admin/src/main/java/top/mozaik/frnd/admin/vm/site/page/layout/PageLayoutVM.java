@@ -126,28 +126,24 @@ public class PageLayoutVM extends BaseVM implements I_CommandExecutor {
 	
 	private void initIndent() {
 		final StringBuilder sb = new StringBuilder();
-		if(bean.getIndentTop() != null) {
+		Integer indent;
+		if((indent = bean.getIndentTop()) != null) {
 			//margin.append("margin-top:").append(bean.getMarginTop()).append("px;");
-			sb.append("border-top:").append(bean.getIndentTop()).append("px solid gold;");
+			sb.append("border-top:").append(indent).append("px solid #2196F3;");
 		}
-		if(bean.getIndentRight() != null) {
+		if((indent = bean.getIndentRight()) != null) {
 			//margin.append("margin-right:").append(bean.getMarginRight()).append("px;");
-			sb.append("border-right:").append(bean.getIndentRight()).append("px solid gold;");
+			sb.append("border-right:").append(indent).append("px solid #2196F3;");
 		}
-		if(bean.getIndentBottom() != null) {
+		if((indent = bean.getIndentBottom()) != null) {
 			//margin.append("margin-bottom:").append(bean.getMarginBottom()).append("px;");
-			sb.append("border-bottom:").append(bean.getIndentBottom()).append("px solid gold;");
+			sb.append("border-bottom:").append(indent).append("px solid #2196F3;");
 		}
-		if(bean.getIndentLeft() != null) {
+		if((indent = bean.getIndentLeft()) != null) {
 			//margin.append("margin-left:").append(bean.getMarginLeft()).append("px;");
-			sb.append("border-left:").append(bean.getIndentLeft()).append("px solid gold;");
+			sb.append("border-left:").append(indent).append("px solid #2196F3;");
 		}
-		final Vlayout view = (Vlayout) getView();
-		if(sb.length() == 0) {
-			view.setStyle(null);
-		} else {
-			view.setStyle(sb.toString());
-		}
+		((Vlayout) getView()).setStyle(sb.length()==0?null:sb.toString());
 	}
 	
 	private void renderWidgetByValue() {

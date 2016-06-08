@@ -9,7 +9,6 @@ import top.mozaik.bknd.api.ServicesFacade;
 import top.mozaik.bknd.api.model.User;
 import top.mozaik.bknd.api.service.UserService;
 
-
 public class UserLoginConstraint implements Constraint {
     
     private static final SimpleConstraint noEmptyConstraint = new SimpleConstraint("no empty");
@@ -25,6 +24,11 @@ public class UserLoginConstraint implements Constraint {
         noEmptyConstraint.validate(comp, value);
         
         final String login = (String) value;
+        
+        if(login.matches("[A-Za-z0-9_]+")) {
+        	throw new WrongValueException("Login '" + login + 
+					"' is not valid. Only A-Z a-z _ are allowed.");
+        }
         
         // skip if initial login eq compared login
         if(login.equalsIgnoreCase(this.login)) return;

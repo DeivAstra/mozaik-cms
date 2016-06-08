@@ -19,7 +19,8 @@
 					<treeitem value="${each}" context="siteTreeItemContextMenu"
 						onDoubleClick="@command('editElement', el=self.value)">
               				<treerow sclass="image16px">
-                  				<treecell label="${each.value.title}" image="@load(each) @converter(vm.treeitemImageUrlConverter)"/>
+                  				<treecell label="${each.value.title}" 
+                  					image="@load(each) @converter(vm.treeitemImageUrlConverter)"/>
               				</treerow>
           				</treeitem>
 				</template>

@@ -69,9 +69,4 @@ public class WcmVM extends BaseVM {
 	public Tab getTab(Object v) {
 		return tabHelper.getTabByValue(v);
 	}
-	
-	/// BINDING ///
-	
-	/// COMMANDS ///
-	
 }

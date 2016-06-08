@@ -16,7 +16,7 @@ import top.mozaik.bknd.api.service.SitePageService;
 import top.mozaik.frnd.admin.bean.site.tree.A_TreeSiteElement;
 import top.mozaik.frnd.admin.bean.site.tree.TreeSite;
 import top.mozaik.frnd.admin.bean.site.tree.TreeSitePage;
-import top.mozaik.frnd.admin.bean.site.tree.TreeSiteRootFolder;
+import top.mozaik.frnd.admin.bean.site.tree.TreeRootSiteFolder;
 
 public class SiteTreeModel extends AbstractTreeModel<A_TreeSiteElement> {
 	
@@ -27,7 +27,7 @@ public class SiteTreeModel extends AbstractTreeModel<A_TreeSiteElement> {
 	}
 	
 	private static A_TreeSiteElement  buildRootElement() throws Exception {
-		final TreeSiteRootFolder rootFolder = new TreeSiteRootFolder();
+		final TreeRootSiteFolder rootFolder = new TreeRootSiteFolder();
 				
 		/// LOAD SITES LIST
 		final List<Site> sites = 
@@ -45,7 +45,7 @@ public class SiteTreeModel extends AbstractTreeModel<A_TreeSiteElement> {
 		isNullFields.add("parentId");
 	}
 	private void loadChildrens(final A_TreeSiteElement folder){
-		if(folder instanceof TreeSiteRootFolder || !folder.childsIsNull()) return;
+		if(folder instanceof TreeRootSiteFolder || !folder.childsIsNull()) return;
 		try {
 			List<SitePage> pages = null;
 			if(folder instanceof TreeSite) {

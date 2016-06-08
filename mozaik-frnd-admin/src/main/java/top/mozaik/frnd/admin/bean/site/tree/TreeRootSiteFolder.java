@@ -4,9 +4,9 @@
 **/
 package top.mozaik.frnd.admin.bean.site.tree;
 
-public class TreeSiteRootFolder extends A_TreeSiteElement<A_TreeSiteElement, TreeSite , Object> {
+public class TreeRootSiteFolder extends A_TreeSiteElement<A_TreeSiteElement, TreeSite , Object> {
 
-	public TreeSiteRootFolder() {
+	public TreeRootSiteFolder() {
 		super(null);
 	}
 }

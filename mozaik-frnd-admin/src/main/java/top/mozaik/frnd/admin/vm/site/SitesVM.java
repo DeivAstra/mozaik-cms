@@ -35,6 +35,7 @@ import top.mozaik.frnd.admin.bean.site.tree.TreeSite;
 import top.mozaik.frnd.admin.bean.site.tree.TreeSitePage;
 import top.mozaik.frnd.admin.contextmenu.SiteTreeMenuBuilder;
 import top.mozaik.frnd.admin.converter.SiteTreeitemImageUrlConverter;
+import top.mozaik.frnd.admin.enums.E_SiteIcon;
 import top.mozaik.frnd.admin.model.SiteTreeModel;
 import top.mozaik.frnd.plus.zk.component.Dialog;
 import top.mozaik.frnd.plus.zk.component.Notification;
@@ -217,11 +218,13 @@ public class SitesVM extends BaseVM {
 		if(el instanceof TreeSite) {
 			final Site site = ((TreeSite)el).getValue();
 			args.put("treeSiteFolder", el);
-			tabHelper.openTab(site.getTitle(), site.getDescr(), el, "/WEB-INF/zul/site/editSite.tab.zul", args);
+			tabHelper.openTab(E_SiteIcon.SITE.getPath(), 
+					site.getTitle(), site.getDescr(), el, "/WEB-INF/zul/site/editSite.tab.zul", args);
 		} else if(el instanceof TreeSitePage) {
 			final SitePage page = ((TreeSitePage)el).getValue();
 			args.put("treeSitePage", el);
-			tabHelper.openTab(truncate(page.getTitle()), page.getTitle(), el, "/WEB-INF/zul/site/page/editPage.tab.zul", args);
+			tabHelper.openTab(E_SiteIcon.PAGE.getPath(),
+					truncate(page.getTitle()), page.getTitle(), el, "/WEB-INF/zul/site/page/editPage.tab.zul", args);
 		}
 	}
 	

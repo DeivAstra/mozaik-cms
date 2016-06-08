@@ -12,10 +12,25 @@ import org.zkoss.zk.ui.Executions;
 import top.mozaik.bknd.api.model.WcmComponent;
 import top.mozaik.frnd.admin.vm.dialog.SelectDocumentOrFolderVM;
 import top.mozaik.frnd.admin.vm.dialog.SelectResourceOrFolderVM;
+import top.mozaik.frnd.admin.vm.dialog.SelectSiteOrPageVM;
 import top.mozaik.frnd.admin.vm.dialog.SelectTemplateOrFolderVM;
 import top.mozaik.frnd.plus.callback.I_CallbackArg;
 
 public class Dialogs {
+	
+	public static void selectSite(I_CallbackArg callback) {
+		final Map<String, Object> args = new HashMap<>();
+		args.put("callback", callback);
+		args.put("target", SelectSiteOrPageVM.TARGET_SITE);
+		Executions.createComponents("/WEB-INF/zul/dialog/selectSiteOrPage.wnd.zul", null, args);
+	}
+	
+	public static void selectSitePage(I_CallbackArg callback) {
+		final Map<String, Object> args = new HashMap<>();
+		args.put("callback", callback);
+		args.put("target", SelectSiteOrPageVM.TARGET_PAGE);
+		Executions.createComponents("/WEB-INF/zul/dialog/selectSiteOrPage.wnd.zul", null, args);
+	}
 	
 	public static void selectDocument(I_CallbackArg callback) {
 		final Map<String, Object> args = new HashMap<>();
