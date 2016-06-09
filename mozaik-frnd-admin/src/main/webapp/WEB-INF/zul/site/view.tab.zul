@@ -8,12 +8,14 @@
 			<menupopup id="siteTreeItemContextMenu" onOpen="@command('showTreeItemContextMenu', event=event)"/>
 			<tree id="siteTree" vflex="true" model="@load(vm.siteTreeModel)">
 				<auxhead>
-					<auxheader>
+					<auxheader colspan="3">
 						<button label="New" tooltip="New Site" onClick="@command('createSite')"/>
 					</auxheader>
 				</auxhead>
-				<treecols visible="false">
-					<treecol/>
+				<treecols visible="true" sizable="true">
+					<treecol hflex="1">Title</treecol>
+					<treecol width="400px">Alias</treecol>
+					<treecol hflex="1">Create Date</treecol>
       			</treecols>
 				<template name="model">
 					<treeitem value="${each}" context="siteTreeItemContextMenu"
@@ -21,6 +23,8 @@
               				<treerow sclass="image16px">
                   				<treecell label="${each.value.title}" 
                   					image="@load(each) @converter(vm.treeitemImageUrlConverter)"/>
+                  				<treecell label="${each.value.alias}"/>
+                  				<treecell label="@load(each.value.createDate) @converter(vm.dateConverter)"/>
               				</treerow>
           				</treeitem>
 				</template>

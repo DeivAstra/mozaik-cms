@@ -39,12 +39,15 @@ import top.mozaik.frnd.admin.enums.E_SiteIcon;
 import top.mozaik.frnd.admin.model.SiteTreeModel;
 import top.mozaik.frnd.plus.zk.component.Dialog;
 import top.mozaik.frnd.plus.zk.component.Notification;
+import top.mozaik.frnd.plus.zk.converter.DateToStringConverter;
 import top.mozaik.frnd.plus.zk.event.I_CUDEventHandler;
 import top.mozaik.frnd.plus.zk.event.TreeCUDEventHandler;
 import top.mozaik.frnd.plus.zk.tab.TabHelper;
 import top.mozaik.frnd.plus.zk.vm.BaseVM;
 
 public class SitesVM extends BaseVM {
+	
+	private static final DateToStringConverter dateConverter = new DateToStringConverter("yyyy-MM-dd HH:mm");
 	
 	private final SiteService siteService = ServicesFacade.$().getSiteService();
 	private final SitePageService sitePageService = ServicesFacade.$().getSitePageService();
@@ -121,13 +124,6 @@ public class SitesVM extends BaseVM {
 		east.setSplittable(false);
 	}
 	
-	public void renameSite(TreeSite folder) {
-		final Map<String, Object> args = new HashMap<String, Object>();
-		args.put("eventHandler", eventHandler);
-		args.put("treeSiteFolder", folder);
-		Executions.createComponents("/WEB-INF/zul/site/renameSite.wnd.zul", null, args);
-	}
-	
 	public void deleteSite(final TreeSite treeSite) {
 		Dialog.confirm("Delete", "Site '" + treeSite.getValue().getTitle() + "' will be deleted. Continue?",
 				new Dialog.Confirmable() {
@@ -196,6 +192,10 @@ public class SitesVM extends BaseVM {
 	
 	public SiteTreeitemImageUrlConverter getTreeitemImageUrlConverter() {
 		return SiteTreeitemImageUrlConverter.getInstance();
+	}
+	
+	public DateToStringConverter getDateConverter() {
+		return dateConverter;
 	}
 	
 	/// COMMANDS ///

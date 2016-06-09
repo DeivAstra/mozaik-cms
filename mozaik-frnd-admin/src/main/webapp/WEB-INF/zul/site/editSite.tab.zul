@@ -2,42 +2,50 @@
   This file is part of Mozaik CMS            www.mozaik.top
   Copyright © 2016 Denis N Ivanchik       danykey@gmail.com
 -->
-<window viewModel="@id('vm') @init('top.mozaik.frnd.admin.vm.site.EditSiteVM')"
-	form="@id('form') @load(vm.bean) @save(vm.bean, before='save')" contentStyle="padding:0">
+<window viewModel="@id('vm') @init('top.mozaik.frnd.admin.vm.site.EditSiteVM')" contentStyle="padding:0">
 	<button label="Save" onClick="@command('save')"/>
 	<vlayout style="padding:20px">	
 		<hlayout>
 			<label class="form-label" value="Title:"/>
-			<textbox class="form-field" value="@bind(form.title)" maxlength="100"
+			<textbox class="form-field" value="@bind(vm.bean.title)" maxlength="100"
 				constraint="${application.attributes.cache.constraint.noempty}"/>
 		</hlayout>
 		<hlayout>
 			<label class="form-label" value="Domain / IP:"/>
-			<textbox class="form-field" value="@bind(form.domains)" maxlength="255"
+			<textbox class="form-field" value="@bind(vm.bean.domains)" maxlength="255"
 				constraint="${application.attributes.cache.constraint.noempty}"/>
 		</hlayout>
 		<hlayout>
 			<label class="form-label" value="Description:"/>
-			<textbox class="form-field" value="@bind(form.descr)" rows="2" maxlength="255"/>
+			<textbox class="form-field" value="@bind(vm.bean.descr)" rows="2" maxlength="255"/>
 		</hlayout>
 		<hlayout>
 			<label class="form-label" value="Alias"/>
-			<textbox class="form-field" value="@bind(form.alias)" maxlength="255"/>
+			<textbox class="form-field" value="@bind(vm.bean.alias)" maxlength="255"/>
 		</hlayout>
+		<separator orient="vertical"/>
+		<label style="font-weight:bold;">Pages</label>
+		<separator orient="vertical"/>
 		<hlayout>
-			<label class="form-label" value="Index Page:"/>
+			<label class="form-label" value="Index:"/>
 			<label class="form-label" id="selectedIndexPageInfoLabel" width="300px"/>
 			<button label="..." onClick="@command('selectIndexPage')"/>
+			<label value="[X]" onClick="@command('deleteIndexPage')" tooltiptext="Delete"
+							visible="@load(not empty vm.bean.indexPageId)" style="cursor:pointer;color:red"/>
 		</hlayout>
 		<hlayout>
-			<label class="form-label" value="Login Page:"/>
+			<label class="form-label" value="Login:"/>
 			<label class="form-label" id="selectedLoginPageInfoLabel" width="300px"/>
 			<button label="..." onClick="@command('selectLoginPage')"/>
+			<label value="[X]" onClick="@command('deleteLoginPage')" tooltiptext="Delete"
+							visible="@load(not empty vm.bean.loginPageId)" style="cursor:pointer;color:red"/>
 		</hlayout>
 		<hlayout>
-			<label class="form-label" value="404 Page:"/>
+			<label class="form-label" value="404:"/>
 			<label class="form-label" id="selected404PageInfoLabel" width="300px"/>
 			<button label="..." onClick="@command('select404Page')"/>
+			<label value="[X]" onClick="@command('delete404Page')" tooltiptext="Delete"
+							visible="@load(not empty vm.bean['404PageId'])" style="cursor:pointer;color:red"/>
 		</hlayout>
 	</vlayout>
 </window>

@@ -43,7 +43,6 @@ public class ResourcePackTreeMenuBuilder {
 		menu.appendChild(item);
 	}
 	
-	
 	private void buildMenu(Menupopup menu, final TreeResourceSet treeResourceSet) {
 		
 		final Integer resourcePackId = treeResourceSet.getParent().getParent().getValue().getId();

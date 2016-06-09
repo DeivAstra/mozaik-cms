@@ -4,6 +4,9 @@ CREATE TABLE `${schema}`.`sites` (
   `domains` varchar(255) DEFAULT NULL,
   `descr` varchar(255) DEFAULT NULL,
   `alias` varchar(255) DEFAULT NULL,
+  `index_page_id` int(11) DEFAULT NULL,
+  `login_page_id` int(11) DEFAULT NULL,
+  `404_page_id` int(11) DEFAULT NULL,
   `create_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   UNIQUE KEY `domain_UNIQUE` (`title`)
